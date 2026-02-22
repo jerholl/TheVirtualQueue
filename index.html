@@ -17,13 +17,71 @@
             line-height: 1.6; 
         }
         nav { border-bottom: 1px solid #333; padding: 15px; display: flex; justify-content: center; gap: 30px; }
-        nav a { text-decoration: none; color: #bbb; text-transform: uppercase; font-size: 0.8rem; font-weight: bold; }
+        nav a { 
+    text-decoration: none; 
+    color: #bbb; 
+    text-transform: uppercase; 
+    
+    /* THE BIGGER SETTINGS */
+    font-size: 1.1rem;      /* Increased from 0.8rem */
+    font-weight: 700;       /* Makes the Roboto Slab/Sans pop more */
+    letter-spacing: 2px;    /* Spreads letters out for a cleaner look */
+    padding: 10px 20px;     /* Adds "invisible" size around the text */
+    
+    transition: color 0.3s ease; /* Smooth color change on hover */
+}
+
+/* Optional: Make them glow blue when you hover over them */
+nav a:hover {
+    color: #0077cc;
+}
         
        body {
     font-family: 'Roboto Slab', serif;
 }
 
-        .container { max-width: 800px; margin: auto; padding: 20px; }
+/* Layout for the 3 columns */
+.news-container {
+    display: flex;
+    gap: 20px;
+    margin-top: -50px; /* Pulls it up closer to the logo since the logo has negative margin */
+    flex-wrap: wrap;   /* Makes it mobile-friendly */
+}
+
+/* Individual News Boxes */
+.news-item {
+    flex: 1;
+    min-width: 300px;
+    max-width: 400px;
+    background: #1a1a1b; /* Matches your highlight-box color */
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid #333;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    text-align: center;
+}
+
+.news-item:hover {
+    transform: translateY(-5px); /* Gentle lift effect */
+    border-color: #0077cc;       /* Glows blue on hover */
+}
+
+.news-item a {
+    text-decoration: none;
+    color: #e0e0e0;
+}
+
+.news-item h3 {
+    color: #0077cc; /* The Virtual Queue Blue */
+    margin-top: 0;
+}
+
+.news-item p {
+    font-size: 0.9rem;
+    color: #bbb;
+}
+
+        .container { max-width: 1200px; margin: auto; padding: 20px; }
         
         .logo-header { 
     text-align: center; 
@@ -55,6 +113,7 @@
     <a href="index.html">Home</a>
     <a href="#">Disney</a>
     <a href="#">Universal</a>
+    <a href="about.html">About Us</a>
     <a href="contact.html">Contact</a>
 </nav>
 
@@ -63,16 +122,27 @@
         <img src="VQ Logo.png" alt="The VQ Logo" class="logo">
     </div>
 
-    <h2>Behind the Virtual Queue</h2>
-    <div class="highlight-box">
-        <p><strong>About Me:</strong> My name is Jeremy. I’ve been a fan of theme parks for almost 10 years now. (Man, time flies when you’re having fun!) I love writing, filming, and editing and I love discussing theme parks so I decided, why not combine them? Thanks for stopping by!</p>
+<div class="news-container">
+    <div class="news-item">
+        <a href="disney.html">
+            <h3>Disney Parks</h3>
+            <p>New Virtual Queue rules for 2026. What you need to know before you tap.</p>
+        </a>
     </div>
 
-    <h2>The Mission</h2>
-    <p>The world is fast paced and moving to <strong>Short and Sweet</strong>. Our goal is to provide condensed, accurate information in a quick-read format so you have the information you need quickly.</p>
+    <div class="news-item">
+        <a href="#">
+            <h3>Universal Studios</h3>
+            <p>Epic Universe construction updates and ticket availability info.</p>
+        </a>
+    </div>
 
-    <h2>Why it matters</h2>
-    <p>We believe people should have accurate information without the fluff. Short and sweet—just like a Virtual Queue should be.</p>
+    <div class="news-item">
+        <a href="#">
+            <h3>Pro Strategy</h3>
+            <p>The "Seconds Matter" guide: How to beat the 7:00 AM rush every time.</p>
+        </a>
+    </div>
 </div>
 
 <footer>

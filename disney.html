@@ -28,8 +28,26 @@
         
         body { background-color: #121212; color: #e0e0e0; font-family: sans-serif; margin: 0; line-height: 1.6; }
         nav { border-bottom: 1px solid #333; padding: 15px; display: flex; justify-content: center; gap: 30px; }
-        nav a { text-decoration: none; color: #bbb; text-transform: uppercase; font-size: 0.8rem; font-weight: bold; }
-        nav a:hover { color: #0077cc; }
+        nav a { 
+    text-decoration: none; 
+    color: #bbb; 
+    text-transform: uppercase; 
+    
+    /* THE BIGGER SETTINGS */
+    font-size: 1.1rem;      /* Increased from 0.8rem */
+    font-weight: 700;       /* Makes the Roboto Slab/Sans pop more */
+    letter-spacing: 2px;    /* Spreads letters out for a cleaner look */
+    padding: 10px 20px;     /* Adds "invisible" size around the text */
+    
+    transition: color 0.3s ease; /* Smooth color change on hover */
+}
+
+/* Optional: Make them glow blue when you hover over them */
+nav a:hover {
+    color: #0077cc;
+}
+
+    nav a:hover { color: #0077cc; }
         
         .container { max-width: 800px; margin: auto; padding: 20px; }
         .logo-header { 
