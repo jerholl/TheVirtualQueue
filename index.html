@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | The Virtual Queue</title>
+    <style>
+        /* This is your styling "Brain" */
+        body { 
+            background-color: #121212; 
+            color: #e0e0e0; 
+            margin: 0; 
+            font-family: sans-serif; 
+            line-height: 1.6; 
+        }
+        nav { border-bottom: 1px solid #333; padding: 15px; display: flex; justify-content: center; gap: 30px; }
+        nav a { text-decoration: none; color: #bbb; text-transform: uppercase; font-size: 0.8rem; font-weight: bold; }
+        
+        .container { max-width: 800px; margin: auto; padding: 20px; }
+        
+        .logo-header { 
+    text-align: center; 
+    padding: 0;           /* Removed the padding to bring it up higher */
+    display: flex;        /* Activates flex mode */
+    justify-content: center; /* Snaps logo to horizontal center */
+    align-items: center;  /* Centers vertically */
+    overflow: hidden;     /* Prevents giant logo from creating a side-scroll bar */
+}
+
+.logo { 
+    width: 900px;         /* Shaved off 100px to keep it within most screen widths */
+    height: auto; 
+    margin-top: -150px;   /* Sucks it up toward the nav */
+    filter: drop-shadow(0px 0px 10px rgba(0, 119, 204, 0.3)); 
+}
+
+        h2 { color: #ffffff; border-left: 4px solid #0077cc; padding-left: 15px; margin-top: 40px; }
+        
+        .highlight-box { background: #1a1a1b; padding: 20px; border-radius: 4px; margin: 20px 0; }
+        
+        footer { text-align: center; padding: 40px; color: #777; border-top: 1px solid #333; margin-top: 50px; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="#">Disney</a>
+    <a href="#">Universal</a>
+    <a href="contact.html">Contact</a>
+</nav>
+
+<div class="container">
+    <div class="logo-header">
+        <img src="VQ Logo.png" alt="The VQ Logo" class="logo">
+    </div>
+
+    <h2>Behind the Virtual Queue</h2>
+    <div class="highlight-box">
+        <p><strong>About Me:</strong> My name is Jeremy. I’ve been a fan of theme parks for almost 10 years now. (Man, time flies when you’re having fun!) I love writing, filming, and editing and I love discussing theme parks so I decided, why not combine them? Thanks for stopping by!</p>
+    </div>
+
+    <h2>The Mission</h2>
+    <p>The world is fast paced and moving to <strong>Short and Sweet</strong>. Our goal is to provide condensed, accurate information in a quick-read format so you have the information you need quickly.</p>
+
+    <h2>Why it matters</h2>
+    <p>We believe people should have accurate information without the fluff. Short and sweet—just like a Virtual Queue should be.</p>
+</div>
+
+<footer>
+    &copy; 2026 The Virtual Queue. All rights reserved.
+</footer>
+
+</body>
+</html>

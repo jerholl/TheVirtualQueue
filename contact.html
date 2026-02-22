@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | The Virtual Queue</title>
+    <style>
+        body { background-color: #121212; color: #e0e0e0; font-family: sans-serif; margin: 0; line-height: 1.6; }
+        nav { border-bottom: 1px solid #333; padding: 15px; display: flex; justify-content: center; gap: 30px; }
+        nav a { text-decoration: none; color: #bbb; text-transform: uppercase; font-size: 0.8rem; font-weight: bold; }
+        nav a:hover { color: #0077cc; }
+        
+        .container { max-width: 800px; margin: auto; padding: 20px; }
+        .logo-header { 
+    text-align: center; 
+    padding: 0;           /* Removed the padding to bring it up higher */
+    display: flex;        /* Activates flex mode */
+    justify-content: center; /* Snaps logo to horizontal center */
+    align-items: center;  /* Centers vertically */
+    overflow: hidden;     /* Prevents giant logo from creating a side-scroll bar */
+}
+
+.logo { 
+    width: 900px;         /* Shaved off 100px to keep it within most screen widths */
+    height: auto; 
+    margin-top: -150px;   /* Sucks it up toward the nav */
+    filter: drop-shadow(0px 0px 10px rgba(0, 119, 204, 0.3)); 
+}
+
+        .highlight-box { 
+            background: #1a1a1b; 
+            padding: 30px; 
+            border-radius: 4px; 
+            margin: 20px 0; 
+            border-left: 5px solid #0077cc; 
+        }
+
+        h2 { color: #ffffff; margin-top: 0; }
+        .contact-form { display: flex; flex-direction: column; gap: 15px; }
+        .contact-form input, .contact-form textarea {
+            background: #2a2a2b;
+            border: 1px solid #444;
+            color: white;
+            padding: 12px;
+            border-radius: 4px;
+        }
+        .submit-btn {
+            background: #0077cc;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        footer { text-align: center; padding: 40px; color: #777; border-top: 1px solid #333; margin-top: 50px; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="#">Disney</a>
+    <a href="#">Universal</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+</nav>
+
+<div class="container">
+    <div class="logo-header">
+        <img src="VQ Logo.png" alt="The VQ Logo" class="logo">
+    </div>
+
+    <div class="highlight-box">
+    <h2>Get in Touch</h2>
+    <p>Have a question about a virtual queue or a tip for the parks? Send us a message!</p>
+    
+    <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
+
+        <input type="hidden" name="access_key" value="8b482fbd-bd96-4fb4-afc2-14999d23e009">
+
+        <label>Name</label>
+        <input type="text" name="name" placeholder="Your Name" required>
+        
+        <label>Email</label>
+        <input type="email" name="email" placeholder="Your Email" required>
+        
+        <label>Message</label>
+        <textarea name="message" rows="5" placeholder="What's on your mind?" required></textarea>
+        
+        <button type="submit" class="submit-btn">Send Message</button>
+    </form>
+    </div>
+    </div>
+</div>
+
+<footer>
+    &copy; 2026 The Virtual Queue. All rights reserved.
+</footer>
+
+</body>
+</html>
