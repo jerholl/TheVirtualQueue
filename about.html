@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us | The Virtual Queue</title>
+    <title>About Us | The Virtual Queue</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --bg:#121212; --surface:#1a1a1b; --border:#2a2a2a; --blue:#0077cc; --cyan:#00d4ff; --text:#e0e0e0; --muted:#888; }
@@ -45,15 +45,12 @@
         }
 
         .container { max-width: 800px; }
-        h2 { color: #fff; border-left: 4px solid var(--blue); padding-left: 15px; margin: 0 0 15px; font-size: 1.4rem; letter-spacing: 1px; }
-        .highlight-box { background: var(--surface); padding: 30px; border-left: 5px solid var(--blue); border-radius: 4px; }
-        .highlight-box p { font-size: 0.95rem; font-weight: 300; color: var(--muted); margin-bottom: 20px; }
-        .contact-form { display: flex; flex-direction: column; gap: 15px; }
-        .contact-form label { font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: -8px; }
-        .contact-form input, .contact-form textarea { background: #2a2a2b; border: 1px solid #444; color: var(--text); padding: 12px; border-radius: 4px; font-family: 'Roboto Slab', serif; font-size: 0.95rem; transition: border-color 0.3s; width: 100%; }
-        .contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: var(--cyan); }
-        .submit-btn { background: var(--blue); color: white; border: none; padding: 14px; font-family: 'Roboto Slab', serif; font-size: 1rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; border-radius: 4px; transition: background 0.3s, box-shadow 0.3s; }
-        .submit-btn:hover { background: var(--cyan); color: #121212; box-shadow: 0 0 15px rgba(0,212,255,0.4); }
+        h2 { color: #fff; border-left: 4px solid var(--cyan); padding-left: 15px; margin: 40px 0 15px; font-size: 1.4rem; letter-spacing: 1px; }
+        .highlight-box { background: var(--surface); padding: 20px 25px; border-left: 5px solid var(--cyan); border-radius: 4px; margin-bottom: 10px; box-shadow: 0 0 15px rgba(0, 119, 204, 0.3); }
+        .highlight-box p { font-size: 0.95rem; font-weight: 300; color: var(--text); }
+        .footer-links { margin-top: 12px; display: flex; justify-content: center; gap: 20px; }
+        .footer-links a { color: #555; text-decoration: none; font-size: 0.8rem; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--blue); }
     </style>
 </head>
 <body>
@@ -80,19 +77,17 @@
         <a href="/contact">Contact</a>
     </div>
     <div class="container">
-        <div class="highlight-box">
-            <h2>Get in Touch</h2>
-            <p>Have a question about a virtual queue or a tip for the parks? Send us a message!</p>
-            <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
-                <input type="hidden" name="access_key" value="8b482fbd-bd96-4fb4-afc2-14999d23e009">
-                <label>Name</label><input type="text" name="name" placeholder="Your Name" required>
-                <label>Email</label><input type="email" name="email" placeholder="Your Email" required>
-                <label>Message</label><textarea name="message" rows="5" placeholder="What's on your mind?" required></textarea>
-                <button type="submit" class="submit-btn">Send Message</button>
-            </form>
-        </div>
+        <h2>Behind the Virtual Queue</h2>
+        <div class="highlight-box"><p>My name is Jeremy. I've been a fan of theme parks for almost 10 years now. (Man time flies when you're having fun!) I love writing, filming, and editing and I love discussing theme parks so I decided, why not combine them? So here I am, wanting to bring great stories to you, from me. Thanks for stopping by!</p></div>
+        <h2>The Mission</h2>
+        <div class="highlight-box"><p>Our goal is to provide condensed, accurate information in a quick-read format.</p></div>
+        <h2>Why It Matters</h2>
+        <div class="highlight-box"><p>People like small tidbits of information as they go about their day and don't always have time to read long articles. So here at The Virtual Queue, we condense long articles for quick reads.</p></div>
     </div>
-    <footer>&copy; 2026 The Virtual Queue. All rights reserved.</footer>
+    <footer>
+        <p>&copy; 2026 The Virtual Queue. All rights reserved.</p>
+        <div class="footer-links"><a href="/">Home</a><a href="/contact">Contact</a><a href="#">Privacy Policy</a></div>
+    </footer>
     <script>
         const btn = document.getElementById('hamburger');
         const menu = document.getElementById('mobile-menu');
