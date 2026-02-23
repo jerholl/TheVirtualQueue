@@ -5,143 +5,246 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us | The Virtual Queue</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;700;900&display=swap" rel="stylesheet">
 
     <style>
-        body { background-color: #121212; color: #e0e0e0; font-family: sans-serif; margin: 0; line-height: 1.6; }
-        nav { 
-    border-bottom: 1px solid #333; 
-    padding: 10px 15px; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; /* This keeps text and logo aligned */
-    gap: 30px; 
-    background-color: #121212;
-    position: sticky; /* Optional: This keeps the nav at the top when you scroll */
-    top: 0;
-    z-index: 1000;
-}
+        /* ── CSS Variables ── */
+        :root {
+            --bg:      #121212;
+            --surface: #1a1a1b;
+            --border:  #2a2a2a;
+            --blue:    #0077cc;
+            --cyan:    #00d4ff;
+            --text:    #e0e0e0;
+            --muted:   #888;
+        }
 
-.nav-logo { 
-    height: 150px;    /* Much smaller to fit in the bar */
-    width: auto; 
-    transition: transform 0.3s ease;
-    filter: drop-shadow(0px 0px 5px rgba(0, 119, 204, 0.5));
-}
-        nav a { 
-    text-decoration: none; 
-    color: #bbb; 
-    text-transform: uppercase; 
-    
-    /* THE BIGGER SETTINGS */
-    font-size: 1.1rem;      /* Increased from 0.8rem */
-    font-weight: 700;       /* Makes the Roboto Slab/Sans pop more */
-    letter-spacing: 2px;    /* Spreads letters out for a cleaner look */
-    padding: 10px 20px;     /* Adds "invisible" size around the text */
-    
-    transition: color 0.3s ease; /* Smooth color change on hover */
-}
-
-/* Optional: Make them glow blue when you hover over them */
-nav a:hover {
-    color: #0077cc;
-}
-        nav a:hover { color: #0077cc; }
+        /* ── Reset & Base ── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-    font-family: 'Roboto Slab', serif;
-}
-        
-        .container { max-width: 800px; margin: auto; padding: 20px; }
-        .logo-header { 
-    text-align: center; 
-    padding: 0;           /* Removed the padding to bring it up higher */
-    display: flex;        /* Activates flex mode */
-    justify-content: center; /* Snaps logo to horizontal center */
-    align-items: center;  /* Centers vertically */
-    overflow: hidden;     /* Prevents giant logo from creating a side-scroll bar */
-}
-
-.logo { 
-    width: 900px;         /* Shaved off 100px to keep it within most screen widths */
-    height: auto; 
-    margin-top: -150px;   /* Sucks it up toward the nav */
-    filter: drop-shadow(0px 0px 10px rgba(0, 119, 204, 0.3)); 
-}
-
-        .highlight-box { 
-            background: #1a1a1b; 
-            padding: 30px; 
-            border-radius: 4px; 
-            margin: 20px 0; 
-            border-left: 5px solid #0077cc; 
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Roboto Slab', serif;
+            line-height: 1.6;
         }
 
-        h2 { color: #ffffff; margin-top: 0; }
-        .contact-form { display: flex; flex-direction: column; gap: 15px; }
-        .contact-form input, .contact-form textarea {
+        /* ── Navigation ── */
+        nav {
+            border-bottom: 1px solid var(--border);
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--bg);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: 100px;
+            overflow: visible;
+        }
+
+        .nav-logo-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-logo-wrap::after {
+            content: "";
+            position: absolute;
+            top: 75%;
+            left: 200%;
+            transform: translateX(-50%);
+            width: 880px;
+            height: 10px;
+            border-left: 3px solid var(--cyan);
+            border-bottom: 3px solid var(--cyan);
+            border-bottom-left-radius: 6px;
+            box-shadow:
+                -4px 4px 12px rgba(0, 212, 255, 0.5),
+                 0px 4px 12px rgba(0, 212, 255, 0.3);
+            pointer-events: none;
+        }
+
+        .nav-logo {
+            height: 150px;
+            width: auto;
+            transition: transform 0.3s ease;
+            filter: drop-shadow(0px 0px 8px rgba(0, 119, 204, 0.7));
+            display: block;
+        }
+
+        .nav-logo:hover { transform: scale(1.08); }
+
+        .nav-links-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--muted);
+            text-transform: uppercase;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: color 0.3s ease, background 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--cyan);
+            background: rgba(0, 212, 255, 0.06);
+        }
+
+        /* ── Container ── */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px 60px;
+        }
+
+        /* ── Section Headings ── */
+        h2 {
+            color: #fff;
+            border-left: 4px solid var(--blue);
+            padding-left: 15px;
+            margin: 0 0 15px;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+        }
+
+        /* ── Highlight Box ── */
+        .highlight-box {
+            background: var(--surface);
+            padding: 30px;
+            border-radius: 4px;
+            border-left: 5px solid var(--blue);
+        }
+
+        .highlight-box p {
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        /* ── Contact Form ── */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-form label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: -8px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
             background: #2a2a2b;
             border: 1px solid #444;
-            color: white;
+            color: var(--text);
             padding: 12px;
             border-radius: 4px;
-        }
-        .submit-btn {
-            background: #0077cc;
-            color: white;
-            border: none;
-            padding: 12px;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 4px;
+            font-family: 'Roboto Slab', serif;
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease;
         }
 
-        footer { text-align: center; padding: 40px; color: #777; border-top: 1px solid #333; margin-top: 50px; }
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--cyan);
+        }
+
+        .submit-btn {
+            background: var(--blue);
+            color: white;
+            border: none;
+            padding: 14px;
+            font-family: 'Roboto Slab', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: var(--cyan);
+            color: #121212;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+        }
+
+        /* ── Footer ── */
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--muted);
+            border-top: 1px solid var(--border);
+            margin-top: 50px;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
     </style>
 </head>
 <body>
 
-<nav>
-    <img src="VQLogo.png" alt="The VQ Logo" class="nav-logo">
-    </a>
-    <a href="index.html">Home</a>
-    <a href="disney.html">Disney</a>
-    <a href="universal.html">Universal</a>
-    <a href="about.html">About Us</a>
-    <a href="contact.html">Contact</a>
-</nav>
+    <nav>
+        <div class="nav-logo-wrap">
+            <img src="VQNewLogo.png" alt="The Virtual Queue Logo" class="nav-logo">
+        </div>
+        <div class="nav-links-wrap">
+            <a href="index.html">Home</a>
+            <a href="disney.html">Disney</a>
+            <a href="universal.html">Universal</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
 
-<div class="container">
-    <div class="logo-header">
-        <img src="VQ Logo.png" alt="The VQ Logo" class="logo">
+    <div class="container">
+
+        <div class="highlight-box">
+            <h2>Get in Touch</h2>
+            <p>Have a question about a virtual queue or a tip for the parks? Send us a message!</p>
+
+            <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
+
+                <input type="hidden" name="access_key" value="8b482fbd-bd96-4fb4-afc2-14999d23e009">
+
+                <label>Name</label>
+                <input type="text" name="name" placeholder="Your Name" required>
+
+                <label>Email</label>
+                <input type="email" name="email" placeholder="Your Email" required>
+
+                <label>Message</label>
+                <textarea name="message" rows="5" placeholder="What's on your mind?" required></textarea>
+
+                <button type="submit" class="submit-btn">Send Message</button>
+
+            </form>
+        </div>
+
     </div>
 
-    <div class="highlight-box">
-    <h2>Get in Touch</h2>
-    <p>Have a question about a virtual queue or a tip for the parks? Send us a message!</p>
-    
-    <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
-
-        <input type="hidden" name="access_key" value="8b482fbd-bd96-4fb4-afc2-14999d23e009">
-
-        <label>Name</label>
-        <input type="text" name="name" placeholder="Your Name" required>
-        
-        <label>Email</label>
-        <input type="email" name="email" placeholder="Your Email" required>
-        
-        <label>Message</label>
-        <textarea name="message" rows="5" placeholder="What's on your mind?" required></textarea>
-        
-        <button type="submit" class="submit-btn">Send Message</button>
-    </form>
-    </div>
-    </div>
-</div>
-
-<footer>
-    &copy; 2026 The Virtual Queue. All rights reserved.
-</footer>
+    <footer>
+        &copy; 2026 The Virtual Queue. All rights reserved.
+    </footer>
 
 </body>
 </html>

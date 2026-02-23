@@ -3,183 +3,260 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | The Virtual Queue</title>
+    <title>Home | The Virtual Queue</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
-   
-   <style>
-        /* This is your styling "Brain" */
-        body { 
-            background-color: #121212; 
-            color: #e0e0e0; 
-            margin: 0; 
-            font-family: sans-serif; 
-            line-height: 1.6; 
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* ── CSS Variables ── */
+        :root {
+            --bg:        #121212;
+            --surface:   #1a1a1b;
+            --border:    #2a2a2a;
+            --blue:      #0077cc;
+            --cyan:      #00d4ff;
+            --text:      #e0e0e0;
+            --muted:     #888;
         }
-       nav { 
-    border-bottom: 1px solid #333; 
-    padding: 10px 15px; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; /* This keeps text and logo aligned */
-    gap: 30px; 
-    background-color: #121212;
-    position: sticky; /* Optional: This keeps the nav at the top when you scroll */
-    top: 0;
-    z-index: 1000;
-}
 
-.nav-logo { 
-    height: 150px;    /* Much smaller to fit in the bar */
-    width: auto; 
-    transition: transform 0.3s ease;
-    filter: drop-shadow(0px 0px 5px rgba(0, 119, 204, 0.5));
-}
+        /* ── Reset & Base ── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-.nav-logo:hover {
-    transform: scale(1.1); /* Give it a little life when hovered */
-}
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Roboto Slab', serif;
+            line-height: 1.6;
+        }
 
-/* Make sure the news boxes don't have that negative margin anymore */
-.news-container {
-    display: flex;
-    gap: 20px;
-    margin-top: 40px; /* Give it some space below the nav */
-    flex-wrap: wrap;
-}
-        nav a { 
-    text-decoration: none; 
-    color: #bbb; 
-    text-transform: uppercase; 
-    
-    /* THE BIGGER SETTINGS */
-    font-size: 1.1rem;      /* Increased from 0.8rem */
-    font-weight: 700;       /* Makes the Roboto Slab/Sans pop more */
-    letter-spacing: 2px;    /* Spreads letters out for a cleaner look */
-    padding: 10px 20px;     /* Adds "invisible" size around the text */
-    
-    transition: color 0.3s ease; /* Smooth color change on hover */
-}
+        /* ── Navigation ── */
+        nav {
+            border-bottom: 1px solid var(--border);
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--bg);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height:100px;
+            overflow: visible;
+        }
 
-/* Optional: Make them glow blue when you hover over them */
-nav a:hover {
-    color: #0077cc;
-}
-        
-       body {
-    font-family: 'Roboto Slab', serif;
-}
+        /* Logo wrapper — anchors the queue line */
+        .nav-logo-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
 
-/* Layout for the 3 columns */
-.news-container {
-    display: flex;
-    gap: 20px;
-    margin-top: -50px; /* Pulls it up closer to the logo since the logo has negative margin */
-    flex-wrap: wrap;   /* Makes it mobile-friendly */
-}
+        /* Single continuous L-shaped line using border */
+        .nav-logo-wrap::after {
+            content: "";
+            position: absolute;
+            top: 75%;            /* flush with bottom of logo wrapper / nav */
+            left: 200%;
+            transform: translateX(-50%);
 
-/* Individual News Boxes */
-.news-item {
-    flex: 1;
-    min-width: 300px;
-    max-width: 400px;
-    background: #1a1a1b; /* Matches your highlight-box color */
-    padding: 30px;
-    border-radius: 8px;
-    border: 1px solid #333;
-    transition: transform 0.3s ease, border-color 0.3s ease;
-    text-align: center;
-}
+            /* Width stretches all the way to cover the nav links area */
+            width: 880px;
+            height: 10px;
 
-.news-item:hover {
-    transform: translateY(-5px); /* Gentle lift effect */
-    border-color: #0077cc;       /* Glows blue on hover */
-}
+            /* L-shape: left border = vertical drop, bottom border = horizontal arm */
+            border-left: 3px solid var(--cyan);
+            border-bottom: 3px solid var(--cyan);
+            border-bottom-left-radius: 6px;
 
-.news-item a {
-    text-decoration: none;
-    color: #e0e0e0;
-}
+            box-shadow:
+                -4px 4px 12px rgba(0, 212, 255, 0.5),
+                 0px 4px 12px rgba(0, 212, 255, 0.3);
 
-.news-item h3 {
-    color: #0077cc; /* The Virtual Queue Blue */
-    margin-top: 0;
-}
+            pointer-events: none;
+        }
 
-.news-item p {
-    font-size: 0.9rem;
-    color: #bbb;
-}
+        .nav-logo {
+            height: 150px;
+            width: auto;
+            transition: transform 0.3s ease;
+            filter: drop-shadow(0px 0px 8px rgba(0, 119, 204, 0.7));
+            display: block;
+        }
 
-        .container { max-width: 1200px; margin: auto; padding: 20px; }
-        
-        .logo-header { 
-    text-align: center; 
-    padding: 0;           /* Removed the padding to bring it up higher */
-    display: flex;        /* Activates flex mode */
-    justify-content: center; /* Snaps logo to horizontal center */
-    align-items: center;  /* Centers vertically */
-    overflow: hidden;     /* Prevents giant logo from creating a side-scroll bar */
-}
+        .nav-logo:hover {
+            transform: scale(1.08);
+        }
 
-.logo { 
-    width: 900px;         /* Shaved off 100px to keep it within most screen widths */
-    height: auto; 
-    margin-top: -150px;   /* Sucks it up toward the nav */
-    filter: drop-shadow(0px 0px 10px rgba(0, 119, 204, 0.3)); 
-}
+        /* Nav links wrapper */
+        .nav-links-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
+        nav a {
+            text-decoration: none;
+            color: var(--muted);
+            text-transform: uppercase;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: color 0.3s ease, background 0.3s ease;
+        }
 
-        h2 { color: #ffffff; border-left: 4px solid #0077cc; padding-left: 15px; margin-top: 40px; }
-        
-        .highlight-box { background: #1a1a1b; padding: 20px; border-radius: 4px; margin: 20px 0; }
-        
-        footer { text-align: center; padding: 40px; color: #777; border-top: 1px solid #333; margin-top: 50px; }
+        nav a:hover {
+            color: var(--cyan);
+            background: rgba(0, 212, 255, 0.06);
+        }
+
+        /* ── Container ── */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px 60px;
+        }
+
+        /* ── Hero Logo ── */
+        .logo-header {
+            text-align: center;
+            padding: 40px 0 20px;
+        }
+
+        .logo {
+            width: min(700px, 90vw);
+            height: auto;
+            filter: drop-shadow(0px 0px 14px rgba(0, 119, 204, 0.35));
+        }
+
+        /* ── Section Heading ── */
+        h2 {
+            color: #fff;
+            border-left: 4px solid var(--blue);
+            padding-left: 15px;
+            margin: 50px 0 20px;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+        }
+
+        /* ── News Cards ── */
+        .news-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .news-item {
+            flex: 1 1 280px;
+            max-width: 400px;
+            background: var(--surface);
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .news-item:hover {
+            transform: translateY(-6px);
+            border-color: var(--blue);
+            box-shadow: 0 8px 30px rgba(0, 119, 204, 0.15);
+        }
+
+        .news-item a {
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .news-item h3 {
+            color: var(--blue);
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        .news-item p {
+            font-size: 0.9rem;
+            color: var(--muted);
+            font-weight: 300;
+        }
+
+        /* ── Highlight Box ── */
+        .highlight-box {
+            background: var(--surface);
+            padding: 20px;
+            border-radius: 4px;
+            margin: 20px 0;
+            border: 1px solid var(--border);
+        }
+
+        /* ── Footer ── */
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--muted);
+            border-top: 1px solid var(--border);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
     </style>
 </head>
 <body>
 
-<nav>
-    <img src="VQLogo.png" alt="The VQ Logo" class="nav-logo">
-    </a>
-    <a href="index.html">Home</a>
-    <a href="disney.html">Disney</a>
-    <a href="universal.html">Universal</a>
-    <a href="about.html">About Us</a>
-    <a href="contact.html">Contact</a>
-</nav>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-logo-wrap">
+            <img src="VQNewLogo.png" alt="The Virtual Queue Logo" class="nav-logo">
+        </div>
+        <div class="nav-links-wrap">
+            <a href="index.html">Home</a>
+            <a href="disney.html">Disney</a>
+            <a href="universal.html">Universal</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
 
-<div class="container">
-    <div class="logo-header">
-        <img src="VQ Logo.png" alt="The VQ Logo" class="logo">
+    <!-- Main Content -->
+    <div class="container">
+
+        <!-- News Cards -->
+        <div class="news-container">
+
+            <div class="news-item">
+                <a href="disney.html">
+                    <h3>Disney Parks</h3>
+                    <p>New Virtual Queue rules for 2026. What you need to know before you tap.</p>
+                </a>
+            </div>
+
+            <div class="news-item">
+                <a href="universal.html">
+                    <h3>Universal Studios</h3>
+                    <p>Epic Universe construction updates and ticket availability info.</p>
+                </a>
+            </div>
+
+            <div class="news-item">
+                <a href="#">
+                    <h3>Pro Strategy</h3>
+                    <p>The "Seconds Matter" guide: How to beat the 7:00 AM rush every time.</p>
+                </a>
+            </div>
+
+        </div>
+        <!-- /news-container -->
+
     </div>
+    <!-- /container -->
 
-<div class="news-container">
-    <div class="news-item">
-        <a href="disney.html">
-            <h3>Disney Parks</h3>
-            <p>New Virtual Queue rules for 2026. What you need to know before you tap.</p>
-        </a>
-    </div>
-
-    <div class="news-item">
-        <a href="#">
-            <h3>Universal Studios</h3>
-            <p>Epic Universe construction updates and ticket availability info.</p>
-        </a>
-    </div>
-
-    <div class="news-item">
-        <a href="#">
-            <h3>Pro Strategy</h3>
-            <p>The "Seconds Matter" guide: How to beat the 7:00 AM rush every time.</p>
-        </a>
-    </div>
-</div>
-
-<footer>
-    &copy; 2026 The Virtual Queue. All rights reserved.
-</footer>
+    <footer>
+        &copy; 2026 The Virtual Queue. All rights reserved.
+    </footer>
 
 </body>
 </html>
