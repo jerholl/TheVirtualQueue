@@ -203,6 +203,55 @@
             font-size: 0.85rem;
             letter-spacing: 1px;
         }
+
+        /* ── MOBILE RESPONSIVENESS ── */
+@media (max-width: 768px) {
+    
+    /* 1. Stack the header vertically */
+    nav {
+        flex-direction: column;
+        height: auto;
+        padding: 20px 10px;
+        gap: 15px;
+    }
+
+    /* 2. Shrink the logo so it fits on a phone */
+    .nav-logo {
+        height: 80px; /* Smaller height for mobile */
+        width: auto;
+    }
+
+    /* 3. Hide the blue VQ line on mobile */
+    /* It's usually too messy for small screens, so we remove it */
+    .nav-logo-wrap::after {
+        display: none;
+    }
+
+    /* 4. Make the links easier to tap with a thumb */
+    nav a {
+        font-size: 1rem;
+        letter-spacing: 1px;
+        padding: 10px;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* 5. Make your article cards stack in one single column */
+    .featured-grid {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .featured-card {
+        flex: 1 1 auto;
+        width: 100%;
+    }
+
+    .page-title h1 {
+        font-size: 1.6rem; /* Smaller text for mobile headers */
+    }
+}
+        
     </style>
 </head>
 <body>
