@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home | The Virtual Queue</title>
+    <title>Disney | The Virtual Queue</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --bg:#121212; --surface:#1a1a1b; --border:#2a2a2a; --blue:#0077cc; --cyan:#00d4ff; --text:#e0e0e0; --muted:#888; }
@@ -44,6 +44,7 @@
             .hamburger { display: flex; }
         }
 
+
         .page-title { text-align: center; margin-bottom: 40px; }
         .page-title h1 { font-size: 2.2rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; color: #fff; }
         .page-title h1 span { color: var(--blue); }
@@ -51,15 +52,29 @@
         .featured-grid { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 60px; }
         .featured-card { flex: 1 1 320px; background: var(--surface); border-radius: 10px; border: 1px solid var(--border); overflow: hidden; text-decoration: none; color: var(--text); transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; }
         .featured-card:hover { transform: translateY(-6px); border-color: var(--blue); box-shadow: 0 10px 35px rgba(0,119,204,0.2); }
-        .featured-card-img-placeholder { width: 100%; height: 220px; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
         .featured-card-img { width: 100%; height: 220px; object-fit: cover; display: block; }
+        .featured-card-img-placeholder { width: 100%; height: 220px; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
         .featured-card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
         .featured-card-tag { display: inline-block; background: var(--blue); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; width: fit-content; }
         .featured-card-tag.cyan { background: transparent; border: 1px solid var(--cyan); color: var(--cyan); }
         .featured-card h3 { font-size: 1.15rem; font-weight: 700; color: #fff; line-height: 1.4; }
         .featured-card p { font-size: 0.88rem; color: var(--muted); font-weight: 300; flex: 1; }
         .featured-card-date { font-size: 0.75rem; color: #555; letter-spacing: 1px; }
-        @media (max-width: 768px) { .featured-card { flex: 1 1 100%; } .page-title h1 { font-size: 1.6rem; } }
+        .section-heading { color: #fff; border-left: 4px solid var(--blue); padding-left: 15px; margin-bottom: 20px; font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; }
+        .article-list { display: flex; flex-direction: column; }
+        .article-list-item { display: flex; align-items: flex-start; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--border); text-decoration: none; color: var(--text); }
+        .article-list-item:hover .article-list-title { color: var(--cyan); }
+        .article-list-date { min-width: 90px; font-size: 0.78rem; color: #555; letter-spacing: 1px; padding-top: 3px; text-align: right; }
+        .article-list-content { flex: 1; }
+        .article-list-tag { font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--blue); margin-bottom: 4px; }
+        .article-list-title { font-size: 0.98rem; font-weight: 700; color: var(--text); transition: color 0.2s ease; line-height: 1.4; }
+        .article-list-excerpt { font-size: 0.82rem; color: var(--muted); font-weight: 300; margin-top: 4px; }
+        @media (max-width: 768px) {
+            .page-title h1 { font-size: 1.6rem; }
+            .featured-card { flex: 1 1 100%; }
+            .article-list-date { min-width: 70px; font-size: 0.72rem; }
+            .article-list-title { font-size: 0.9rem; }
+        }
     </style>
 </head>
 <body>
@@ -71,10 +86,7 @@
             <a href="/">Home</a>
             <a href="/disney">Disney</a>
             <a href="/universal">Universal</a>
-<<<<<<< HEAD
-=======
             <a href="/other">Other</a>
->>>>>>> b3b4146 (Added other parks, added contact us)
             <a href="/about">About Us</a>
             <a href="/contact">Contact</a>
         </div>
@@ -86,35 +98,29 @@
         <a href="/">Home</a>
         <a href="/disney">Disney</a>
         <a href="/universal">Universal</a>
-<<<<<<< HEAD
-=======
         <a href="/other">Other</a>
->>>>>>> b3b4146 (Added other parks, added contact us)
         <a href="/about">About Us</a>
         <a href="/contact">Contact</a>
     </div>
     <div class="container">
-        <div class="page-title">
-            <h1>The Virtual <span>Queue</span></h1>
-            <div class="page-title-line"></div>
-        </div>
+        <div class="page-title"><h1>Other <span>Parks</span></h1><div class="page-title-line"></div></div>
         <div class="featured-grid">
-            <a href="/disney" class="featured-card">
+            <a href="#" class="featured-card">
                 <div class="featured-card-img-placeholder">🏰</div>
                 <div class="featured-card-body">
-                    <span class="featured-card-tag">Disney Parks</span>
+                    <span class="featured-card-tag">Virtual Queue</span>
                     <h3>New Virtual Queue Rules for 2026: What You Need to Know Before You Tap</h3>
-                    <p>Disney has updated how virtual queues work across Magic Kingdom and Hollywood Studios. Here's the condensed breakdown.</p>
+                    <p>Disney has updated how virtual queues work across Magic Kingdom and Hollywood Studios. Here's the condensed breakdown so you're not caught off guard at the park.</p>
                     <span class="featured-card-date">February 18, 2026</span>
                 </div>
             </a>
-            <a href="/universal" class="featured-card">
-                <div class="featured-card-img-placeholder">🌍</div>
+            <a href="#" class="featured-card">
+                <div class="featured-card-img-placeholder">⚡</div>
                 <div class="featured-card-body">
-                    <span class="featured-card-tag cyan">Epic Universe</span>
-                    <h3>Epic Universe Opens in 2025: Everything We Know So Far</h3>
-                    <p>Universal's newest park is the biggest theme park expansion in decades. Here's what to expect on opening day.</p>
-                    <span class="featured-card-date">February 15, 2026</span>
+                    <span class="featured-card-tag cyan">Lightning Lane</span>
+                    <h3>Lightning Lane Multi Pass vs. Single Pass: Which One Is Actually Worth It?</h3>
+                    <p>We break down the real cost difference and which strategy saves you the most time — and money — on your next Disney trip.</p>
+                    <span class="featured-card-date">February 10, 2026</span>
                 </div>
             </a>
             <a href="#" class="featured-card">
@@ -122,10 +128,19 @@
                 <div class="featured-card-body">
                     <span class="featured-card-tag">Pro Strategy</span>
                     <h3>The 7:00 AM Rush: A Step-by-Step Guide to Securing Your Boarding Group</h3>
-                    <p>Seconds matter. We walk you through exactly what to do the moment the clock hits 7:00 AM.</p>
+                    <p>Seconds matter. We walk you through exactly what to do the moment the clock hits 7:00 AM to maximize your odds every single time.</p>
                     <span class="featured-card-date">January 29, 2026</span>
                 </div>
             </a>
+        </div>
+        <h2 class="section-heading">More Disney Stories</h2>
+        <div class="article-list">
+            <a href="#" class="article-list-item"><span class="article-list-date">Jan 20, 2026</span><div class="article-list-content"><div class="article-list-tag">Park News</div><div class="article-list-title">TRON Lightcycle / Run Queue Times Are Finally Stabilizing — Here's What's Changed</div><div class="article-list-excerpt">After months of unpredictable wait times, TRON has settled into a more manageable rhythm. We explain why.</div></div></a>
+            <a href="#" class="article-list-item"><span class="article-list-date">Jan 14, 2026</span><div class="article-list-content"><div class="article-list-tag">Epcot</div><div class="article-list-title">Everything Coming to Epcot in 2026: A Quick-Read Breakdown</div><div class="article-list-excerpt">New attractions, refurbishments, and festival dates — condensed into a 2-minute read.</div></div></a>
+            <a href="#" class="article-list-item"><span class="article-list-date">Jan 6, 2026</span><div class="article-list-content"><div class="article-list-tag">Virtual Queue</div><div class="article-list-title">Does Refreshing the App Early Actually Help? We Tested It.</div><div class="article-list-excerpt">We ran the same boarding group attempt 20 times. Here's what the data actually showed.</div></div></a>
+            <a href="#" class="article-list-item"><span class="article-list-date">Dec 28, 2025</span><div class="article-list-content"><div class="article-list-tag">Holiday</div><div class="article-list-title">Mickey's Very Merry Christmas Party 2025: Was It Worth the Upcharge?</div><div class="article-list-excerpt">Crowds, characters, and cookies — our honest verdict on Disney's biggest holiday ticketed event.</div></div></a>
+            <a href="#" class="article-list-item"><span class="article-list-date">Dec 15, 2025</span><div class="article-list-content"><div class="article-list-tag">Pro Strategy</div><div class="article-list-title">Rope Drop in 2025: Is It Still the Best Strategy?</div><div class="article-list-excerpt">With Lightning Lane dominating the conversation, we revisit whether arriving at park open still gives you an edge.</div></div></a>
+            <a href="#" class="article-list-item"><span class="article-list-date">Dec 3, 2025</span><div class="article-list-content"><div class="article-list-tag">Hollywood Studios</div><div class="article-list-title">Star Wars: Galaxy's Edge Virtual Queue vs. Standby — Which Line Is Moving Faster?</div><div class="article-list-excerpt">The standby line made a quiet comeback this fall. Here's when to use it and when to skip it.</div></div></a>
         </div>
     </div>
     <footer>&copy; 2026 The Virtual Queue. All rights reserved.</footer>
