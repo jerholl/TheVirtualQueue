@@ -4,269 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home | The Virtual Queue</title>
-
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;700;900&display=swap" rel="stylesheet">
-
     <style>
-        /* ── CSS Variables ── */
-        :root {
-            --bg:        #121212;
-            --surface:   #1a1a1b;
-            --border:    #2a2a2a;
-            --blue:      #0077cc;
-            --cyan:      #00d4ff;
-            --text:      #e0e0e0;
-            --muted:     #888;
-        }
-
-        /* ── Reset & Base ── */
+        :root { --bg:#121212; --surface:#1a1a1b; --border:#2a2a2a; --blue:#0077cc; --cyan:#00d4ff; --text:#e0e0e0; --muted:#888; }
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Roboto Slab', serif; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px 60px; }
+        footer { text-align: center; padding: 40px; color: var(--muted); border-top: 1px solid var(--border); font-size: 0.85rem; letter-spacing: 1px; }
+        /* ── Nav ── */
+        nav { border-bottom: 1px solid var(--border); padding: 0 20px; display: flex; justify-content: center; align-items: center; gap: 10px; background-color: var(--bg); position: sticky; top: 0; z-index: 1000; height: 100px; overflow: visible; }
+        .nav-logo-wrap { position: relative; display: flex; align-items: center; }
+        .nav-logo-wrap::after { content: ""; position: absolute; top: 75%; left: 200%; transform: translateX(-50%); width: 880px; height: 10px; border-left: 3px solid var(--cyan); border-bottom: 3px solid var(--cyan); border-bottom-left-radius: 6px; box-shadow: -4px 4px 12px rgba(0,212,255,0.5), 0px 4px 12px rgba(0,212,255,0.3); pointer-events: none; }
+        .nav-logo { height: 150px; width: auto; transition: transform 0.3s ease; filter: drop-shadow(0px 0px 8px rgba(0,119,204,0.7)); display: block; }
+        .nav-logo:hover { transform: scale(1.08); }
+        .nav-links-wrap { position: relative; display: flex; align-items: center; gap: 10px; }
+        nav a { text-decoration: none; color: var(--muted); text-transform: uppercase; font-size: 1.25rem; font-weight: 700; letter-spacing: 2px; padding: 8px 16px; border-radius: 4px; transition: color 0.3s ease, background 0.3s ease; }
+        nav a:hover { color: var(--cyan); background: rgba(0,212,255,0.06); }
 
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Roboto Slab', serif;
-            line-height: 1.6;
+        /* ── Hamburger ── */
+        .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; z-index: 1100; }
+        .hamburger span { display: block; width: 26px; height: 3px; background: var(--text); border-radius: 2px; transition: all 0.3s ease; }
+        .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        /* ── Slide-in Mobile Menu ── */
+        .mobile-menu { display: flex; flex-direction: column; position: fixed; top: 80px; left: 0; right: 0; background: var(--surface); border-bottom: 1px solid var(--border); padding: 10px 20px; z-index: 998; max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease; padding-top: 0; padding-bottom: 0; }
+        .mobile-menu.open { max-height: 400px; padding-top: 10px; padding-bottom: 10px; }
+        .mobile-menu a { text-decoration: none; color: var(--muted); text-transform: uppercase; font-size: 1rem; font-weight: 700; letter-spacing: 2px; padding: 14px 16px; border-bottom: 1px solid var(--border); transition: color 0.2s, background 0.2s; display: block; }
+        .mobile-menu a:last-child { border-bottom: none; }
+        .mobile-menu a:hover { color: var(--cyan); background: rgba(0,212,255,0.06); }
+
+        /* ── Mobile breakpoint ── */
+        @media (max-width: 768px) {
+            nav { justify-content: space-between; height: 80px; }
+            .nav-logo-wrap::after { display: none; }
+            .nav-logo { height: 90px; }
+            .nav-links-wrap { display: none; }
+            .hamburger { display: flex; }
         }
 
-        /* ── Navigation ── */
-        nav {
-            border-bottom: 1px solid var(--border);
-            padding: 0 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            background-color: var(--bg);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            height:100px;
-            overflow: visible;
-        }
-
-        /* Logo wrapper — anchors the queue line */
-        .nav-logo-wrap {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        /* Single continuous L-shaped line using border */
-        .nav-logo-wrap::after {
-            content: "";
-            position: absolute;
-            top: 75%;            /* flush with bottom of logo wrapper / nav */
-            left: 200%;
-            transform: translateX(-50%);
-
-            /* Width stretches all the way to cover the nav links area */
-            width: 880px;
-            height: 10px;
-
-            /* L-shape: left border = vertical drop, bottom border = horizontal arm */
-            border-left: 3px solid var(--cyan);
-            border-bottom: 3px solid var(--cyan);
-            border-bottom-left-radius: 6px;
-
-            box-shadow:
-                -4px 4px 12px rgba(0, 212, 255, 0.5),
-                 0px 4px 12px rgba(0, 212, 255, 0.3);
-
-            pointer-events: none;
-        }
-
-        .nav-logo {
-            height: 150px;
-            width: auto;
-            transition: transform 0.3s ease;
-            filter: drop-shadow(0px 0px 8px rgba(0, 119, 204, 0.7));
-            display: block;
-        }
-
-        .nav-logo:hover {
-            transform: scale(1.08);
-        }
-
-        /* Nav links wrapper */
-        .nav-links-wrap {
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--muted);
-            text-transform: uppercase;
-            font-size: 1.25rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            padding: 8px 16px;
-            border-radius: 4px;
-            transition: color 0.3s ease, background 0.3s ease;
-        }
-
-        nav a:hover {
-            color: var(--cyan);
-            background: rgba(0, 212, 255, 0.06);
-        }
-
-        /* ── Container ── */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px 60px;
-        }
-
-        /* ── Hero Logo ── */
-        .logo-header {
-            text-align: center;
-            padding: 40px 0 20px;
-        }
-
-        .logo {
-            width: min(700px, 90vw);
-            height: auto;
-            filter: drop-shadow(0px 0px 14px rgba(0, 119, 204, 0.35));
-        }
-
-        /* ── Section Heading ── */
-        h2 {
-            color: #fff;
-            border-left: 4px solid var(--blue);
-            padding-left: 15px;
-            margin: 50px 0 20px;
-            font-size: 1.4rem;
-            letter-spacing: 1px;
-        }
-
-        /* ── News Cards ── */
-        .news-container {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 40px;
-        }
-
-        .news-item {
-            flex: 1 1 280px;
-            max-width: 400px;
-            background: var(--surface);
-            padding: 30px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-            text-align: center;
-        }
-
-        .news-item:hover {
-            transform: translateY(-6px);
-            border-color: var(--blue);
-            box-shadow: 0 8px 30px rgba(0, 119, 204, 0.15);
-        }
-
-        .news-item a {
-            text-decoration: none;
-            color: var(--text);
-        }
-
-        .news-item h3 {
-            color: var(--blue);
-            margin-bottom: 12px;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-        }
-
-        .news-item p {
-            font-size: 0.9rem;
-            color: var(--muted);
-            font-weight: 300;
-        }
-
-        /* ── Highlight Box ── */
-        .highlight-box {
-            background: var(--surface);
-            padding: 20px;
-            border-radius: 4px;
-            margin: 20px 0;
-            border: 1px solid var(--border);
-        }
-
-        /* ── Footer ── */
-        footer {
-            text-align: center;
-            padding: 40px;
-            color: var(--muted);
-            border-top: 1px solid var(--border);
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-        }
-
-        /* ── MOBILE RESPONSIVENESS ── */
-@media (max-width: 768px) {
-    
-    /* 1. Stack the header vertically */
-    nav {
-        flex-direction: column;
-        height: auto;
-        padding: 20px 10px;
-        gap: 15px;
-    }
-
-    /* 2. Shrink the logo so it fits on a phone */
-    .nav-logo {
-        height: 80px; /* Smaller height for mobile */
-        width: auto;
-    }
-
-    /* 3. Hide the blue VQ line on mobile */
-    /* It's usually too messy for small screens, so we remove it */
-    .nav-logo-wrap::after {
-        display: none;
-    }
-
-    /* 4. Make the links easier to tap with a thumb */
-    nav a {
-        font-size: 1rem;
-        letter-spacing: 1px;
-        padding: 10px;
-        width: 100%;
-        text-align: center;
-    }
-
-    /* 5. Make your article cards stack in one single column */
-    .featured-grid {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .featured-card {
-        flex: 1 1 auto;
-        width: 100%;
-    }
-
-    .page-title h1 {
-        font-size: 1.6rem; /* Smaller text for mobile headers */
-    }
-}
-        
+        .news-container { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 40px; }
+        .news-item { flex: 1 1 280px; max-width: 400px; background: var(--surface); padding: 30px; border-radius: 8px; border: 1px solid var(--border); transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; text-align: center; }
+        .news-item:hover { transform: translateY(-6px); border-color: var(--blue); box-shadow: 0 8px 30px rgba(0,119,204,0.15); }
+        .news-item a { text-decoration: none; color: var(--text); }
+        .news-item h3 { color: var(--blue); margin-bottom: 12px; font-size: 1.1rem; letter-spacing: 1px; }
+        .news-item p { font-size: 0.9rem; color: var(--muted); font-weight: 300; }
+        @media (max-width: 768px) { .news-item { max-width: 100%; flex: 1 1 100%; } }
     </style>
 </head>
 <body>
-
-    <!-- Navigation -->
     <nav>
-    <div class="nav-logo-wrap">
-        <img src="VQNewLOGO.png" alt="The Virtual Queue Logo" class="nav-logo">
-    </div>
-
-    <div class="hamburger" id="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
+        <div class="nav-logo-wrap">
+            <img src="VQNewLogo.png" alt="The Virtual Queue Logo" class="nav-logo">
+        </div>
         <div class="nav-links-wrap">
             <a href="index.html">Home</a>
             <a href="disney.html">Disney</a>
@@ -274,44 +65,30 @@
             <a href="about.html">About Us</a>
             <a href="contact.html">Contact</a>
         </div>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
     </nav>
-
-    <!-- Main Content -->
-    <div class="container">
-
-        <!-- News Cards -->
-        <div class="news-container">
-
-            <div class="news-item">
-                <a href="disney.html">
-                    <h3>Disney Parks</h3>
-                    <p>New Virtual Queue rules for 2026. What you need to know before you tap.</p>
-                </a>
-            </div>
-
-            <div class="news-item">
-                <a href="universal.html">
-                    <h3>Universal Studios</h3>
-                    <p>Epic Universe construction updates and ticket availability info.</p>
-                </a>
-            </div>
-
-            <div class="news-item">
-                <a href="#">
-                    <h3>Pro Strategy</h3>
-                    <p>The "Seconds Matter" guide: How to beat the 7:00 AM rush every time.</p>
-                </a>
-            </div>
-
-        </div>
-        <!-- /news-container -->
-
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="index.html">Home</a>
+        <a href="disney.html">Disney</a>
+        <a href="universal.html">Universal</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
     </div>
-    <!-- /container -->
-
-    <footer>
-        &copy; 2026 The Virtual Queue. All rights reserved.
-    </footer>
-
+    <div class="container">
+        <div class="news-container">
+            <div class="news-item"><a href="disney.html"><h3>Disney Parks</h3><p>New Virtual Queue rules for 2026. What you need to know before you tap.</p></a></div>
+            <div class="news-item"><a href="universal.html"><h3>Universal Studios</h3><p>Epic Universe construction updates and ticket availability info.</p></a></div>
+            <div class="news-item"><a href="#"><h3>Pro Strategy</h3><p>The "Seconds Matter" guide: How to beat the 7:00 AM rush every time.</p></a></div>
+        </div>
+    </div>
+    <footer>&copy; 2026 The Virtual Queue. All rights reserved.</footer>
+    <script>
+        const btn = document.getElementById('hamburger');
+        const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => { btn.classList.toggle('open'); menu.classList.toggle('open'); });
+        menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { btn.classList.remove('open'); menu.classList.remove('open'); }));
+    </script>
 </body>
 </html>
