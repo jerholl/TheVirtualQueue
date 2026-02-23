@@ -11,7 +11,6 @@
         body { background-color: var(--bg); color: var(--text); font-family: 'Roboto Slab', serif; line-height: 1.6; }
         .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px 60px; }
         footer { text-align: center; padding: 40px; color: var(--muted); border-top: 1px solid var(--border); font-size: 0.85rem; letter-spacing: 1px; }
-        /* ── Nav ── */
         nav { border-bottom: 1px solid var(--border); padding: 0 20px; display: flex; justify-content: center; align-items: center; gap: 10px; background-color: var(--bg); position: sticky; top: 0; z-index: 1000; height: 100px; overflow: visible; }
         .nav-logo-wrap { position: relative; display: flex; align-items: center; }
         .nav-logo-wrap::after { content: ""; position: absolute; top: 75%; left: 200%; transform: translateX(-50%); width: 880px; height: 10px; border-left: 3px solid var(--cyan); border-bottom: 3px solid var(--cyan); border-bottom-left-radius: 6px; box-shadow: -4px 4px 12px rgba(0,212,255,0.5), 0px 4px 12px rgba(0,212,255,0.3); pointer-events: none; }
@@ -20,22 +19,16 @@
         .nav-links-wrap { position: relative; display: flex; align-items: center; gap: 10px; }
         nav a { text-decoration: none; color: var(--muted); text-transform: uppercase; font-size: 1.25rem; font-weight: 700; letter-spacing: 2px; padding: 8px 16px; border-radius: 4px; transition: color 0.3s ease, background 0.3s ease; }
         nav a:hover { color: var(--cyan); background: rgba(0,212,255,0.06); }
-
-        /* ── Hamburger ── */
         .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; z-index: 1100; }
         .hamburger span { display: block; width: 26px; height: 3px; background: var(--text); border-radius: 2px; transition: all 0.3s ease; }
         .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
         .hamburger.open span:nth-child(2) { opacity: 0; }
         .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-
-        /* ── Slide-in Mobile Menu ── */
         .mobile-menu { display: flex; flex-direction: column; position: fixed; top: 80px; left: 0; right: 0; background: var(--surface); border-bottom: 1px solid var(--border); padding: 10px 20px; z-index: 998; max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease; padding-top: 0; padding-bottom: 0; }
         .mobile-menu.open { max-height: 400px; padding-top: 10px; padding-bottom: 10px; }
         .mobile-menu a { text-decoration: none; color: var(--muted); text-transform: uppercase; font-size: 1rem; font-weight: 700; letter-spacing: 2px; padding: 14px 16px; border-bottom: 1px solid var(--border); transition: color 0.2s, background 0.2s; display: block; }
         .mobile-menu a:last-child { border-bottom: none; }
         .mobile-menu a:hover { color: var(--cyan); background: rgba(0,212,255,0.06); }
-
-        /* ── Mobile breakpoint ── */
         @media (max-width: 768px) {
             nav { justify-content: space-between; height: 80px; }
             .nav-logo-wrap::after { display: none; }
@@ -43,7 +36,6 @@
             .nav-links-wrap { display: none; }
             .hamburger { display: flex; }
         }
-
         .page-title { text-align: center; margin-bottom: 40px; }
         .page-title h1 { font-size: 2.2rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; color: #fff; }
         .page-title h1 span { color: var(--blue); }
@@ -88,10 +80,7 @@
         <a href="/contact">Contact</a>
     </div>
     <div class="container">
-        <div class="page-title">
-            <h1>The Virtual <span>Queue</span></h1>
-            <div class="page-title-line"></div>
-        </div>
+        <div class="page-title"><h1>The Virtual <span>Queue</span></h1><div class="page-title-line"></div></div>
         <div class="featured-grid">
             <a href="/disney" class="featured-card">
                 <div class="featured-card-img-placeholder">🏰</div>
