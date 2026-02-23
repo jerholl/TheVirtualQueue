@@ -27,7 +27,25 @@
         h2 { color: #ffffff; margin-top: 0; }
         
         body { background-color: #121212; color: #e0e0e0; font-family: sans-serif; margin: 0; line-height: 1.6; }
-        nav { border-bottom: 1px solid #333; padding: 15px; display: flex; justify-content: center; gap: 30px; }
+        nav { 
+    border-bottom: 1px solid #333; 
+    padding: 10px 15px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; /* This keeps text and logo aligned */
+    gap: 30px; 
+    background-color: #121212;
+    position: sticky; /* Optional: This keeps the nav at the top when you scroll */
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-logo { 
+    height: 150px;    /* Much smaller to fit in the bar */
+    width: auto; 
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0px 0px 5px rgba(0, 119, 204, 0.5));
+}
         nav a { 
     text-decoration: none; 
     color: #bbb; 
@@ -47,6 +65,10 @@ nav a:hover {
     color: #0077cc;
 }
         nav a:hover { color: #0077cc; }
+
+        body {
+    font-family: 'Roboto Slab', serif;
+}
         
         .container { max-width: 800px; margin: auto; padding: 20px; }
         .logo-header { 
@@ -94,13 +116,16 @@ nav a:hover {
 </head>
 <body>
 
-    <nav>
+   <nav>
+    <img src="VQLogo.png" alt="The VQ Logo" class="nav-logo">
+    </a>
     <a href="index.html">Home</a>
-    <a href="#">Disney</a>
-    <a href="#">Universal</a>
-    <a href="about.html">About</a>
+    <a href="disney.html">Disney</a>
+    <a href="universal.html">Universal</a>
+    <a href="about.html">About Us</a>
     <a href="contact.html">Contact</a>
-    </nav> 
+</nav>
+
 <div class="container">
     <div class="logo-header">
         <img src="VQ Logo.png" alt="Logo" class="logo">
