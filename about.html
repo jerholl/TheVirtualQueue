@@ -4,166 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us | The Virtual Queue</title>
-
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;700;900&display=swap" rel="stylesheet">
-
     <style>
-        /* ── CSS Variables ── */
-        :root {
-            --bg:      #121212;
-            --surface: #1a1a1b;
-            --border:  #2a2a2a;
-            --blue:    #0077cc;
-            --cyan:    #00d4ff;
-            --text:    #e0e0e0;
-            --muted:   #888;
-        }
-
-        /* ── Reset & Base ── */
+        :root { --bg:#121212; --surface:#1a1a1b; --border:#2a2a2a; --blue:#0077cc; --cyan:#00d4ff; --text:#e0e0e0; --muted:#888; }
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Roboto Slab', serif;
-            line-height: 1.6;
-        }
-
-        /* ── Navigation ── */
-        nav {
-            border-bottom: 1px solid var(--border);
-            padding: 0 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            background-color: var(--bg);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            height: 100px;
-            overflow: visible;
-        }
-
-        .nav-logo-wrap {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-logo-wrap::after {
-            content: "";
-            position: absolute;
-            top: 75%;
-            left: 200%;
-            transform: translateX(-50%);
-            width: 880px;
-            height: 10px;
-            border-left: 3px solid var(--cyan);
-            border-bottom: 3px solid var(--cyan);
-            border-bottom-left-radius: 6px;
-            box-shadow:
-                -4px 4px 12px rgba(0, 212, 255, 0.5),
-                 0px 4px 12px rgba(0, 212, 255, 0.3);
-            pointer-events: none;
-        }
-
-        .nav-logo {
-            height: 150px;
-            width: auto;
-            transition: transform 0.3s ease;
-            filter: drop-shadow(0px 0px 8px rgba(0, 119, 204, 0.7));
-            display: block;
-        }
-
+        body { background-color: var(--bg); color: var(--text); font-family: 'Roboto Slab', serif; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px 60px; }
+        footer { text-align: center; padding: 40px; color: var(--muted); border-top: 1px solid var(--border); font-size: 0.85rem; letter-spacing: 1px; }
+        /* ── Nav ── */
+        nav { border-bottom: 1px solid var(--border); padding: 0 20px; display: flex; justify-content: center; align-items: center; gap: 10px; background-color: var(--bg); position: sticky; top: 0; z-index: 1000; height: 100px; overflow: visible; }
+        .nav-logo-wrap { position: relative; display: flex; align-items: center; }
+        .nav-logo-wrap::after { content: ""; position: absolute; top: 75%; left: 200%; transform: translateX(-50%); width: 880px; height: 10px; border-left: 3px solid var(--cyan); border-bottom: 3px solid var(--cyan); border-bottom-left-radius: 6px; box-shadow: -4px 4px 12px rgba(0,212,255,0.5), 0px 4px 12px rgba(0,212,255,0.3); pointer-events: none; }
+        .nav-logo { height: 150px; width: auto; transition: transform 0.3s ease; filter: drop-shadow(0px 0px 8px rgba(0,119,204,0.7)); display: block; }
         .nav-logo:hover { transform: scale(1.08); }
+        .nav-links-wrap { position: relative; display: flex; align-items: center; gap: 10px; }
+        nav a { text-decoration: none; color: var(--muted); text-transform: uppercase; font-size: 1.25rem; font-weight: 700; letter-spacing: 2px; padding: 8px 16px; border-radius: 4px; transition: color 0.3s ease, background 0.3s ease; }
+        nav a:hover { color: var(--cyan); background: rgba(0,212,255,0.06); }
 
-        .nav-links-wrap {
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        /* ── Hamburger ── */
+        .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; z-index: 1100; }
+        .hamburger span { display: block; width: 26px; height: 3px; background: var(--text); border-radius: 2px; transition: all 0.3s ease; }
+        .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        /* ── Slide-in Mobile Menu ── */
+        .mobile-menu { display: flex; flex-direction: column; position: fixed; top: 80px; left: 0; right: 0; background: var(--surface); border-bottom: 1px solid var(--border); padding: 10px 20px; z-index: 998; max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease; padding-top: 0; padding-bottom: 0; }
+        .mobile-menu.open { max-height: 400px; padding-top: 10px; padding-bottom: 10px; }
+        .mobile-menu a { text-decoration: none; color: var(--muted); text-transform: uppercase; font-size: 1rem; font-weight: 700; letter-spacing: 2px; padding: 14px 16px; border-bottom: 1px solid var(--border); transition: color 0.2s, background 0.2s; display: block; }
+        .mobile-menu a:last-child { border-bottom: none; }
+        .mobile-menu a:hover { color: var(--cyan); background: rgba(0,212,255,0.06); }
+
+        /* ── Mobile breakpoint ── */
+        @media (max-width: 768px) {
+            nav { justify-content: space-between; height: 80px; }
+            .nav-logo-wrap::after { display: none; }
+            .nav-logo { height: 90px; }
+            .nav-links-wrap { display: none; }
+            .hamburger { display: flex; }
         }
 
-        nav a {
-            text-decoration: none;
-            color: var(--muted);
-            text-transform: uppercase;
-            font-size: 1.25rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            padding: 8px 16px;
-            border-radius: 4px;
-            transition: color 0.3s ease, background 0.3s ease;
-        }
-
-        nav a:hover {
-            color: var(--cyan);
-            background: rgba(0, 212, 255, 0.06);
-        }
-
-        /* ── Container ── */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px 60px;
-        }
-
-        /* ── Section Headings ── */
-        h2 {
-            color: #fff;
-            border-left: 4px solid var(--blue);
-            padding-left: 15px;
-            margin: 40px 0 15px;
-            font-size: 1.4rem;
-            letter-spacing: 1px;
-        }
-
-        /* ── Highlight Boxes ── */
-        .highlight-box {
-    background: var(--surface);
-    padding: 20px 25px;
-    border-left: 5px solid var(--cyan);
-    border-radius: 4px;
-    box-shadow: 0 0 15px rgba(0, 119, 204, 0.3);
-}
-
-        .highlight-box p {
-            font-size: 0.95rem;
-            font-weight: 300;
-            color: var(--text);
-        }
-
-        /* ── Footer ── */
-        footer {
-            text-align: center;
-            padding: 50px 20px;
-            color: var(--muted);
-            border-top: 1px solid var(--border);
-            margin-top: 50px;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-        }
-
-        .footer-links {
-            margin-top: 12px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .footer-links a {
-            color: #555;
-            text-decoration: none;
-            font-size: 0.8rem;
-            transition: color 0.3s;
-        }
-
+        .container { max-width: 800px; }
+        h2 { color: #fff; border-left: 4px solid var(--blue); padding-left: 15px; margin: 40px 0 15px; font-size: 1.4rem; letter-spacing: 1px; }
+        .highlight-box { background: var(--surface); padding: 20px 25px; border-left: 5px solid var(--blue); border-radius: 4px; margin-bottom: 10px; }
+        .highlight-box p { font-size: 0.95rem; font-weight: 300; color: var(--text); }
+        .footer-links { margin-top: 12px; display: flex; justify-content: center; gap: 20px; }
+        .footer-links a { color: #555; text-decoration: none; font-size: 0.8rem; transition: color 0.3s; }
         .footer-links a:hover { color: var(--blue); }
     </style>
 </head>
 <body>
-
     <nav>
         <div class="nav-logo-wrap">
             <img src="VQNewLOGO.png" alt="The Virtual Queue Logo" class="nav-logo">
@@ -175,35 +65,34 @@
             <a href="about.html">About Us</a>
             <a href="contact.html">Contact</a>
         </div>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
     </nav>
-
-    <div class="container">
-
-        <h2>Behind the Virtual Queue</h2>
-        <div class="highlight-box">
-            <p>My name is Jeremy. I've been a fan of theme parks for almost 10 years now. (Man time flies when you're having fun!) I love writing, filming, and editing and I love discussing theme parks so I decided, why not combine them? So here I am, wanting to bring great stories to you, from me. Thanks for stopping by!</p>
-        </div>
-
-        <h2>The Mission</h2>
-        <div class="highlight-box">
-            <p>Our goal is to provide condensed, accurate information in a quick-read format.</p>
-        </div>
-
-        <h2>Why It Matters</h2>
-        <div class="highlight-box">
-            <p>People like small tidbits of information as they go about their day and don't always have time to read long articles. So here at The Virtual Queue, we condense long articles for quick reads.</p>
-        </div>
-
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="index.html">Home</a>
+        <a href="disney.html">Disney</a>
+        <a href="universal.html">Universal</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
     </div>
-
+    <div class="container">
+        <h2>Behind the Virtual Queue</h2>
+        <div class="highlight-box"><p>My name is Jeremy. I've been a fan of theme parks for almost 10 years now. (Man time flies when you're having fun!) I love writing, filming, and editing and I love discussing theme parks so I decided, why not combine them? So here I am, wanting to bring great stories to you, from me. Thanks for stopping by!</p></div>
+        <h2>The Mission</h2>
+        <div class="highlight-box"><p>Our goal is to provide condensed, accurate information in a quick-read format.</p></div>
+        <h2>Why It Matters</h2>
+        <div class="highlight-box"><p>People like small tidbits of information as they go about their day and don't always have time to read long articles. So here at The Virtual Queue, we condense long articles for quick reads.</p></div>
+    </div>
     <footer>
         <p>&copy; 2026 The Virtual Queue. All rights reserved.</p>
-        <div class="footer-links">
-            <a href="index.html">Home</a>
-            <a href="contact.html">Contact</a>
-            <a href="#">Privacy Policy</a>
-        </div>
+        <div class="footer-links"><a href="index.html">Home</a><a href="contact.html">Contact</a><a href="#">Privacy Policy</a></div>
     </footer>
-
+    <script>
+        const btn = document.getElementById('hamburger');
+        const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => { btn.classList.toggle('open'); menu.classList.toggle('open'); });
+        menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { btn.classList.remove('open'); menu.classList.remove('open'); }));
+    </script>
 </body>
 </html>

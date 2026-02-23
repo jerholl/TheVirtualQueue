@@ -4,315 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Disney | The Virtual Queue</title>
-
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;700;900&display=swap" rel="stylesheet">
-
     <style>
-        /* ── CSS Variables ── */
-        :root {
-            --bg:      #121212;
-            --surface: #1a1a1b;
-            --border:  #2a2a2a;
-            --blue:    #0077cc;
-            --cyan:    #00d4ff;
-            --text:    #e0e0e0;
-            --muted:   #888;
-        }
-
-        /* ── Reset & Base ── */
+        :root { --bg:#121212; --surface:#1a1a1b; --border:#2a2a2a; --blue:#0077cc; --cyan:#00d4ff; --text:#e0e0e0; --muted:#888; }
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Roboto Slab', serif;
-            line-height: 1.6;
-        }
-
-        /* ── Navigation ── */
-        nav {
-            border-bottom: 1px solid var(--border);
-            padding: 0 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            background-color: var(--bg);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            height: 100px;
-            overflow: visible;
-        }
-
-        .nav-logo-wrap {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-logo-wrap::after {
-            content: "";
-            position: absolute;
-            top: 75%;
-            left: 200%;
-            transform: translateX(-50%);
-            width: 880px;
-            height: 10px;
-            border-left: 3px solid var(--cyan);
-            border-bottom: 3px solid var(--cyan);
-            border-bottom-left-radius: 6px;
-            box-shadow:
-                -4px 4px 12px rgba(0, 212, 255, 0.5),
-                 0px 4px 12px rgba(0, 212, 255, 0.3);
-            pointer-events: none;
-        }
-
-        .nav-logo {
-            height: 150px;
-            width: auto;
-            transition: transform 0.3s ease;
-            filter: drop-shadow(0px 0px 8px rgba(0, 119, 204, 0.7));
-            display: block;
-        }
-
+        body { background-color: var(--bg); color: var(--text); font-family: 'Roboto Slab', serif; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px 60px; }
+        footer { text-align: center; padding: 40px; color: var(--muted); border-top: 1px solid var(--border); font-size: 0.85rem; letter-spacing: 1px; }
+        /* ── Nav ── */
+        nav { border-bottom: 1px solid var(--border); padding: 0 20px; display: flex; justify-content: center; align-items: center; gap: 10px; background-color: var(--bg); position: sticky; top: 0; z-index: 1000; height: 100px; overflow: visible; }
+        .nav-logo-wrap { position: relative; display: flex; align-items: center; }
+        .nav-logo-wrap::after { content: ""; position: absolute; top: 75%; left: 200%; transform: translateX(-50%); width: 880px; height: 10px; border-left: 3px solid var(--cyan); border-bottom: 3px solid var(--cyan); border-bottom-left-radius: 6px; box-shadow: -4px 4px 12px rgba(0,212,255,0.5), 0px 4px 12px rgba(0,212,255,0.3); pointer-events: none; }
+        .nav-logo { height: 150px; width: auto; transition: transform 0.3s ease; filter: drop-shadow(0px 0px 8px rgba(0,119,204,0.7)); display: block; }
         .nav-logo:hover { transform: scale(1.08); }
+        .nav-links-wrap { position: relative; display: flex; align-items: center; gap: 10px; }
+        nav a { text-decoration: none; color: var(--muted); text-transform: uppercase; font-size: 1.25rem; font-weight: 700; letter-spacing: 2px; padding: 8px 16px; border-radius: 4px; transition: color 0.3s ease, background 0.3s ease; }
+        nav a:hover { color: var(--cyan); background: rgba(0,212,255,0.06); }
 
-        .nav-links-wrap {
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        /* ── Hamburger ── */
+        .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; z-index: 1100; }
+        .hamburger span { display: block; width: 26px; height: 3px; background: var(--text); border-radius: 2px; transition: all 0.3s ease; }
+        .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        /* ── Slide-in Mobile Menu ── */
+        .mobile-menu { display: flex; flex-direction: column; position: fixed; top: 80px; left: 0; right: 0; background: var(--surface); border-bottom: 1px solid var(--border); padding: 10px 20px; z-index: 998; max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease; padding-top: 0; padding-bottom: 0; }
+        .mobile-menu.open { max-height: 400px; padding-top: 10px; padding-bottom: 10px; }
+        .mobile-menu a { text-decoration: none; color: var(--muted); text-transform: uppercase; font-size: 1rem; font-weight: 700; letter-spacing: 2px; padding: 14px 16px; border-bottom: 1px solid var(--border); transition: color 0.2s, background 0.2s; display: block; }
+        .mobile-menu a:last-child { border-bottom: none; }
+        .mobile-menu a:hover { color: var(--cyan); background: rgba(0,212,255,0.06); }
+
+        /* ── Mobile breakpoint ── */
+        @media (max-width: 768px) {
+            nav { justify-content: space-between; height: 80px; }
+            .nav-logo-wrap::after { display: none; }
+            .nav-logo { height: 90px; }
+            .nav-links-wrap { display: none; }
+            .hamburger { display: flex; }
         }
 
-        nav a {
-            text-decoration: none;
-            color: var(--muted);
-            text-transform: uppercase;
-            font-size: 1.25rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            padding: 8px 16px;
-            border-radius: 4px;
-            transition: color 0.3s ease, background 0.3s ease;
-        }
 
-        nav a:hover {
-            color: var(--cyan);
-            background: rgba(0, 212, 255, 0.06);
-        }
-
-        /* ── Container ── */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px 60px;
-        }
-
-        /* ── Page Title ── */
-        .page-title {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .page-title h1 {
-            font-size: 2.2rem;
-            font-weight: 900;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: #fff;
-        }
-
-        .page-title h1 span {
-            color: var(--blue);
-        }
-
-        .page-title-line {
-            width: 60px;
-            height: 4px;
-            background: var(--cyan);
-            margin: 12px auto 0;
-            border-radius: 2px;
-            box-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
-        }
-
-        /* ── Featured Cards ── */
-        .featured-grid {
-            display: flex;
-            gap: 24px;
-            flex-wrap: wrap;
-            margin-bottom: 60px;
-        }
-
-        .featured-card {
-            flex: 1 1 320px;
-            background: var(--surface);
-            border-radius: 10px;
-            border: 1px solid var(--border);
-            overflow: hidden;
-            text-decoration: none;
-            color: var(--text);
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .featured-card:hover {
-            transform: translateY(-6px);
-            border-color: var(--blue);
-            box-shadow: 0 10px 35px rgba(0, 119, 204, 0.2);
-        }
-
-        /* Image area — placeholder color if no image */
-        .featured-card-img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            background: #2a2a2b;
-            display: block;
-        }
-
-        /* Placeholder when no image */
-        .featured-card-img-placeholder {
-            width: 100%;
-            height: 220px;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-        }
-
-        .featured-card-body {
-            padding: 24px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .featured-card-tag {
-            display: inline-block;
-            background: var(--blue);
-            color: #fff;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 4px 12px;
-            border-radius: 20px;
-            width: fit-content;
-        }
-
-        .featured-card-tag.cyan {
-            background: transparent;
-            border: 1px solid var(--cyan);
-            color: var(--cyan);
-        }
-
-        .featured-card h3 {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: #fff;
-            line-height: 1.4;
-        }
-
-        .featured-card p {
-            font-size: 0.88rem;
-            color: var(--muted);
-            font-weight: 300;
-            flex: 1;
-        }
-
-        .featured-card-date {
-            font-size: 0.75rem;
-            color: #555;
-            letter-spacing: 1px;
-        }
-
-        /* ── Section Divider ── */
-        .section-heading {
-            color: #fff;
-            border-left: 4px solid var(--blue);
-            padding-left: 15px;
-            margin-bottom: 20px;
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        /* ── Article List ── */
-        .article-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-        }
-
-        .article-list-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 20px;
-            padding: 18px 0;
-            border-bottom: 1px solid var(--border);
-            text-decoration: none;
-            color: var(--text);
-            transition: background 0.2s ease;
-        }
-
-        .article-list-item:hover .article-list-title {
-            color: var(--cyan);
-        }
-
-        .article-list-date {
-            min-width: 90px;
-            font-size: 0.78rem;
-            color: #555;
-            letter-spacing: 1px;
-            padding-top: 3px;
-            text-align: right;
-        }
-
-        .article-list-content {
-            flex: 1;
-        }
-
-        .article-list-tag {
-            font-size: 0.68rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--blue);
-            margin-bottom: 4px;
-        }
-
-        .article-list-title {
-            font-size: 0.98rem;
-            font-weight: 700;
-            color: var(--text);
-            transition: color 0.2s ease;
-            line-height: 1.4;
-        }
-
-        .article-list-excerpt {
-            font-size: 0.82rem;
-            color: var(--muted);
-            font-weight: 300;
-            margin-top: 4px;
-        }
-
-        /* ── Footer ── */
-        footer {
-            text-align: center;
-            padding: 40px;
-            color: var(--muted);
-            border-top: 1px solid var(--border);
-            font-size: 0.85rem;
-            letter-spacing: 1px;
+        .page-title { text-align: center; margin-bottom: 40px; }
+        .page-title h1 { font-size: 2.2rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; color: #fff; }
+        .page-title h1 span { color: var(--blue); }
+        .page-title-line { width: 60px; height: 4px; background: var(--cyan); margin: 12px auto 0; border-radius: 2px; box-shadow: 0 0 10px rgba(0,212,255,0.6); }
+        .featured-grid { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 60px; }
+        .featured-card { flex: 1 1 320px; background: var(--surface); border-radius: 10px; border: 1px solid var(--border); overflow: hidden; text-decoration: none; color: var(--text); transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; }
+        .featured-card:hover { transform: translateY(-6px); border-color: var(--blue); box-shadow: 0 10px 35px rgba(0,119,204,0.2); }
+        .featured-card-img { width: 100%; height: 220px; object-fit: cover; display: block; }
+        .featured-card-img-placeholder { width: 100%; height: 220px; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
+        .featured-card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+        .featured-card-tag { display: inline-block; background: var(--blue); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; width: fit-content; }
+        .featured-card-tag.cyan { background: transparent; border: 1px solid var(--cyan); color: var(--cyan); }
+        .featured-card h3 { font-size: 1.15rem; font-weight: 700; color: #fff; line-height: 1.4; }
+        .featured-card p { font-size: 0.88rem; color: var(--muted); font-weight: 300; flex: 1; }
+        .featured-card-date { font-size: 0.75rem; color: #555; letter-spacing: 1px; }
+        .section-heading { color: #fff; border-left: 4px solid var(--blue); padding-left: 15px; margin-bottom: 20px; font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; }
+        .article-list { display: flex; flex-direction: column; }
+        .article-list-item { display: flex; align-items: flex-start; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--border); text-decoration: none; color: var(--text); }
+        .article-list-item:hover .article-list-title { color: var(--cyan); }
+        .article-list-date { min-width: 90px; font-size: 0.78rem; color: #555; letter-spacing: 1px; padding-top: 3px; text-align: right; }
+        .article-list-content { flex: 1; }
+        .article-list-tag { font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--blue); margin-bottom: 4px; }
+        .article-list-title { font-size: 0.98rem; font-weight: 700; color: var(--text); transition: color 0.2s ease; line-height: 1.4; }
+        .article-list-excerpt { font-size: 0.82rem; color: var(--muted); font-weight: 300; margin-top: 4px; }
+        @media (max-width: 768px) {
+            .page-title h1 { font-size: 1.6rem; }
+            .featured-card { flex: 1 1 100%; }
+            .article-list-date { min-width: 70px; font-size: 0.72rem; }
+            .article-list-title { font-size: 0.9rem; }
         }
     </style>
 </head>
 <body>
-
     <nav>
         <div class="nav-logo-wrap">
             <img src="VQNewLOGO.png" alt="The Virtual Queue Logo" class="nav-logo">
@@ -324,19 +89,20 @@
             <a href="about.html">About Us</a>
             <a href="contact.html">Contact</a>
         </div>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
     </nav>
-
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="index.html">Home</a>
+        <a href="disney.html">Disney</a>
+        <a href="universal.html">Universal</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+    </div>
     <div class="container">
-
-        <!-- Page Title -->
-        <div class="page-title">
-            <h1>Disney <span>Parks</span></h1>
-            <div class="page-title-line"></div>
-        </div>
-
-        <!-- Featured Articles -->
+        <div class="page-title"><h1>Disney <span>Parks</span></h1><div class="page-title-line"></div></div>
         <div class="featured-grid">
-
             <a href="#" class="featured-card">
                 <div class="featured-card-img-placeholder">🏰</div>
                 <div class="featured-card-body">
@@ -346,7 +112,6 @@
                     <span class="featured-card-date">February 18, 2026</span>
                 </div>
             </a>
-
             <a href="#" class="featured-card">
                 <div class="featured-card-img-placeholder">⚡</div>
                 <div class="featured-card-body">
@@ -356,7 +121,6 @@
                     <span class="featured-card-date">February 10, 2026</span>
                 </div>
             </a>
-
             <a href="#" class="featured-card">
                 <div class="featured-card-img-placeholder">🗺️</div>
                 <div class="featured-card-body">
@@ -366,75 +130,23 @@
                     <span class="featured-card-date">January 29, 2026</span>
                 </div>
             </a>
-
         </div>
-
-        <!-- Older Articles List -->
         <h2 class="section-heading">More Disney Stories</h2>
-
         <div class="article-list">
-
-            <a href="#" class="article-list-item">
-                <span class="article-list-date">Jan 20, 2026</span>
-                <div class="article-list-content">
-                    <div class="article-list-tag">Park News</div>
-                    <div class="article-list-title">TRON Lightcycle / Run Queue Times Are Finally Stabilizing — Here's What's Changed</div>
-                    <div class="article-list-excerpt">After months of unpredictable wait times, TRON has settled into a more manageable rhythm. We explain why.</div>
-                </div>
-            </a>
-
-            <a href="#" class="article-list-item">
-                <span class="article-list-date">Jan 14, 2026</span>
-                <div class="article-list-content">
-                    <div class="article-list-tag">Epcot</div>
-                    <div class="article-list-title">Everything Coming to Epcot in 2026: A Quick-Read Breakdown</div>
-                    <div class="article-list-excerpt">New attractions, refurbishments, and festival dates — condensed into a 2-minute read.</div>
-                </div>
-            </a>
-
-            <a href="#" class="article-list-item">
-                <span class="article-list-date">Jan 6, 2026</span>
-                <div class="article-list-content">
-                    <div class="article-list-tag">Virtual Queue</div>
-                    <div class="article-list-title">Does Refreshing the App Early Actually Help? We Tested It.</div>
-                    <div class="article-list-excerpt">We ran the same boarding group attempt 20 times. Here's what the data actually showed.</div>
-                </div>
-            </a>
-
-            <a href="#" class="article-list-item">
-                <span class="article-list-date">Dec 28, 2025</span>
-                <div class="article-list-content">
-                    <div class="article-list-tag">Holiday</div>
-                    <div class="article-list-title">Mickey's Very Merry Christmas Party 2025: Was It Worth the Upcharge?</div>
-                    <div class="article-list-excerpt">Crowds, characters, and cookies — our honest verdict on Disney's biggest holiday ticketed event.</div>
-                </div>
-            </a>
-
-            <a href="#" class="article-list-item">
-                <span class="article-list-date">Dec 15, 2025</span>
-                <div class="article-list-content">
-                    <div class="article-list-tag">Pro Strategy</div>
-                    <div class="article-list-title">Rope Drop in 2025: Is It Still the Best Strategy?</div>
-                    <div class="article-list-excerpt">With Lightning Lane dominating the conversation, we revisit whether arriving at park open still gives you an edge.</div>
-                </div>
-            </a>
-
-            <a href="#" class="article-list-item">
-                <span class="article-list-date">Dec 3, 2025</span>
-                <div class="article-list-content">
-                    <div class="article-list-tag">Hollywood Studios</div>
-                    <div class="article-list-title">Star Wars: Galaxy's Edge Virtual Queue vs. Standby — Which Line Is Moving Faster?</div>
-                    <div class="article-list-excerpt">The standby line made a quiet comeback this fall. Here's when to use it and when to skip it.</div>
-                </div>
-            </a>
-
+            <a href="#" class="article-list-item"><span class="article-list-date">Jan 20, 2026</span><div class="article-list-content"><div class="article-list-tag">Park News</div><div class="article-list-title">TRON Lightcycle / Run Queue Times Are Finally Stabilizing — Here's What's Changed</div><div class="article-list-excerpt">After months of unpredictable wait times, TRON has settled into a more manageable rhythm. We explain why.</div></div></a>
+            <a href="#" class="article-list-item"><span class="article-list-date">Jan 14, 2026</span><div class="article-list-content"><div class="article-list-tag">Epcot</div><div class="article-list-title">Everything Coming to Epcot in 2026: A Quick-Read Breakdown</div><div class="article-list-excerpt">New attractions, refurbishments, and festival dates — condensed into a 2-minute read.</div></div></a>
+            <a href="#" class="article-list-item"><span class="article-list-date">Jan 6, 2026</span><div class="article-list-content"><div class="article-list-tag">Virtual Queue</div><div class="article-list-title">Does Refreshing the App Early Actually Help? We Tested It.</div><div class="article-list-excerpt">We ran the same boarding group attempt 20 times. Here's what the data actually showed.</div></div></a>
+            <a href="#" class="article-list-item"><span class="article-list-date">Dec 28, 2025</span><div class="article-list-content"><div class="article-list-tag">Holiday</div><div class="article-list-title">Mickey's Very Merry Christmas Party 2025: Was It Worth the Upcharge?</div><div class="article-list-excerpt">Crowds, characters, and cookies — our honest verdict on Disney's biggest holiday ticketed event.</div></div></a>
+            <a href="#" class="article-list-item"><span class="article-list-date">Dec 15, 2025</span><div class="article-list-content"><div class="article-list-tag">Pro Strategy</div><div class="article-list-title">Rope Drop in 2025: Is It Still the Best Strategy?</div><div class="article-list-excerpt">With Lightning Lane dominating the conversation, we revisit whether arriving at park open still gives you an edge.</div></div></a>
+            <a href="#" class="article-list-item"><span class="article-list-date">Dec 3, 2025</span><div class="article-list-content"><div class="article-list-tag">Hollywood Studios</div><div class="article-list-title">Star Wars: Galaxy's Edge Virtual Queue vs. Standby — Which Line Is Moving Faster?</div><div class="article-list-excerpt">The standby line made a quiet comeback this fall. Here's when to use it and when to skip it.</div></div></a>
         </div>
-
     </div>
-
-    <footer>
-        &copy; 2026 The Virtual Queue. All rights reserved.
-    </footer>
-
+    <footer>&copy; 2026 The Virtual Queue. All rights reserved.</footer>
+    <script>
+        const btn = document.getElementById('hamburger');
+        const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => { btn.classList.toggle('open'); menu.classList.toggle('open'); });
+        menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { btn.classList.remove('open'); menu.classList.remove('open'); }));
+    </script>
 </body>
 </html>
