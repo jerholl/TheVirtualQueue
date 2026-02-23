@@ -44,13 +44,22 @@
             .hamburger { display: flex; }
         }
 
-        .news-container { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 40px; }
-        .news-item { flex: 1 1 280px; max-width: 400px; background: var(--surface); padding: 30px; border-radius: 8px; border: 1px solid var(--border); transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; text-align: center; }
-        .news-item:hover { transform: translateY(-6px); border-color: var(--blue); box-shadow: 0 8px 30px rgba(0,119,204,0.15); }
-        .news-item a { text-decoration: none; color: var(--text); }
-        .news-item h3 { color: var(--blue); margin-bottom: 12px; font-size: 1.1rem; letter-spacing: 1px; }
-        .news-item p { font-size: 0.9rem; color: var(--muted); font-weight: 300; }
-        @media (max-width: 768px) { .news-item { max-width: 100%; flex: 1 1 100%; } }
+        .page-title { text-align: center; margin-bottom: 40px; }
+        .page-title h1 { font-size: 2.2rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; color: #fff; }
+        .page-title h1 span { color: var(--blue); }
+        .page-title-line { width: 60px; height: 4px; background: var(--cyan); margin: 12px auto 0; border-radius: 2px; box-shadow: 0 0 10px rgba(0,212,255,0.6); }
+        .featured-grid { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 60px; }
+        .featured-card { flex: 1 1 320px; background: var(--surface); border-radius: 10px; border: 1px solid var(--border); overflow: hidden; text-decoration: none; color: var(--text); transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; }
+        .featured-card:hover { transform: translateY(-6px); border-color: var(--blue); box-shadow: 0 10px 35px rgba(0,119,204,0.2); }
+        .featured-card-img-placeholder { width: 100%; height: 220px; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
+        .featured-card-img { width: 100%; height: 220px; object-fit: cover; display: block; }
+        .featured-card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+        .featured-card-tag { display: inline-block; background: var(--blue); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; width: fit-content; }
+        .featured-card-tag.cyan { background: transparent; border: 1px solid var(--cyan); color: var(--cyan); }
+        .featured-card h3 { font-size: 1.15rem; font-weight: 700; color: #fff; line-height: 1.4; }
+        .featured-card p { font-size: 0.88rem; color: var(--muted); font-weight: 300; flex: 1; }
+        .featured-card-date { font-size: 0.75rem; color: #555; letter-spacing: 1px; }
+        @media (max-width: 768px) { .featured-card { flex: 1 1 100%; } .page-title h1 { font-size: 1.6rem; } }
     </style>
 </head>
 <body>
@@ -77,10 +86,38 @@
         <a href="contact.html">Contact</a>
     </div>
     <div class="container">
-        <div class="news-container">
-            <div class="news-item"><a href="disney.html"><h3>Disney Parks</h3><p>New Virtual Queue rules for 2026. What you need to know before you tap.</p></a></div>
-            <div class="news-item"><a href="universal.html"><h3>Universal Studios</h3><p>Epic Universe construction updates and ticket availability info.</p></a></div>
-            <div class="news-item"><a href="#"><h3>Pro Strategy</h3><p>The "Seconds Matter" guide: How to beat the 7:00 AM rush every time.</p></a></div>
+        <div class="page-title">
+            <h1>The Virtual <span>Queue</span></h1>
+            <div class="page-title-line"></div>
+        </div>
+        <div class="featured-grid">
+            <a href="disney.html" class="featured-card">
+                <div class="featured-card-img-placeholder">🏰</div>
+                <div class="featured-card-body">
+                    <span class="featured-card-tag">Disney Parks</span>
+                    <h3>New Virtual Queue Rules for 2026: What You Need to Know Before You Tap</h3>
+                    <p>Disney has updated how virtual queues work across Magic Kingdom and Hollywood Studios. Here's the condensed breakdown.</p>
+                    <span class="featured-card-date">February 18, 2026</span>
+                </div>
+            </a>
+            <a href="universal.html" class="featured-card">
+                <div class="featured-card-img-placeholder">🌍</div>
+                <div class="featured-card-body">
+                    <span class="featured-card-tag cyan">Epic Universe</span>
+                    <h3>Epic Universe Opens in 2025: Everything We Know So Far</h3>
+                    <p>Universal's newest park is the biggest theme park expansion in decades. Here's what to expect on opening day.</p>
+                    <span class="featured-card-date">February 15, 2026</span>
+                </div>
+            </a>
+            <a href="#" class="featured-card">
+                <div class="featured-card-img-placeholder">🗺️</div>
+                <div class="featured-card-body">
+                    <span class="featured-card-tag">Pro Strategy</span>
+                    <h3>The 7:00 AM Rush: A Step-by-Step Guide to Securing Your Boarding Group</h3>
+                    <p>Seconds matter. We walk you through exactly what to do the moment the clock hits 7:00 AM.</p>
+                    <span class="featured-card-date">January 29, 2026</span>
+                </div>
+            </a>
         </div>
     </div>
     <footer>&copy; 2026 The Virtual Queue. All rights reserved.</footer>
