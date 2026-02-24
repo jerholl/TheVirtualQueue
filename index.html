@@ -135,7 +135,7 @@
             heroCont.innerHTML = ''; cardCont.innerHTML = ''; listCont.innerHTML = '';
 
             if (articles[0]) {
-                heroCont.innerHTML = `<a href="article.html?id=${articles[0].id}" class="hero-card">
+                heroCont.innerHTML = `<a href="article?id=${articles[0].id}" class="hero-card">
                     <img src="${articles[0].image}" class="hero-img" onerror="this.style.display='none'">
                     <div class="hero-body">
                         <span class="featured-card-tag">${articles[0].category}</span>
@@ -145,7 +145,7 @@
                     </div></a>`;
             }
             articles.slice(1, 4).forEach(a => {
-                cardCont.innerHTML += `<a href="article.html?id=${a.id}" class="featured-card">
+                cardCont.innerHTML += `<a href="article?id=${a.id}" class="featured-card">
                     <img src="${a.image}" class="featured-card-img" onerror="this.style.display='none'">
                     <div class="featured-card-body">
                         <span class="featured-card-tag">${a.category}</span>
@@ -154,7 +154,7 @@
                     </div></a>`;
             });
             articles.slice(4).forEach(a => {
-                listCont.innerHTML += `<a href="article.html?id=${a.id}" class="article-list-item">
+                listCont.innerHTML += `<a href="article?id=${a.id}" class="article-list-item">
                     <span style="color:var(--muted); min-width:100px;">${a.date}</span>
                     <div>
                         <div style="font-size:0.75rem;color:var(--cyan);text-transform:uppercase;letter-spacing:1px;">${a.category}</div>
