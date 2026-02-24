@@ -3,23 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Virtual Queue</title>
+    <title>The Virtual Queue | Story</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --bg:#121212; --surface:#1a1a1b; --border:#2a2a2a; --blue:#0077cc; --cyan:#00d4ff; --text:#e0e0e0; --muted:#888; }
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         body { background-color: var(--bg); color: var(--text); font-family: 'Roboto Slab', serif; line-height: 1.8; }
         
-        /* Shared Nav Styling */
+        /* Nav Bar - Keeping your exact structure */
         nav { border-bottom: 1px solid var(--border); padding: 0 20px; display: flex; justify-content: center; align-items: center; gap: 10px; background-color: var(--bg); position: sticky; top: 0; z-index: 1000; height: 100px; overflow: visible; }
         .nav-logo-wrap { position: relative; display: flex; align-items: center; }
         .nav-logo-wrap::after { content: ""; position: absolute; top: 75%; left: 200%; transform: translateX(-50%); width: 880px; height: 10px; border-left: 3px solid var(--cyan); border-bottom: 3px solid var(--cyan); border-bottom-left-radius: 6px; box-shadow: -4px 4px 12px rgba(0,212,255,0.5), 0px 4px 12px rgba(0,212,255,0.3); pointer-events: none; }
         .nav-logo { height: 150px; width: auto; transition: transform 0.3s ease; filter: drop-shadow(0px 0px 8px rgba(0,119,204,0.7)); display: block; }
         .nav-links-wrap { position: relative; display: flex; align-items: center; gap: 10px; }
-        nav a { text-decoration: none; color: var(--muted); text-transform: uppercase; font-size: 1.25rem; font-weight: 700; letter-spacing: 2px; padding: 8px 16px; border-radius: 4px; transition: color 0.3s ease, background 0.3s ease; }
-        nav a:hover { color: var(--cyan); background: rgba(0,212,255,0.06); }
+        nav a { text-decoration: none; color: var(--muted); text-transform: uppercase; font-size: 1.25rem; font-weight: 700; letter-spacing: 2px; padding: 8px 16px; border-radius: 4px; transition: color 0.3s ease; }
+        nav a:hover { color: var(--cyan); }
 
-        /* Article Layout */
+        /* Search Bar - Placed after Contact */
+        .search-box { display: flex; align-items: center; position: relative; margin-left: 5px; }
+        #site-search { width: 0; padding: 0; border: none; background: transparent; color: #fff; outline: none; transition: width 0.4s ease, padding 0.4s ease; font-family: 'Roboto Slab', serif; border-bottom: 2px solid transparent; }
+        .search-box.active #site-search { width: 180px; padding: 5px 10px; border-bottom: 2px solid var(--cyan); }
+        .search-icon-btn { background: none; border: none; color: var(--muted); cursor: pointer; display: flex; align-items: center; padding: 8px; }
+        .search-icon-btn:hover { color: var(--cyan); }
+
+        /* Article Content */
         .container { max-width: 850px; margin: 0 auto; padding: 60px 20px; }
         .back-btn { color: var(--cyan); text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; margin-bottom: 30px; display: inline-block; }
         .article-header h1 { font-size: 2.8rem; font-weight: 900; color: #fff; margin: 15px 0; line-height: 1.1; }
@@ -28,27 +35,25 @@
         .content { font-size: 1.15rem; color: #ccc; font-weight: 300; }
         .content p { margin-bottom: 25px; }
 
-        /* Mobile Menu */
+        /* Mobile */
         .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; z-index: 1100; }
-        .hamburger span { display: block; width: 26px; height: 3px; background: var(--text); border-radius: 2px; transition: all 0.3s ease; }
+        .hamburger span { display: block; width: 26px; height: 3px; background: var(--text); border-radius: 2px; }
         .mobile-menu { display: flex; flex-direction: column; position: fixed; top: 80px; left: 0; right: 0; background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 20px; z-index: 998; max-height: 0; overflow: hidden; transition: all 0.35s ease; }
         .mobile-menu.open { max-height: 400px; padding: 10px 20px; }
-        .mobile-menu a { text-decoration: none; color: var(--muted); text-transform: uppercase; font-size: 1rem; font-weight: 700; padding: 15px 0; border-bottom: 1px solid var(--border); }
 
-        @media (max-width: 768px) {
+        @media (max-width: 992px) {
             nav { justify-content: space-between; height: 80px; }
             .nav-logo-wrap::after { display: none; }
             .nav-logo { height: 90px; }
             .nav-links-wrap { display: none; }
             .hamburger { display: flex; }
-            .article-header h1 { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
     <nav>
         <div class="nav-logo-wrap">
-            <a href="index.html"><img src="VQNewLOGO.png" alt="The Virtual Queue Logo" class="nav-logo"></a>
+            <a href="index.html"><img src="VQNewLOGO.png" alt="Logo" class="nav-logo"></a>
         </div>
         <div class="nav-links-wrap">
             <a href="index.html">Home</a>
@@ -57,6 +62,12 @@
             <a href="other.html">Other</a>
             <a href="about.html">About Us</a>
             <a href="contact.html">Contact</a>
+            <div class="search-box">
+                <input type="text" id="site-search" placeholder="Search the Queue...">
+                <button class="search-icon-btn" id="search-toggle">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </button>
+            </div>
         </div>
         <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
     </nav>
@@ -70,46 +81,58 @@
 
     <div class="container">
         <a href="javascript:history.back()" class="back-btn">← Back to Queue</a>
-        <div id="article-content">
-            <p>Loading your story...</p>
-        </div>
+        <div id="article-view"><p>Loading story...</p></div>
     </div>
 
     <script>
-        // Mobile menu logic
+        // Search Toggle Logic
+        const searchToggle = document.getElementById('search-toggle');
+        const searchBox = document.querySelector('.search-box');
+        const searchInput = document.getElementById('site-search');
+
+        searchToggle.addEventListener('click', () => {
+            searchBox.classList.toggle('active');
+            if (searchBox.classList.contains('active')) {
+                searchInput.focus();
+            }
+        });
+
+        // Hamburger Logic
         const btn = document.getElementById('hamburger');
         const menu = document.getElementById('mobile-menu');
-        btn.addEventListener('click', () => { btn.classList.toggle('open'); menu.classList.toggle('open'); });
+        btn.addEventListener('click', () => { 
+            btn.classList.toggle('open'); 
+            menu.classList.toggle('open'); 
+        });
 
-        // Load content logic
-        async function loadArticle() {
+        // Content Loader Logic
+        async function loadStory() {
             const params = new URLSearchParams(window.location.search);
-            const id = params.get('id');
+            const storyId = params.get('id');
+            const view = document.getElementById('article-view');
 
             try {
                 const response = await fetch('articles.json');
                 const articles = await response.json();
-                const article = articles.find(a => a.id === id);
+                const story = articles.find(a => a.id == storyId);
 
-                if (article) {
-                    document.title = `${article.title} | The Virtual Queue`;
-                    document.getElementById('article-content').innerHTML = `
+                if (story) {
+                    view.innerHTML = `
                         <div class="article-header">
-                            <span style="color:var(--cyan); font-weight:700; text-transform:uppercase; letter-spacing:2px; font-size:0.8rem;">${article.category}</span>
-                            <h1>${article.title}</h1>
+                            <h1>${story.title}</h1>
+                            <div class="article-meta">${story.category} | ${story.date}</div>
                         </div>
-                        <div class="article-meta">Published on ${article.date}</div>
-                        ${article.image ? `<img src="${article.image}" class="main-img" onerror="this.style.display='none'">` : ''}
-                        <div class="content">${article.content}</div>
-                    `;
+                        <img src="${story.image}" class="main-img" onerror="this.style.display='none'">
+                        <div class="content">
+                            <p><strong>${story.excerpt}</strong></p>
+                            ${story.content || '<p>Full content is arriving soon.</p>'}
+                        </div>`;
                 } else {
-                    document.getElementById('article-content').innerHTML = "<h1>Story Not Found</h1><p>We couldn't find that specific queue entry.</p>";
+                    view.innerHTML = `<h1>Story Not Found</h1>`;
                 }
-            } catch (e) {
-                console.error(e);
-            }
+            } catch (e) { console.error(e); }
         }
-        window.onload = loadArticle;
+        window.onload = loadStory;
     </script>
 </body>
 </html>

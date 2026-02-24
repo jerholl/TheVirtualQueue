@@ -19,6 +19,13 @@
         .nav-links-wrap { position: relative; display: flex; align-items: center; gap: 10px; }
         nav a { text-decoration: none; color: var(--muted); text-transform: uppercase; font-size: 1.25rem; font-weight: 700; letter-spacing: 2px; padding: 8px 16px; border-radius: 4px; transition: color 0.3s ease, background 0.3s ease; }
         nav a:hover { color: var(--cyan); background: rgba(0,212,255,0.06); }
+        /* Search Bar */
+        .search-box { display: flex; align-items: center; position: relative; margin-left: 8px; }
+        #site-search { width: 0; padding: 0; border: none; background: transparent; color: var(--text); outline: none; transition: width 0.4s ease, padding 0.4s ease; font-family: 'Roboto Slab', serif; border-bottom: 2px solid transparent; font-size: 0.95rem; }
+        .search-box.active #site-search { width: 180px; padding: 5px 10px; border-bottom: 2px solid var(--cyan); }
+        .search-icon-btn { background: none; border: none; color: var(--muted); cursor: pointer; display: flex; align-items: center; padding: 8px; transition: color 0.2s; }
+        .search-icon-btn:hover { color: var(--cyan); }
+
         .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; z-index: 1100; }
         .hamburger span { display: block; width: 26px; height: 3px; background: var(--text); border-radius: 2px; transition: all 0.3s ease; }
         .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
@@ -53,9 +60,9 @@
     </style>
 </head>
 <body>
-    <nav>
+        <nav>
         <div class="nav-logo-wrap">
-            <img src="VQNewLOGO.png" alt="The Virtual Queue Logo" class="nav-logo">
+            <a href="/"><img src="./VQNewLOGO.png" alt="The Virtual Queue Logo" class="nav-logo"></a>
         </div>
         <div class="nav-links-wrap">
             <a href="/">Home</a>
@@ -63,7 +70,11 @@
             <a href="/universal">Universal</a>
             <a href="/other">Other</a>
             <a href="/about">About Us</a>
-            <a href="/contact">Contact</a>
+            <a href="/contact" style="color:var(--cyan)">Contact</a>
+            <div class="search-box">
+                <input type="text" id="site-search" placeholder="Search the Queue...">
+                <button class="search-icon-btn" id="search-toggle"><svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+            </div>
         </div>
         <button class="hamburger" id="hamburger" aria-label="Menu">
             <span></span><span></span><span></span>
@@ -93,9 +104,14 @@
     </div>
     <footer>&copy; 2026 The Virtual Queue. All rights reserved.</footer>
     <script>
-        const btn = document.getElementById('hamburger');
+                const btn = document.getElementById('hamburger');
         const menu = document.getElementById('mobile-menu');
         btn.addEventListener('click', () => { btn.classList.toggle('open'); menu.classList.toggle('open'); });
+        menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { btn.classList.remove('open'); menu.classList.remove('open'); }));
+        const searchToggle = document.getElementById('search-toggle');
+        const searchBox = document.querySelector('.search-box');
+        const searchInput = document.getElementById('site-search');
+        if (searchToggle) { searchToggle.addEventListener('click', () => { searchBox.classList.toggle('active'); if (searchBox.classList.contains('active')) searchInput.focus(); }); }
         menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { btn.classList.remove('open'); menu.classList.remove('open'); }));
     </script>
 </body>

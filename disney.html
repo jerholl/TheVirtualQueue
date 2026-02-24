@@ -11,8 +11,6 @@
         body { background-color: var(--bg); color: var(--text); font-family: 'Roboto Slab', serif; line-height: 1.6; }
         .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px 60px; }
         footer { text-align: center; padding: 40px; color: var(--muted); border-top: 1px solid var(--border); font-size: 0.85rem; letter-spacing: 1px; }
-        
-        /* Nav Bar */
         nav { border-bottom: 1px solid var(--border); padding: 0 20px; display: flex; justify-content: center; align-items: center; gap: 10px; background-color: var(--bg); position: sticky; top: 0; z-index: 1000; height: 100px; overflow: visible; }
         .nav-logo-wrap { position: relative; display: flex; align-items: center; }
         .nav-logo-wrap::after { content: ""; position: absolute; top: 75%; left: 200%; transform: translateX(-50%); width: 880px; height: 10px; border-left: 3px solid var(--cyan); border-bottom: 3px solid var(--cyan); border-bottom-left-radius: 6px; box-shadow: -4px 4px 12px rgba(0,212,255,0.5), 0px 4px 12px rgba(0,212,255,0.3); pointer-events: none; }
@@ -21,15 +19,30 @@
         .nav-links-wrap { position: relative; display: flex; align-items: center; gap: 10px; }
         nav a { text-decoration: none; color: var(--muted); text-transform: uppercase; font-size: 1.25rem; font-weight: 700; letter-spacing: 2px; padding: 8px 16px; border-radius: 4px; transition: color 0.3s ease, background 0.3s ease; }
         nav a:hover { color: var(--cyan); background: rgba(0,212,255,0.06); }
+        /* Search Bar */
+        .search-box { display: flex; align-items: center; position: relative; margin-left: 8px; }
+        #site-search { width: 0; padding: 0; border: none; background: transparent; color: var(--text); outline: none; transition: width 0.4s ease, padding 0.4s ease; font-family: 'Roboto Slab', serif; border-bottom: 2px solid transparent; font-size: 0.95rem; }
+        .search-box.active #site-search { width: 180px; padding: 5px 10px; border-bottom: 2px solid var(--cyan); }
+        .search-icon-btn { background: none; border: none; color: var(--muted); cursor: pointer; display: flex; align-items: center; padding: 8px; transition: color 0.2s; }
+        .search-icon-btn:hover { color: var(--cyan); }
 
-        /* Hero Card Styles */
-        .hero-card { display: flex; flex-direction: row; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; text-decoration: none; color: var(--text); margin-bottom: 30px; transition: transform 0.3s ease, border-color 0.3s ease; }
-        .hero-card:hover { transform: translateY(-4px); border-color: var(--cyan); }
-        .hero-img { width: 60%; height: 400px; object-fit: cover; }
-        .hero-body { padding: 40px; width: 40%; display: flex; flex-direction: column; justify-content: center; gap: 15px; }
-        .hero-body h2 { font-size: 2rem; color: #fff; line-height: 1.2; }
-
-        /* Page Titles & Grids */
+        .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; z-index: 1100; }
+        .hamburger span { display: block; width: 26px; height: 3px; background: var(--text); border-radius: 2px; transition: all 0.3s ease; }
+        .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+        .mobile-menu { display: flex; flex-direction: column; position: fixed; top: 80px; left: 0; right: 0; background: var(--surface); border-bottom: 1px solid var(--border); padding: 10px 20px; z-index: 998; max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease; padding-top: 0; padding-bottom: 0; }
+        .mobile-menu.open { max-height: 400px; padding-top: 10px; padding-bottom: 10px; }
+        .mobile-menu a { text-decoration: none; color: var(--muted); text-transform: uppercase; font-size: 1rem; font-weight: 700; letter-spacing: 2px; padding: 14px 16px; border-bottom: 1px solid var(--border); transition: color 0.2s, background 0.2s; display: block; }
+        .mobile-menu a:last-child { border-bottom: none; }
+        .mobile-menu a:hover { color: var(--cyan); background: rgba(0,212,255,0.06); }
+        @media (max-width: 768px) {
+            nav { justify-content: space-between; height: 80px; }
+            .nav-logo-wrap::after { display: none; }
+            .nav-logo { height: 90px; }
+            .nav-links-wrap { display: none; }
+            .hamburger { display: flex; }
+        }
         .page-title { text-align: center; margin-bottom: 40px; }
         .page-title h1 { font-size: 2.2rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; color: #fff; }
         .page-title h1 span { color: var(--blue); }
@@ -41,10 +54,11 @@
         .featured-card-img-placeholder { width: 100%; height: 220px; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
         .featured-card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
         .featured-card-tag { display: inline-block; background: var(--blue); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; width: fit-content; }
+        .featured-card-tag.cyan { background: transparent; border: 1px solid var(--cyan); color: var(--cyan); }
+        .featured-card h3 { font-size: 1.15rem; font-weight: 700; color: #fff; line-height: 1.4; }
+        .featured-card p { font-size: 0.88rem; color: var(--muted); font-weight: 300; flex: 1; }
         .featured-card-date { font-size: 0.75rem; color: #555; letter-spacing: 1px; }
-
-        /* More Stories List */
-        .section-heading { color: #fff; border-left: 4px solid var(--blue); padding-left: 15px; margin: 40px 0 20px; font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; }
+        .section-heading { color: #fff; border-left: 4px solid var(--blue); padding-left: 15px; margin-bottom: 20px; font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; }
         .article-list { display: flex; flex-direction: column; }
         .article-list-item { display: flex; align-items: flex-start; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--border); text-decoration: none; color: var(--text); }
         .article-list-item:hover .article-list-title { color: var(--cyan); }
@@ -53,139 +67,138 @@
         .article-list-tag { font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--blue); margin-bottom: 4px; }
         .article-list-title { font-size: 0.98rem; font-weight: 700; color: var(--text); transition: color 0.2s ease; line-height: 1.4; }
         .article-list-excerpt { font-size: 0.82rem; color: var(--muted); font-weight: 300; margin-top: 4px; }
-
-        /* Responsive */
-        .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; z-index: 1100; }
-        .hamburger span { display: block; width: 26px; height: 3px; background: var(--text); border-radius: 2px; transition: all 0.3s ease; }
-        .mobile-menu { display: flex; flex-direction: column; position: fixed; top: 80px; left: 0; right: 0; background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 20px; z-index: 998; max-height: 0; overflow: hidden; transition: all 0.35s ease; }
-        .mobile-menu.open { max-height: 400px; padding: 10px 20px; }
-
         @media (max-width: 768px) {
-            nav { justify-content: space-between; height: 80px; }
-            .nav-logo-wrap::after { display: none; }
-            .nav-logo { height: 90px; }
-            .nav-links-wrap { display: none; }
-            .hamburger { display: flex; }
-            .hero-card { flex-direction: column; }
-            .hero-img { width: 100%; height: 250px; }
-            .hero-body { width: 100%; padding: 24px; }
-            .article-list-item { flex-direction: column; gap: 5px; }
-            .article-list-date { text-align: left; }
+            .page-title h1 { font-size: 1.6rem; }
+            .featured-card { flex: 1 1 100%; }
+            .article-list-date { min-width: 70px; font-size: 0.72rem; }
+            .article-list-title { font-size: 0.9rem; }
         }
+
+        .hero-card { display: flex; flex-direction: row; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; text-decoration: none; color: var(--text); margin-bottom: 30px; transition: transform 0.3s, border-color 0.3s; }
+        .hero-card:hover { transform: translateY(-4px); border-color: var(--cyan); }
+        .hero-img { width: 60%; height: 400px; object-fit: cover; }
+        .hero-body { padding: 40px; width: 40%; display: flex; flex-direction: column; justify-content: center; gap: 15px; }
+        .hero-body h2 { font-size: 2rem; color: var(--title-color); line-height: 1.2; }
+        .section-heading { color: var(--title-color); border-left: 4px solid var(--blue); padding-left: 15px; margin: 40px 0 20px; font-size: 1.2rem; text-transform: uppercase; }
+        .article-list-item { display: flex; align-items: flex-start; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--border); text-decoration: none; color: var(--text); }
+        .article-list-item:hover { color: var(--cyan); }
+        @media (max-width: 768px) { .hero-card { flex-direction: column; } .hero-img, .hero-body { width: 100%; } .hero-body { padding: 24px; } }
     </style>
 </head>
 <body>
-    <nav>
+        <nav>
         <div class="nav-logo-wrap">
-            <img src="VQNewLOGO.png" alt="The Virtual Queue Logo" class="nav-logo">
+            <a href="/"><img src="./VQNewLOGO.png" alt="The Virtual Queue Logo" class="nav-logo"></a>
         </div>
         <div class="nav-links-wrap">
-            <a href="index.html">Home</a>
-            <a href="disney.html" style="color:var(--cyan)">Disney</a>
-            <a href="universal.html">Universal</a>
-            <a href="other.html">Other</a>
-            <a href="about.html">About Us</a>
-            <a href="contact.html">Contact</a>
+            <a href="/">Home</a>
+            <a href="/disney" style="color:var(--cyan)">Disney</a>
+            <a href="/universal">Universal</a>
+            <a href="/other">Other</a>
+            <a href="/about">About Us</a>
+            <a href="/contact">Contact</a>
+            <div class="search-box">
+                <input type="text" id="site-search" placeholder="Search Disney...">
+                <button class="search-icon-btn" id="search-toggle"><svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+            </div>
         </div>
-        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
     </nav>
     <div class="mobile-menu" id="mobile-menu">
-        <a href="index.html">Home</a>
-        <a href="disney.html">Disney</a>
-        <a href="universal.html">Universal</a>
-        <a href="other.html">Other</a>
+        <a href="/">Home</a>
+        <a href="/disney">Disney</a>
+        <a href="/universal">Universal</a>
+        <a href="/other">Other</a>
+        <a href="/about">About Us</a>
+        <a href="/contact">Contact</a>
     </div>
-
     <div class="container">
         <div class="page-title"><h1>Disney <span>Parks</span></h1><div class="page-title-line"></div></div>
-        
         <div id="hero-container"></div>
         <div class="featured-grid" id="article-container"></div>
-        
-        <h2 class="section-heading">More Disney Stories</h2>
+        <h2 class="section-heading">More Disney Magic</h2>
         <div class="article-list" id="more-stories-container"></div>
     </div>
 
     <footer>&copy; 2026 The Virtual Queue. All rights reserved.</footer>
-
     <script>
         const btn = document.getElementById('hamburger');
         const menu = document.getElementById('mobile-menu');
         btn.addEventListener('click', () => { btn.classList.toggle('open'); menu.classList.toggle('open'); });
+        menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { btn.classList.remove('open'); menu.classList.remove('open'); }));
+        const searchToggle = document.getElementById('search-toggle');
+        const searchBox = document.querySelector('.search-box');
+        const searchInput = document.getElementById('site-search');
+        if (searchToggle) { searchToggle.addEventListener('click', () => { searchBox.classList.toggle('active'); if (searchBox.classList.contains('active')) searchInput.focus(); }); }
 
-        async function loadDisneyContent() {
-        try {
-            const response = await fetch('articles.json');
-            const allArticles = await response.json();
-            
-            const articles = allArticles.filter(a => {
-                const content = (a.title + a.excerpt + a.category).toLowerCase();
-                return a.category === "Disney Parks" || 
-                       a.category === "Virtual Queue" ||
-                       content.includes('disney') || 
-                       content.includes('magic kingdom') || 
-                       content.includes('epcot') || 
-                       content.includes('animal kingdom') || 
-                       content.includes('hollywood studios');
-            });
+        let allArticles = [];
+        async function loadContent() {
+            try {
+                const response = await fetch('articles.json');
+                const data = await response.json();
+                
+                allArticles = data.filter(a => {
+                    const content = (a.title + a.excerpt + a.category).toLowerCase();
+                    return a.category === 'Disney Parks' ||
+                           content.includes('disney') ||
+                           content.includes('magic kingdom') ||
+                           content.includes('epcot') ||
+                           content.includes('animal kingdom') ||
+                           content.includes('hollywood studios');
+                });
+                renderPage(allArticles);
+            } catch (e) { console.error(e); }
+        }
 
-            const heroContainer = document.getElementById('hero-container');
-            const cardContainer = document.getElementById('article-container');
-            const listContainer = document.getElementById('more-stories-container');
+        function renderPage(articles) {
+            const heroCont = document.getElementById('hero-container');
+            const cardCont = document.getElementById('article-container');
+            const listCont = document.getElementById('more-stories-container');
+            heroCont.innerHTML = ''; cardCont.innerHTML = ''; listCont.innerHTML = '';
 
-            // 1. HERO (First Disney Article)
-            const hero = articles[0];
-            if(hero) {
-                const heroImg = hero.image ? `<img src="${hero.image}" class="hero-img" onerror="this.style.display='none'; document.getElementById('hero-fallback').style.display='flex';">` : '';
-                heroContainer.innerHTML = `
-                    <a href="${hero.link}" class="hero-card">
-                        ${heroImg}
-                        <div id="hero-fallback" class="hero-img featured-card-img-placeholder" style="display:none;">${hero.icon}</div>
-                        <div class="hero-body">
-                            <span class="featured-card-tag">${hero.category}</span>
-                            <h2>${hero.title}</h2>
-                            <p>${hero.excerpt}</p>
-                            <span class="featured-card-date">${hero.date}</span>
-                        </div>
-                    </a>`;
+            if (articles.length === 0) {
+                cardCont.innerHTML = "<p style='text-align:center;width:100%;margin-top:50px;'>No Disney magic found today. Check back soon!</p>";
+                return;
             }
 
-            // 2. CARDS (Disney Articles 2-4)
-            cardContainer.innerHTML = '';
-            articles.slice(1, 4).forEach(article => {
-                const cardImg = article.image ? `<img src="${article.image}" class="featured-card-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` : '';
-                cardContainer.innerHTML += `
-                    <a href="${article.link}" class="featured-card">
-                        ${cardImg}
-                        <div class="featured-card-img-placeholder" style="display:none;">${article.icon}</div>
-                        <div class="featured-card-body">
-                            <span class="featured-card-tag">${article.category}</span>
-                            <h3>${article.title}</h3>
-                            <p>${article.excerpt}</p>
-                            <span class="featured-card-date">${article.date}</span>
-                        </div>
-                    </a>`;
+            if (articles[0]) {
+                heroCont.innerHTML = `<a href="article.html?id=${articles[0].id}" class="hero-card">
+                    <img src="${articles[0].image}" class="hero-img" onerror="this.style.display='none'">
+                    <div class="hero-body">
+                        <span class="featured-card-tag">${articles[0].category}</span>
+                        <h2>${articles[0].title}</h2>
+                        <p>${articles[0].excerpt}</p>
+                        <span class="featured-card-date">${articles[0].date}</span>
+                    </div></a>`;
+            }
+            articles.slice(1, 4).forEach(a => {
+                cardCont.innerHTML += `<a href="article.html?id=${a.id}" class="featured-card">
+                    <img src="${a.image}" class="featured-card-img" onerror="this.style.display='none'">
+                    <div class="featured-card-body">
+                        <span class="featured-card-tag">${a.category}</span>
+                        <h3>${a.title}</h3><p>${a.excerpt}</p>
+                        <span class="featured-card-date">${a.date}</span>
+                    </div></a>`;
             });
-
-            // 3. LIST (The rest)
-            listContainer.innerHTML = '';
-            articles.slice(4).forEach(article => {
-                listContainer.innerHTML += `
-                    <a href="${article.link}" class="article-list-item">
-                        <span class="article-list-date">${article.date}</span>
-                        <div class="article-list-content">
-                            <div class="article-list-tag">${article.category}</div>
-                            <div class="article-list-title">${article.title}</div>
-                            <div class="article-list-excerpt">${article.excerpt}</div>
-                        </div>
-                    </a>`;
+            articles.slice(4).forEach(a => {
+                listCont.innerHTML += `<a href="article.html?id=${a.id}" class="article-list-item">
+                    <span style="color:var(--muted);min-width:100px;">${a.date}</span>
+                    <div>
+                        <div style="font-size:0.75rem;color:var(--cyan);text-transform:uppercase;letter-spacing:1px;">${a.category}</div>
+                        <div style="font-weight:700;">${a.title}</div>
+                        <div style="font-size:0.85rem;color:var(--muted);">${a.excerpt}</div>
+                    </div></a>`;
             });
-
-        } catch (e) { 
-            console.error("Error loading Disney articles:", e); 
         }
-    }
-    window.onload = loadDisneyContent;
+
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            renderPage(allArticles.filter(a => a.title.toLowerCase().includes(term) || a.excerpt.toLowerCase().includes(term)));
+        });
+
+        window.onload = loadContent;
     </script>
 </body>
 </html>

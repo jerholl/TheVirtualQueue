@@ -19,6 +19,13 @@
         .nav-links-wrap { position: relative; display: flex; align-items: center; gap: 10px; }
         nav a { text-decoration: none; color: var(--muted); text-transform: uppercase; font-size: 1.25rem; font-weight: 700; letter-spacing: 2px; padding: 8px 16px; border-radius: 4px; transition: color 0.3s ease, background 0.3s ease; }
         nav a:hover { color: var(--cyan); background: rgba(0,212,255,0.06); }
+        /* Search Bar */
+        .search-box { display: flex; align-items: center; position: relative; margin-left: 8px; }
+        #site-search { width: 0; padding: 0; border: none; background: transparent; color: var(--text); outline: none; transition: width 0.4s ease, padding 0.4s ease; font-family: 'Roboto Slab', serif; border-bottom: 2px solid transparent; font-size: 0.95rem; }
+        .search-box.active #site-search { width: 180px; padding: 5px 10px; border-bottom: 2px solid var(--cyan); }
+        .search-icon-btn { background: none; border: none; color: var(--muted); cursor: pointer; display: flex; align-items: center; padding: 8px; transition: color 0.2s; }
+        .search-icon-btn:hover { color: var(--cyan); }
+
         .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; z-index: 1100; }
         .hamburger span { display: block; width: 26px; height: 3px; background: var(--text); border-radius: 2px; transition: all 0.3s ease; }
         .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
@@ -43,12 +50,8 @@
         .featured-grid { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 60px; justify-content: center; }
         .featured-card { flex: 1 1 320px; background: var(--surface); border-radius: 10px; border: 1px solid var(--border); overflow: hidden; text-decoration: none; color: var(--text); transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; }
         .featured-card:hover { transform: translateY(-6px); border-color: var(--blue); box-shadow: 0 10px 35px rgba(0,119,204,0.2); }
-        .featured-card-img {  width: 100%; height: 220px; object-fit: cover; /* This crops the image to fill the space perfectly */ border-bottom: 1px solid var(--border); display: block;
-}
-
-/* Keep the placeholder style as a backup */
-.featured-card-img-placeholder {  width: 100%;  height: 220px;  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);   display: flex; align-items: center;  justify-content: center;font-size: 2.5rem;
-}
+        .featured-card-img-placeholder { width: 100%; height: 220px; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
+        .featured-card-img { width: 100%; height: 220px; object-fit: cover; display: block; }
         .featured-card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
         .featured-card-tag { display: inline-block; background: var(--blue); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; width: fit-content; }
         .featured-card-tag.cyan { background: transparent; border: 1px solid var(--cyan); color: var(--cyan); }
@@ -57,75 +60,33 @@
         .featured-card-date { font-size: 0.75rem; color: #555; letter-spacing: 1px; }
         @media (max-width: 768px) { .featured-card { flex: 1 1 100%; } .page-title h1 { font-size: 1.6rem; } }
 
-        /* Styles for the "More Stories" List */
-.section-heading { color: #fff; border-left: 4px solid var(--blue); padding-left: 15px; margin: 40px 0 20px; font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; }
-.article-list { display: flex; flex-direction: column; }
-.article-list-item { display: flex; align-items: flex-start; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--border); text-decoration: none; color: var(--text); }
-.article-list-item:hover .article-list-title { color: var(--cyan); }
-.article-list-date { min-width: 90px; font-size: 0.78rem; color: #555; letter-spacing: 1px; padding-top: 3px; text-align: right; }
-.article-list-content { flex: 1; }
-.article-list-tag { font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--blue); margin-bottom: 4px; }
-.article-list-title { font-size: 0.98rem; font-weight: 700; color: var(--text); transition: color 0.2s ease; line-height: 1.4; }
-.article-list-excerpt { font-size: 0.82rem; color: var(--muted); font-weight: 300; margin-top: 4px; }
-
-@media (max-width: 768px) {
-    .article-list-date { min-width: 70px; font-size: 0.72rem; text-align: left; }
-    .article-list-item { flex-direction: column; gap: 5px; }
-}
-.hero-card {
-    display: flex;
-    flex-direction: row; /* Side-by-side layout */
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    text-decoration: none;
-    color: var(--text);
-    margin-bottom: 30px;
-    transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-.hero-card:hover { transform: translateY(-4px); border-color: var(--cyan); }
-
-.hero-img {
-    width: 60%; /* Takes up more width than it is tall */
-    height: 400px;
-    object-fit: cover;
-}
-
-.hero-body {
-    padding: 40px;
-    width: 40%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 15px;
-}
-
-.hero-body h2 { font-size: 2rem; color: #fff; line-height: 1.2; }
-
-/* Mobile Responsiveness: Stack it when the screen is small */
-@media (max-width: 768px) {
-    .hero-card { flex-direction: column; }
-    .hero-img { width: 100%; height: 250px; }
-    .hero-body { width: 100%; padding: 24px; }
-    .hero-body h2 { font-size: 1.5rem; }
-}
-
+        .hero-card { display: flex; flex-direction: row; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; text-decoration: none; color: var(--text); margin-bottom: 30px; transition: transform 0.3s, border-color 0.3s; }
+        .hero-card:hover { transform: translateY(-4px); border-color: var(--cyan); }
+        .hero-img { width: 60%; height: 400px; object-fit: cover; }
+        .hero-body { padding: 40px; width: 40%; display: flex; flex-direction: column; justify-content: center; gap: 15px; }
+        .hero-body h2 { font-size: 2rem; color: var(--title-color); line-height: 1.2; }
+        .section-heading { color: var(--title-color); border-left: 4px solid var(--blue); padding-left: 15px; margin: 40px 0 20px; font-size: 1.2rem; text-transform: uppercase; }
+        .article-list-item { display: flex; align-items: flex-start; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--border); text-decoration: none; color: var(--text); }
+        .article-list-item:hover .article-list-title { color: var(--cyan); }
+        @media (max-width: 768px) { .hero-card { flex-direction: column; } .hero-img, .hero-body { width: 100%; } .hero-body { padding: 24px; } }
     </style>
 </head>
 <body>
-    <nav>
+        <nav>
         <div class="nav-logo-wrap">
-            <img src="./VQNewLOGO.png" alt="..." class="nav-logo">
+            <a href="/"><img src="./VQNewLOGO.png" alt="The Virtual Queue Logo" class="nav-logo"></a>
         </div>
         <div class="nav-links-wrap">
-            <a href="/">Home</a>
+            <a href="/" style="color:var(--cyan)">Home</a>
             <a href="/disney">Disney</a>
             <a href="/universal">Universal</a>
             <a href="/other">Other</a>
             <a href="/about">About Us</a>
             <a href="/contact">Contact</a>
+            <div class="search-box">
+                <input type="text" id="site-search" placeholder="Search the Queue...">
+                <button class="search-icon-btn" id="search-toggle"><svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+            </div>
         </div>
         <button class="hamburger" id="hamburger" aria-label="Menu">
             <span></span><span></span><span></span>
@@ -140,101 +101,75 @@
         <a href="/contact">Contact</a>
     </div>
     <div class="container">
-    <div class="page-title"><h1>The Virtual <span>Queue</span></h1><div class="page-title-line"></div></div>
-
-    <div id="hero-container"></div>
-
-    <div class="featured-grid" id="article-container"></div>
-    
-    <h2 class="section-heading">More Stories</h2>
-    <div class="article-list" id="more-stories-container"></div>
-</div> 
+        <div class="page-title"><h1>The Virtual <span>Queue</span></h1><div class="page-title-line"></div></div>
+        <div id="hero-container"></div>
+        <div class="featured-grid" id="article-container"></div>
+        <h2 class="section-heading">More Stories</h2>
+        <div class="article-list" id="more-stories-container"></div>
+    </div>
 
     <footer>&copy; 2026 The Virtual Queue. All rights reserved.</footer>
-
     <script>
-        // 1. Mobile Menu Logic
         const btn = document.getElementById('hamburger');
         const menu = document.getElementById('mobile-menu');
-        btn.addEventListener('click', () => { 
-            btn.classList.toggle('open'); 
-            menu.classList.toggle('open'); 
-        });
-        menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { 
-            btn.classList.remove('open'); 
-            menu.classList.remove('open'); 
-        }));
+        btn.addEventListener('click', () => { btn.classList.toggle('open'); menu.classList.toggle('open'); });
+        menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { btn.classList.remove('open'); menu.classList.remove('open'); }));
+        const searchToggle = document.getElementById('search-toggle');
+        const searchBox = document.querySelector('.search-box');
+        const searchInput = document.getElementById('site-search');
+        if (searchToggle) { searchToggle.addEventListener('click', () => { searchBox.classList.toggle('active'); if (searchBox.classList.contains('active')) searchInput.focus(); }); }
 
-        // 2. Article Loading Logic
-       async function loadArticles() {
-    try {
-        const response = await fetch('articles.json');
-        const articles = await response.json();
-        
-        const heroContainer = document.getElementById('hero-container');
-        const cardContainer = document.getElementById('article-container');
-        const listContainer = document.getElementById('more-stories-container');
+        let allArticles = [];
+        async function loadContent() {
+            try {
+                const response = await fetch('articles.json');
+                allArticles = await response.json();
+                renderPage(allArticles);
+            } catch (e) { console.error(e); }
+        }
 
-        // 1. THE HERO (Article #1)
-        const hero = articles[0];
-        // NEW Hero Image logic with safety net
-const heroImage = hero.image 
-    ? `<img src="${hero.image}" class="hero-img" onerror="this.style.display='none'; document.getElementById('hero-fallback').style.display='flex';">
-       <div id="hero-fallback" class="hero-img featured-card-img-placeholder" style="display:none;">${hero.icon}</div>`
-    : `<div class="hero-img featured-card-img-placeholder">${hero.icon}</div>`;
-        
-        heroContainer.innerHTML = `
-            <a href="${hero.link}" class="hero-card">
-                ${heroImage}
-                <div class="hero-body">
-                    <span class="featured-card-tag">${hero.category}</span>
-                    <h2>${hero.title}</h2>
-                    <p>${hero.excerpt}</p>
-                    <span class="featured-card-date">${hero.date}</span>
-                </div>
-            </a>`;
+        function renderPage(articles) {
+            const heroCont = document.getElementById('hero-container');
+            const cardCont = document.getElementById('article-container');
+            const listCont = document.getElementById('more-stories-container');
+            heroCont.innerHTML = ''; cardCont.innerHTML = ''; listCont.innerHTML = '';
 
-        // 2. THE CARDS (Articles #2, #3, #4)
-        cardContainer.innerHTML = ''; 
-        articles.slice(1, 4).forEach(article => {
-            // NEW Card Image logic with safety net
-const img = article.image 
-    ? `<div style="position:relative; height:220px;">
-         <img src="${article.image}" class="featured-card-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-         <div class="featured-card-img-placeholder" style="display:none; height:100%;">${article.icon}</div>
-       </div>`
-    : `<div class="featured-card-img-placeholder">${article.icon}</div>`;
-            cardContainer.innerHTML += `
-                <a href="${article.link}" class="featured-card">
-                    ${img}
+            if (articles[0]) {
+                heroCont.innerHTML = `<a href="article.html?id=${articles[0].id}" class="hero-card">
+                    <img src="${articles[0].image}" class="hero-img" onerror="this.style.display='none'">
+                    <div class="hero-body">
+                        <span class="featured-card-tag">${articles[0].category}</span>
+                        <h2>${articles[0].title}</h2>
+                        <p>${articles[0].excerpt}</p>
+                        <span class="featured-card-date">${articles[0].date}</span>
+                    </div></a>`;
+            }
+            articles.slice(1, 4).forEach(a => {
+                cardCont.innerHTML += `<a href="article.html?id=${a.id}" class="featured-card">
+                    <img src="${a.image}" class="featured-card-img" onerror="this.style.display='none'">
                     <div class="featured-card-body">
-                        <span class="featured-card-tag ${article.categoryClass || ''}">${article.category}</span>
-                        <h3>${article.title}</h3>
-                        <p>${article.excerpt}</p>
-                        <span class="featured-card-date">${article.date}</span>
-                    </div>
-                </a>`;
+                        <span class="featured-card-tag">${a.category}</span>
+                        <h3>${a.title}</h3><p>${a.excerpt}</p>
+                        <span class="featured-card-date">${a.date}</span>
+                    </div></a>`;
+            });
+            articles.slice(4).forEach(a => {
+                listCont.innerHTML += `<a href="article.html?id=${a.id}" class="article-list-item">
+                    <span style="color:var(--muted); min-width:100px;">${a.date}</span>
+                    <div>
+                        <div style="font-size:0.75rem;color:var(--cyan);text-transform:uppercase;letter-spacing:1px;">${a.category}</div>
+                        <div style="font-weight:700;">${a.title}</div>
+                        <div style="font-size:0.85rem; color:var(--muted);">${a.excerpt}</div>
+                    </div></a>`;
+            });
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            renderPage(allArticles.filter(a => a.title.toLowerCase().includes(term) || a.excerpt.toLowerCase().includes(term)));
         });
 
-        // 3. THE LIST (Everything from #5 onwards)
-        listContainer.innerHTML = '';
-        articles.slice(4).forEach(article => {
-            listContainer.innerHTML += `
-                <a href="${article.link}" class="article-list-item">
-                    <span class="article-list-date">${article.date}</span>
-                    <div class="article-list-content">
-                        <div class="article-list-tag">${article.category}</div>
-                        <div class="article-list-title">${article.title}</div>
-                        <div class="article-list-excerpt">${article.excerpt}</div>
-                    </div>
-                </a>`;
-        });
-
-    } catch (e) { console.error(e); }
-}
-
-        // Run when page loads
-        window.onload = loadArticles;
+        window.onload = loadContent;
     </script>
 </body>
 </html>
