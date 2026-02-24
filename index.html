@@ -43,8 +43,12 @@
         .featured-grid { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 60px; justify-content: center; }
         .featured-card { flex: 1 1 320px; background: var(--surface); border-radius: 10px; border: 1px solid var(--border); overflow: hidden; text-decoration: none; color: var(--text); transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; }
         .featured-card:hover { transform: translateY(-6px); border-color: var(--blue); box-shadow: 0 10px 35px rgba(0,119,204,0.2); }
-        .featured-card-img-placeholder { width: 100%; height: 220px; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
-        .featured-card-img { width: 100%; height: 220px; object-fit: cover; display: block; }
+        .featured-card-img {  width: 100%; height: 220px; object-fit: cover; /* This crops the image to fill the space perfectly */ border-bottom: 1px solid var(--border); display: block;
+}
+
+/* Keep the placeholder style as a backup */
+.featured-card-img-placeholder {  width: 100%;  height: 220px;  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);   display: flex; align-items: center;  justify-content: center;font-size: 2.5rem;
+}
         .featured-card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
         .featured-card-tag { display: inline-block; background: var(--blue); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; width: fit-content; }
         .featured-card-tag.cyan { background: transparent; border: 1px solid var(--cyan); color: var(--cyan); }
@@ -52,6 +56,23 @@
         .featured-card p { font-size: 0.88rem; color: var(--muted); font-weight: 300; flex: 1; }
         .featured-card-date { font-size: 0.75rem; color: #555; letter-spacing: 1px; }
         @media (max-width: 768px) { .featured-card { flex: 1 1 100%; } .page-title h1 { font-size: 1.6rem; } }
+
+        /* Styles for the "More Stories" List */
+.section-heading { color: #fff; border-left: 4px solid var(--blue); padding-left: 15px; margin: 40px 0 20px; font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; }
+.article-list { display: flex; flex-direction: column; }
+.article-list-item { display: flex; align-items: flex-start; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--border); text-decoration: none; color: var(--text); }
+.article-list-item:hover .article-list-title { color: var(--cyan); }
+.article-list-date { min-width: 90px; font-size: 0.78rem; color: #555; letter-spacing: 1px; padding-top: 3px; text-align: right; }
+.article-list-content { flex: 1; }
+.article-list-tag { font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--blue); margin-bottom: 4px; }
+.article-list-title { font-size: 0.98rem; font-weight: 700; color: var(--text); transition: color 0.2s ease; line-height: 1.4; }
+.article-list-excerpt { font-size: 0.82rem; color: var(--muted); font-weight: 300; margin-top: 4px; }
+
+@media (max-width: 768px) {
+    .article-list-date { min-width: 70px; font-size: 0.72rem; text-align: left; }
+    .article-list-item { flex-direction: column; gap: 5px; }
+}
+
     </style>
 </head>
 <body>
@@ -80,43 +101,85 @@
         <a href="/contact">Contact</a>
     </div>
     <div class="container">
-        <div class="page-title"><h1>The Virtual <span>Queue</span></h1><div class="page-title-line"></div></div>
-        <div class="featured-grid">
-            <a href="/disney" class="featured-card">
-                <div class="featured-card-img-placeholder">🏰</div>
-                <div class="featured-card-body">
-                    <span class="featured-card-tag">Disney Parks</span>
-                    <h3>New Virtual Queue Rules for 2026: What You Need to Know Before You Tap</h3>
-                    <p>Disney has updated how virtual queues work across Magic Kingdom and Hollywood Studios. Here's the condensed breakdown.</p>
-                    <span class="featured-card-date">February 18, 2026</span>
-                </div>
-            </a>
-            <a href="/universal" class="featured-card">
-                <div class="featured-card-img-placeholder">🌍</div>
-                <div class="featured-card-body">
-                    <span class="featured-card-tag cyan">Epic Universe</span>
-                    <h3>Epic Universe Opens in 2025: Everything We Know So Far</h3>
-                    <p>Universal's newest park is the biggest theme park expansion in decades. Here's what to expect on opening day.</p>
-                    <span class="featured-card-date">February 15, 2026</span>
-                </div>
-            </a>
-            <a href="#" class="featured-card">
-                <div class="featured-card-img-placeholder">🗺️</div>
-                <div class="featured-card-body">
-                    <span class="featured-card-tag">Pro Strategy</span>
-                    <h3>The 7:00 AM Rush: A Step-by-Step Guide to Securing Your Boarding Group</h3>
-                    <p>Seconds matter. We walk you through exactly what to do the moment the clock hits 7:00 AM.</p>
-                    <span class="featured-card-date">January 29, 2026</span>
-                </div>
-            </a>
+        <div class="page-title">
+            <h1>The Virtual <span>Queue</span></h1>
+            <div class="page-title-line"></div>
         </div>
-    </div>
+
+        <div class="featured-grid" id="article-container"></div>
+
+        <h2 class="section-heading">More Stories</h2>
+        <div class="article-list" id="more-stories-container"> </div>  
+
     <footer>&copy; 2026 The Virtual Queue. All rights reserved.</footer>
+
     <script>
+        // 1. Mobile Menu Logic
         const btn = document.getElementById('hamburger');
         const menu = document.getElementById('mobile-menu');
-        btn.addEventListener('click', () => { btn.classList.toggle('open'); menu.classList.toggle('open'); });
-        menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { btn.classList.remove('open'); menu.classList.remove('open'); }));
+        btn.addEventListener('click', () => { 
+            btn.classList.toggle('open'); 
+            menu.classList.toggle('open'); 
+        });
+        menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { 
+            btn.classList.remove('open'); 
+            menu.classList.remove('open'); 
+        }));
+
+        // 2. Article Loading Logic
+       async function loadArticles() {
+    try {
+        const response = await fetch('articles.json');
+        const articles = await response.json();
+        
+        const cardContainer = document.getElementById('article-container');
+        const listContainer = document.getElementById('more-stories-container');
+
+        cardContainer.innerHTML = ''; 
+        listContainer.innerHTML = '';
+
+        // 1. Fill the top 3 Featured Cards
+        const featured = articles.slice(0, 3);
+        // Replace the card generation loop with this:
+featured.forEach(article => {
+    // Check if image exists, otherwise use the emoji placeholder
+    const imageHtml = article.image 
+        ? `<img src="${article.image}" class="featured-card-img" alt="${article.title}">`
+        : `<div class="featured-card-img-placeholder">${article.icon}</div>`;
+
+    cardContainer.innerHTML += `
+        <a href="${article.link}" class="featured-card">
+            ${imageHtml}
+            <div class="featured-card-body">
+                <span class="featured-card-tag ${article.categoryClass || ''}">${article.category}</span>
+                <h3>${article.title}</h3>
+                <p>${article.excerpt}</p>
+                <span class="featured-card-date">${article.date}</span>
+            </div>
+        </a>`;
+});
+
+        // Fill the "More Stories" list with everything AFTER the first 3
+        const moreStories = articles.slice(3);
+        moreStories.forEach(article => {
+            listContainer.innerHTML += `
+                <a href="${article.link}" class="article-list-item">
+                    <span class="article-list-date">${article.date}</span>
+                    <div class="article-list-content">
+                        <div class="article-list-tag">${article.category}</div>
+                        <div class="article-list-title">${article.title}</div>
+                        <div class="article-list-excerpt">${article.excerpt}</div>
+                    </div>
+                </a>`;
+        });
+
+    } catch (error) {
+        console.error("Error loading articles:", error);
+    }
+}
+
+        // Run when page loads
+        window.onload = loadArticles;
     </script>
 </body>
 </html>
