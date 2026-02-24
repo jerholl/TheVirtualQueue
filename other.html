@@ -11,6 +11,8 @@
         body { background-color: var(--bg); color: var(--text); font-family: 'Roboto Slab', serif; line-height: 1.6; }
         .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px 60px; }
         footer { text-align: center; padding: 40px; color: var(--muted); border-top: 1px solid var(--border); font-size: 0.85rem; letter-spacing: 1px; }
+        
+        /* Nav Bar */
         nav { border-bottom: 1px solid var(--border); padding: 0 20px; display: flex; justify-content: center; align-items: center; gap: 10px; background-color: var(--bg); position: sticky; top: 0; z-index: 1000; height: 100px; overflow: visible; }
         .nav-logo-wrap { position: relative; display: flex; align-items: center; }
         .nav-logo-wrap::after { content: ""; position: absolute; top: 75%; left: 200%; transform: translateX(-50%); width: 880px; height: 10px; border-left: 3px solid var(--cyan); border-bottom: 3px solid var(--cyan); border-bottom-left-radius: 6px; box-shadow: -4px 4px 12px rgba(0,212,255,0.5), 0px 4px 12px rgba(0,212,255,0.3); pointer-events: none; }
@@ -19,23 +21,15 @@
         .nav-links-wrap { position: relative; display: flex; align-items: center; gap: 10px; }
         nav a { text-decoration: none; color: var(--muted); text-transform: uppercase; font-size: 1.25rem; font-weight: 700; letter-spacing: 2px; padding: 8px 16px; border-radius: 4px; transition: color 0.3s ease, background 0.3s ease; }
         nav a:hover { color: var(--cyan); background: rgba(0,212,255,0.06); }
-        .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; z-index: 1100; }
-        .hamburger span { display: block; width: 26px; height: 3px; background: var(--text); border-radius: 2px; transition: all 0.3s ease; }
-        .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-        .hamburger.open span:nth-child(2) { opacity: 0; }
-        .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-        .mobile-menu { display: flex; flex-direction: column; position: fixed; top: 80px; left: 0; right: 0; background: var(--surface); border-bottom: 1px solid var(--border); padding: 10px 20px; z-index: 998; max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease; padding-top: 0; padding-bottom: 0; }
-        .mobile-menu.open { max-height: 400px; padding-top: 10px; padding-bottom: 10px; }
-        .mobile-menu a { text-decoration: none; color: var(--muted); text-transform: uppercase; font-size: 1rem; font-weight: 700; letter-spacing: 2px; padding: 14px 16px; border-bottom: 1px solid var(--border); transition: color 0.2s, background 0.2s; display: block; }
-        .mobile-menu a:last-child { border-bottom: none; }
-        .mobile-menu a:hover { color: var(--cyan); background: rgba(0,212,255,0.06); }
-        @media (max-width: 768px) {
-            nav { justify-content: space-between; height: 80px; }
-            .nav-logo-wrap::after { display: none; }
-            .nav-logo { height: 90px; }
-            .nav-links-wrap { display: none; }
-            .hamburger { display: flex; }
-        }
+
+        /* Hero Card Styles */
+        .hero-card { display: flex; flex-direction: row; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; text-decoration: none; color: var(--text); margin-bottom: 30px; transition: transform 0.3s ease, border-color 0.3s ease; }
+        .hero-card:hover { transform: translateY(-4px); border-color: var(--cyan); }
+        .hero-img { width: 60%; height: 400px; object-fit: cover; }
+        .hero-body { padding: 40px; width: 40%; display: flex; flex-direction: column; justify-content: center; gap: 15px; }
+        .hero-body h2 { font-size: 2rem; color: #fff; line-height: 1.2; }
+
+        /* Page Titles & Grids */
         .page-title { text-align: center; margin-bottom: 40px; }
         .page-title h1 { font-size: 2.2rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; color: #fff; }
         .page-title h1 span { color: var(--blue); }
@@ -47,11 +41,10 @@
         .featured-card-img-placeholder { width: 100%; height: 220px; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
         .featured-card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
         .featured-card-tag { display: inline-block; background: var(--blue); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; width: fit-content; }
-        .featured-card-tag.cyan { background: transparent; border: 1px solid var(--cyan); color: var(--cyan); }
-        .featured-card h3 { font-size: 1.15rem; font-weight: 700; color: #fff; line-height: 1.4; }
-        .featured-card p { font-size: 0.88rem; color: var(--muted); font-weight: 300; flex: 1; }
         .featured-card-date { font-size: 0.75rem; color: #555; letter-spacing: 1px; }
-        .section-heading { color: #fff; border-left: 4px solid var(--blue); padding-left: 15px; margin-bottom: 20px; font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; }
+
+        /* More Stories List */
+        .section-heading { color: #fff; border-left: 4px solid var(--blue); padding-left: 15px; margin: 40px 0 20px; font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; }
         .article-list { display: flex; flex-direction: column; }
         .article-list-item { display: flex; align-items: flex-start; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--border); text-decoration: none; color: var(--text); }
         .article-list-item:hover .article-list-title { color: var(--cyan); }
@@ -60,11 +53,24 @@
         .article-list-tag { font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--blue); margin-bottom: 4px; }
         .article-list-title { font-size: 0.98rem; font-weight: 700; color: var(--text); transition: color 0.2s ease; line-height: 1.4; }
         .article-list-excerpt { font-size: 0.82rem; color: var(--muted); font-weight: 300; margin-top: 4px; }
+
+        /* Mobile Logic */
+        .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; z-index: 1100; }
+        .hamburger span { display: block; width: 26px; height: 3px; background: var(--text); border-radius: 2px; transition: all 0.3s ease; }
+        .mobile-menu { display: flex; flex-direction: column; position: fixed; top: 80px; left: 0; right: 0; background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 20px; z-index: 998; max-height: 0; overflow: hidden; transition: all 0.35s ease; }
+        .mobile-menu.open { max-height: 400px; padding: 10px 20px; }
+
         @media (max-width: 768px) {
-            .page-title h1 { font-size: 1.6rem; }
-            .featured-card { flex: 1 1 100%; }
-            .article-list-date { min-width: 70px; font-size: 0.72rem; }
-            .article-list-title { font-size: 0.9rem; }
+            nav { justify-content: space-between; height: 80px; }
+            .nav-logo-wrap::after { display: none; }
+            .nav-logo { height: 90px; }
+            .nav-links-wrap { display: none; }
+            .hamburger { display: flex; }
+            .hero-card { flex-direction: column; }
+            .hero-img { width: 100%; height: 250px; }
+            .hero-body { width: 100%; padding: 24px; }
+            .article-list-item { flex-direction: column; gap: 5px; }
+            .article-list-date { text-align: left; }
         }
     </style>
 </head>
@@ -74,72 +80,108 @@
             <img src="./VQNewLOGO.png" alt="The Virtual Queue Logo" class="nav-logo">
         </div>
         <div class="nav-links-wrap">
-            <a href="/">Home</a>
-            <a href="/disney">Disney</a>
-            <a href="/universal">Universal</a>
-            <a href="/other">Other</a>
-            <a href="/about">About Us</a>
-            <a href="/contact">Contact</a>
+            <a href="index.html">Home</a>
+            <a href="disney.html">Disney</a>
+            <a href="universal.html">Universal</a>
+            <a href="other.html" style="color:var(--cyan)">Other</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact</a>
         </div>
-        <button class="hamburger" id="hamburger" aria-label="Menu">
-            <span></span><span></span><span></span>
-        </button>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
     </nav>
     <div class="mobile-menu" id="mobile-menu">
-        <a href="/">Home</a>
-        <a href="/disney">Disney</a>
-        <a href="/universal">Universal</a>
-        <a href="/other">Other</a>
-        <a href="/about">About Us</a>
-        <a href="/contact">Contact</a>
+        <a href="index.html">Home</a>
+        <a href="disney.html">Disney</a>
+        <a href="universal.html">Universal</a>
+        <a href="other.html">Other</a>
     </div>
+
     <div class="container">
         <div class="page-title"><h1>Other <span>Parks</span></h1><div class="page-title-line"></div></div>
-        <div class="featured-grid">
-            <a href="#" class="featured-card">
-                <div class="featured-card-img-placeholder">🎢</div>
-                <div class="featured-card-body">
-                    <span class="featured-card-tag">SeaWorld</span>
-                    <h3>SeaWorld Orlando in 2026: What's New, What's Gone, and What's Worth It</h3>
-                    <p>From new coasters to revamped shows, here's a quick breakdown of everything that changed at SeaWorld this year.</p>
-                    <span class="featured-card-date">February 12, 2026</span>
-                </div>
-            </a>
-            <a href="#" class="featured-card">
-                <div class="featured-card-img-placeholder">🌊</div>
-                <div class="featured-card-body">
-                    <span class="featured-card-tag cyan">Busch Gardens</span>
-                    <h3>Busch Gardens Tampa: Is the Queue System Actually Better Than Disney's?</h3>
-                    <p>We compare wait times, virtual queue availability, and overall crowd management at Busch Gardens vs. the big two.</p>
-                    <span class="featured-card-date">February 5, 2026</span>
-                </div>
-            </a>
-            <a href="#" class="featured-card">
-                <div class="featured-card-img-placeholder">🎠</div>
-                <div class="featured-card-body">
-                    <span class="featured-card-tag">Pro Strategy</span>
-                    <h3>The Best Non-Disney, Non-Universal Parks Worth the Drive in 2026</h3>
-                    <p>Legoland, Knott's, Six Flags and more — we break down which regional parks are actually worth your time and money.</p>
-                    <span class="featured-card-date">January 22, 2026</span>
-                </div>
-            </a>
-        </div>
+        
+        <div id="hero-container"></div>
+        <div class="featured-grid" id="article-container"></div>
+        
         <h2 class="section-heading">More Park Stories</h2>
-        <div class="article-list">
-            <a href="#" class="article-list-item"><span class="article-list-date">Jan 15, 2026</span><div class="article-list-content"><div class="article-list-tag">Legoland</div><div class="article-list-title">Legoland Florida 2026: Best for Kids, But What About the Adults?</div><div class="article-list-excerpt">A parent's guide to surviving Legoland without losing your mind — or your wallet.</div></div></a>
-            <a href="#" class="article-list-item"><span class="article-list-date">Jan 8, 2026</span><div class="article-list-content"><div class="article-list-tag">Six Flags</div><div class="article-list-title">Six Flags Flash Pass vs. Disney Lightning Lane: Which Is the Better Skip-the-Line?</div><div class="article-list-excerpt">Same concept, very different execution. Here's how they stack up head to head.</div></div></a>
-            <a href="#" class="article-list-item"><span class="article-list-date">Dec 30, 2025</span><div class="article-list-content"><div class="article-list-tag">SeaWorld</div><div class="article-list-title">SeaWorld's Quick Queue: How It Works and Whether It's Worth Buying</div><div class="article-list-excerpt">We break down the tiers, the cost, and the rides that actually need it.</div></div></a>
-            <a href="#" class="article-list-item"><span class="article-list-date">Dec 18, 2025</span><div class="article-list-content"><div class="article-list-tag">Busch Gardens</div><div class="article-list-title">Christmas Town at Busch Gardens: A Quick-Read Review</div><div class="article-list-excerpt">Lights, rides, and holiday vibes — our honest take on whether it's worth the trip.</div></div></a>
-            <a href="#" class="article-list-item"><span class="article-list-date">Dec 5, 2025</span><div class="article-list-content"><div class="article-list-tag">Pro Strategy</div><div class="article-list-title">How to Visit Multiple Orlando Parks in One Trip Without Burning Out</div><div class="article-list-excerpt">Pacing, priorities, and the parks you can skip — a condensed guide for the multi-park visitor.</div></div></a>
-            <a href="#" class="article-list-item"><span class="article-list-date">Nov 20, 2025</span><div class="article-list-content"><div class="article-list-tag">Knott's Berry Farm</div><div class="article-list-title">Knott's Berry Farm: The Most Underrated Park in America?</div><div class="article-list-excerpt">No virtual queue, shorter waits, lower prices — we make the case for California's oldest theme park.</div></div></a>
-        </div>
+        <div class="article-list" id="more-stories-container"></div>
     </div>
+
     <footer>&copy; 2026 The Virtual Queue. All rights reserved.</footer>
+
     <script>
         const btn = document.getElementById('hamburger');
         const menu = document.getElementById('mobile-menu');
         btn.addEventListener('click', () => { btn.classList.toggle('open'); menu.classList.toggle('open'); });
-        menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { btn.classList.remove('open'); menu.classList.remove('open'); }));
+
+        async function loadOtherContent() {
+            try {
+                const response = await fetch('articles.json');
+                const allArticles = await response.json();
+                
+                // FILTER: Exclude Disney and Universal specifically
+                const articles = allArticles.filter(a => 
+                    a.category !== "Disney Parks" && 
+                    a.category !== "Epcot" && 
+                    a.category !== "Hollywood Studios" && 
+                    a.category !== "Epic Universe" && 
+                    a.category !== "Universal Studios" &&
+                    a.category !== "Wizarding World"
+                );
+
+                const heroContainer = document.getElementById('hero-container');
+                const cardContainer = document.getElementById('article-container');
+                const listContainer = document.getElementById('more-stories-container');
+
+                // 1. HERO (First Other Article)
+                const hero = articles[0];
+                if(hero) {
+                    const heroImg = hero.image ? `<img src="${hero.image}" class="hero-img" onerror="this.style.display='none'; document.getElementById('hero-fallback').style.display='flex';">` : '';
+                    heroContainer.innerHTML = `
+                        <a href="${hero.link}" class="hero-card">
+                            ${heroImg}
+                            <div id="hero-fallback" class="hero-img featured-card-img-placeholder" style="display:none;">${hero.icon}</div>
+                            <div class="hero-body">
+                                <span class="featured-card-tag">${hero.category}</span>
+                                <h2>${hero.title}</h2>
+                                <p>${hero.excerpt}</p>
+                                <span class="featured-card-date">${hero.date}</span>
+                            </div>
+                        </a>`;
+                }
+
+                // 2. CARDS (Articles 2-4)
+                cardContainer.innerHTML = '';
+                articles.slice(1, 4).forEach(article => {
+                    const cardImg = article.image ? `<img src="${article.image}" class="featured-card-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` : '';
+                    cardContainer.innerHTML += `
+                        <a href="${article.link}" class="featured-card">
+                            ${cardImg}
+                            <div class="featured-card-img-placeholder" style="display:none;">${article.icon}</div>
+                            <div class="featured-card-body">
+                                <span class="featured-card-tag">${article.category}</span>
+                                <h3>${article.title}</h3>
+                                <p>${article.excerpt}</p>
+                                <span class="featured-card-date">${article.date}</span>
+                            </div>
+                        </a>`;
+                });
+
+                // 3. LIST (The rest)
+                listContainer.innerHTML = '';
+                articles.slice(4).forEach(article => {
+                    listContainer.innerHTML += `
+                        <a href="${article.link}" class="article-list-item">
+                            <span class="article-list-date">${article.date}</span>
+                            <div class="article-list-content">
+                                <div class="article-list-tag">${article.category}</div>
+                                <div class="article-list-title">${article.title}</div>
+                                <div class="article-list-excerpt">${article.excerpt}</div>
+                            </div>
+                        </a>`;
+                });
+            } catch (e) { console.error(e); }
+        }
+        window.onload = loadOtherContent;
     </script>
 </body>
 </html>
