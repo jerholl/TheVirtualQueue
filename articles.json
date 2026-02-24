@@ -1,81 +1,24 @@
 [
   {
-    "title": "Epic Universe Opens",
-    "category": "Epic Universe",
-    "image": "https://placehold.co/600x400/1a1a1b/00d4ff?text=Epic+Universe",
-    "excerpt": "Universal's newest park is the biggest expansion...",
-    "date": "February 15, 2026",
-    "link": "/universal",
-    "icon": "🌍"
-  },
-  {
+    "id": "welcome-vq",
     "title": "Welcome to the VQ!",
     "category": "Disney Parks",
-    "image": "VQNewLOGO.png",
+    "image": "VQNewLogo.png",
     "excerpt": "Disney has updated how virtual queues work...",
+    "content": "Full story goes here. You can use <p>tags</p> for paragraphs!",
     "date": "February 18, 2026",
-    "link": "/disney",
+    "link": "article.html?id=welcome-vq",
     "icon": "🏰"
   },
   {
-    "title": "Epic Universe Opens",
+    "id": "epic-universe-2025",
+    "title": "Epic Universe Opens in 2025",
     "category": "Epic Universe",
-    "image": "https://placehold.co/600x400/1a1a1b/00d4ff?text=Epic+Universe",
+    "image": "epic.jpg",
     "excerpt": "Universal's newest park is the biggest expansion...",
+    "content": "Epic Universe will feature five immersive worlds...",
     "date": "February 15, 2026",
-    "link": "/universal",
+    "link": "article.html?id=epic-universe-2025",
     "icon": "🌍"
-  },
-  {
-    "title": "Thanks for stopping by!!",
-    "category": "Disney Parks",
-    "categoryClass": "",
-    "excerpt": "Disney has updated how virtual queues work across Magic Kingdom and Hollywood Studios.",
-    "date": "February 18, 2026",
-    "link": "/disney",
-    "icon": "🏰"
-  },
-  {
-    "title": "Welcome to the VQ!",
-    "category": "Disney Parks",
-    "categoryClass": "",
-    "excerpt": "Disney has updated how virtual queues work across Magic Kingdom and Hollywood Studios.",
-    "date": "February 18, 2026",
-    "link": "/disney",
-    "icon": "🏰"
-  },
-  {
-    "title": "Epic Universe Opens in 2025: Everything We Know",
-    "category": "Epic Universe",
-    "categoryClass": "cyan",
-    "excerpt": "Universal's newest park is the biggest theme park expansion in decades.",
-    "date": "February 15, 2026",
-    "link": "/universal",
-    "icon": "🌍"
-  },
-  {
-    "title": "The 7:00 AM Rush: A Step-by-Step Guide",
-    "category": "Pro Strategy",
-    "categoryClass": "",
-    "excerpt": "Seconds matter. We walk you through exactly what to do the moment the clock hits 7:00 AM.",
-    "date": "January 29, 2026",
-    "link": "#",
-    "icon": "🗺️"
-  },
-  {
-    "title": "TRON Queue Times Stabilizing",
-    "category": "Park News",
-    "excerpt": "Wait times are settling into a rhythm.",
-    "date": "Jan 20, 2026",
-    "link": "/disney",
-    "icon": "🏍️"
-  },
-  {
-    "title": "Everything Coming to Epcot",
-    "category": "Epcot",
-    "excerpt": "A quick 2-minute read on 2026 changes.",
-    "date": "Jan 14, 2026",
-    "link": "/disney",
-    "icon": "🌐"
   }
 ]
