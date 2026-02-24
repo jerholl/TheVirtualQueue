@@ -1,4 +1,75 @@
 [
+ {
+  "post": {
+    "id": "epcot-fg-2026",
+    "title": "EPCOT Flower & Garden Festival 2026: The Ultimate Foodie Guide",
+    "category": "Disney Parks",
+    "image": {
+      "url": "Epcot2026FW.jpg",
+      "alt_text": "Hero image for EPCOT International Flower & Garden Festival 2026",
+      "credit": "Image courtesy of Disney Experiences Press Room"
+    },
+    "date": "2026-02-24",
+    "author": "Jeremy",
+    "summary": "From plant-based poke bowls to rotating seasonal menus, here is every story worth tasting at EPCOT this year.",
+    "sections": [
+      {
+        "heading": "Festival Essentials",
+        "content": "Running from March 4 to June 1, 2026, the festival features over 20 outdoor kitchens and 75+ new menu items, focusing on garden-fresh storytelling and culinary innovation."
+      },
+      {
+        "heading": "New Culinary Highlights",
+        "type": "list",
+        "items": [
+          "Nectar Kitchen: plant-based Poke Bowl and Coconut Panna Cotta with matcha crumb.",
+          "Lan Yuan (China): Sha Cha Beef Bao Bun.",
+          "Florida Fresh: Blackened Fish Slider.",
+          "Magnolia Terrace: Blackened Shrimp Po' Boy.",
+          "Connections Eatery: Pizza Bianca with wild mushrooms and truffle oil.",
+          "Returning Favorites: The iconic Frushi (Japan) and Frozen Desert Violet Lemonade."
+        ]
+      },
+      {
+        "heading": "The Seasonal Rotation (EPCOT Farmer’s Feast)",
+        "type": "schedule",
+        "dates": [
+          { "label": "Early Bloom", "range": "March 4 – April 5", "focus": "Asparagus & Scallops" },
+          { "label": "Springtime", "range": "April 6 – May 10", "focus": "Heirloom Tomatoes & Beef Strip Loin" },
+          { "label": "Summer Solstice", "range": "May 11 – June 1", "focus": "Summer Solstice Menu" }
+        ]
+      },
+      {
+        "heading": "Garden Graze Food Stroll",
+        "content": "A fun, gamified way to explore the festival. Purchase 5 of the 9 specific items listed in your Festival Passport to earn stamps. Once complete, redeem them at Pineapple Promenade for a festival-exclusive souvenir prize."
+      },
+      {
+        "heading": "New Topiaries & Garden Narratives",
+        "type": "list",
+        "items": [
+          "Main Entrance: Moana, Maui, Heihei, and Pua.",
+          "World Celebration: Phineas and Ferb.",
+          "Wildlife Crossing Garden: Inspired by the upcoming Disney/Pixar film 'Hoppers'.",
+          "Pluto’s Pet-Friendly Garden: Practical tips for gardening with pets.",
+          "Trendy Tropicals: A focus on modern indoor/outdoor plant aesthetics."
+        ]
+      },
+      {
+        "heading": "Garden Rocks Concert Series",
+        "type": "list",
+        "items": [
+          "The Music of ABBA (New!) – March 5-7",
+          "Simple Plan – March 8-9",
+          "Plain White T's – May 3-4",
+          "98 Degrees – May 10-11"
+        ]
+      }
+    ],
+    "call_to_action": {
+      "text": "View Full Menu at Disney Parks Blog",
+      "url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/"
+    }
+  }
+},
   {
     "id": "welcome-vq",
     "title": "Welcome to the VQ!",
