@@ -72,6 +72,45 @@
     .article-list-date { min-width: 70px; font-size: 0.72rem; text-align: left; }
     .article-list-item { flex-direction: column; gap: 5px; }
 }
+.hero-card {
+    display: flex;
+    flex-direction: row; /* Side-by-side layout */
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--text);
+    margin-bottom: 30px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.hero-card:hover { transform: translateY(-4px); border-color: var(--cyan); }
+
+.hero-img {
+    width: 60%; /* Takes up more width than it is tall */
+    height: 400px;
+    object-fit: cover;
+}
+
+.hero-body {
+    padding: 40px;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+}
+
+.hero-body h2 { font-size: 2rem; color: #fff; line-height: 1.2; }
+
+/* Mobile Responsiveness: Stack it when the screen is small */
+@media (max-width: 768px) {
+    .hero-card { flex-direction: column; }
+    .hero-img { width: 100%; height: 250px; }
+    .hero-body { width: 100%; padding: 24px; }
+    .hero-body h2 { font-size: 1.5rem; }
+}
 
     </style>
 </head>
@@ -101,15 +140,15 @@
         <a href="/contact">Contact</a>
     </div>
     <div class="container">
-        <div class="page-title">
-            <h1>The Virtual <span>Queue</span></h1>
-            <div class="page-title-line"></div>
-        </div>
+    <div class="page-title"><h1>The Virtual <span>Queue</span></h1><div class="page-title-line"></div></div>
 
-        <div class="featured-grid" id="article-container"></div>
+    <div id="hero-container"></div>
 
-        <h2 class="section-heading">More Stories</h2>
-        <div class="article-list" id="more-stories-container"> </div>  
+    <div class="featured-grid" id="article-container"></div>
+    
+    <h2 class="section-heading">More Stories</h2>
+    <div class="article-list" id="more-stories-container"></div>
+</div> 
 
     <footer>&copy; 2026 The Virtual Queue. All rights reserved.</footer>
 
@@ -132,36 +171,44 @@
         const response = await fetch('articles.json');
         const articles = await response.json();
         
+        const heroContainer = document.getElementById('hero-container');
         const cardContainer = document.getElementById('article-container');
         const listContainer = document.getElementById('more-stories-container');
 
+        // 1. THE HERO (Article #1)
+        const hero = articles[0];
+        const heroImage = hero.image ? `<img src="${hero.image}" class="hero-img">` : `<div class="hero-img featured-card-img-placeholder">${hero.icon}</div>`;
+        
+        heroContainer.innerHTML = `
+            <a href="${hero.link}" class="hero-card">
+                ${heroImage}
+                <div class="hero-body">
+                    <span class="featured-card-tag">${hero.category}</span>
+                    <h2>${hero.title}</h2>
+                    <p>${hero.excerpt}</p>
+                    <span class="featured-card-date">${hero.date}</span>
+                </div>
+            </a>`;
+
+        // 2. THE CARDS (Articles #2, #3, #4)
         cardContainer.innerHTML = ''; 
+        articles.slice(1, 4).forEach(article => {
+            const img = article.image ? `<img src="${article.image}" class="featured-card-img">` : `<div class="featured-card-img-placeholder">${article.icon}</div>`;
+            cardContainer.innerHTML += `
+                <a href="${article.link}" class="featured-card">
+                    ${img}
+                    <div class="featured-card-body">
+                        <span class="featured-card-tag ${article.categoryClass || ''}">${article.category}</span>
+                        <h3>${article.title}</h3>
+                        <p>${article.excerpt}</p>
+                        <span class="featured-card-date">${article.date}</span>
+                    </div>
+                </a>`;
+        });
+
+        // 3. THE LIST (Everything from #5 onwards)
         listContainer.innerHTML = '';
-
-        // 1. Fill the top 3 Featured Cards
-        const featured = articles.slice(0, 3);
-        // Replace the card generation loop with this:
-featured.forEach(article => {
-    // Check if image exists, otherwise use the emoji placeholder
-    const imageHtml = article.image 
-        ? `<img src="${article.image}" class="featured-card-img" alt="${article.title}">`
-        : `<div class="featured-card-img-placeholder">${article.icon}</div>`;
-
-    cardContainer.innerHTML += `
-        <a href="${article.link}" class="featured-card">
-            ${imageHtml}
-            <div class="featured-card-body">
-                <span class="featured-card-tag ${article.categoryClass || ''}">${article.category}</span>
-                <h3>${article.title}</h3>
-                <p>${article.excerpt}</p>
-                <span class="featured-card-date">${article.date}</span>
-            </div>
-        </a>`;
-});
-
-        // Fill the "More Stories" list with everything AFTER the first 3
-        const moreStories = articles.slice(3);
-        moreStories.forEach(article => {
+        articles.slice(4).forEach(article => {
             listContainer.innerHTML += `
                 <a href="${article.link}" class="article-list-item">
                     <span class="article-list-date">${article.date}</span>
@@ -173,9 +220,7 @@ featured.forEach(article => {
                 </a>`;
         });
 
-    } catch (error) {
-        console.error("Error loading articles:", error);
-    }
+    } catch (e) { console.error(e); }
 }
 
         // Run when page loads
