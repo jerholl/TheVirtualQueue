@@ -117,7 +117,7 @@
 <body>
     <nav>
         <div class="nav-logo-wrap">
-            <img src="VQNewLOGO.png" alt="The Virtual Queue Logo" class="nav-logo">
+            <img src="./VQNewLOGO.png" alt="..." class="nav-logo">
         </div>
         <div class="nav-links-wrap">
             <a href="/">Home</a>
@@ -177,7 +177,11 @@
 
         // 1. THE HERO (Article #1)
         const hero = articles[0];
-        const heroImage = hero.image ? `<img src="${hero.image}" class="hero-img">` : `<div class="hero-img featured-card-img-placeholder">${hero.icon}</div>`;
+        // NEW Hero Image logic with safety net
+const heroImage = hero.image 
+    ? `<img src="${hero.image}" class="hero-img" onerror="this.style.display='none'; document.getElementById('hero-fallback').style.display='flex';">
+       <div id="hero-fallback" class="hero-img featured-card-img-placeholder" style="display:none;">${hero.icon}</div>`
+    : `<div class="hero-img featured-card-img-placeholder">${hero.icon}</div>`;
         
         heroContainer.innerHTML = `
             <a href="${hero.link}" class="hero-card">
@@ -193,7 +197,13 @@
         // 2. THE CARDS (Articles #2, #3, #4)
         cardContainer.innerHTML = ''; 
         articles.slice(1, 4).forEach(article => {
-            const img = article.image ? `<img src="${article.image}" class="featured-card-img">` : `<div class="featured-card-img-placeholder">${article.icon}</div>`;
+            // NEW Card Image logic with safety net
+const img = article.image 
+    ? `<div style="position:relative; height:220px;">
+         <img src="${article.image}" class="featured-card-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+         <div class="featured-card-img-placeholder" style="display:none; height:100%;">${article.icon}</div>
+       </div>`
+    : `<div class="featured-card-img-placeholder">${article.icon}</div>`;
             cardContainer.innerHTML += `
                 <a href="${article.link}" class="featured-card">
                     ${img}
