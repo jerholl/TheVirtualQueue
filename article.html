@@ -3,80 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Theme park news and updates from The Virtual Queue — fast, accurate, and condensed.">
+    <meta name="keywords" content="theme park news, Disney, Universal, virtual queue">
+    <meta name="author" content="The Virtual Queue">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="The Virtual Queue">
+    <meta property="og:title" content="The Virtual Queue | Story">
+    <meta property="og:description" content="Theme park news and updates from The Virtual Queue — fast, accurate, and condensed.">
+    <meta property="og:image" content="/VQNewLOGO.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Virtual Queue | Story">
+    <meta name="twitter:description" content="Theme park news and updates from The Virtual Queue — fast, accurate, and condensed.">
+    <meta name="twitter:image" content="/VQNewLOGO.png">
+    <link rel="canonical" href="https://thevirtualqueue.com/article">
     <title>The Virtual Queue | Story</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --bg:#121212; --surface:#1a1a1b; --border:#2a2a2a; --blue:#0077cc; --cyan:#00d4ff; --text:#e0e0e0; --muted:#888; }
+        :root { --bg:#121212; --surface:#1a1a1b; --border:#2a2a2a; --blue:#0077cc; --cyan:#00d4ff; --text:#e0e0e0; --muted:#888; --title-color:#ffffff; }
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         body { background-color: var(--bg); color: var(--text); font-family: 'Roboto Slab', serif; line-height: 1.8; }
-        
-        /* Nav Bar - Keeping your exact structure */
+
+        /* Nav */
         nav { border-bottom: 1px solid var(--border); padding: 0 20px; display: flex; justify-content: center; align-items: center; gap: 10px; background-color: var(--bg); position: sticky; top: 0; z-index: 1000; height: 100px; overflow: visible; }
         .nav-logo-wrap { position: relative; display: flex; align-items: center; }
-        .nav-logo-wrap::after { content: ""; position: absolute; top: 75%; left: 200%; transform: translateX(-50%); width: 880px; height: 10px; border-left: 3px solid var(--cyan); border-bottom: 3px solid var(--cyan); border-bottom-left-radius: 6px; box-shadow: -4px 4px 12px rgba(0,212,255,0.5), 0px 4px 12px rgba(0,212,255,0.3); pointer-events: none; }
+        .nav-logo-wrap::after { content: ""; position: absolute; top: 75%; left: 200%; transform: translateX(-50%); width: 880px; height: 10px; border-left: 3px solid var(--cyan); border-bottom: 3px solid var(--cyan); border-bottom-left-radius: 6px; box-shadow: -4px 4px 12px rgba(0,212,255,0.4); pointer-events: none; }
         .nav-logo { height: 150px; width: auto; transition: transform 0.3s ease; filter: drop-shadow(0px 0px 8px rgba(0,119,204,0.7)); display: block; }
+        .nav-logo:hover { transform: scale(1.05); }
         .nav-links-wrap { position: relative; display: flex; align-items: center; gap: 10px; }
-        nav a { text-decoration: none; color: var(--muted); text-transform: uppercase; font-size: 1.25rem; font-weight: 700; letter-spacing: 2px; padding: 8px 16px; border-radius: 4px; transition: color 0.3s ease; }
-        nav a:hover { color: var(--cyan); }
+        nav a { text-decoration: none; color: var(--muted); text-transform: uppercase; font-size: 1.25rem; font-weight: 700; letter-spacing: 2px; padding: 8px 16px; border-radius: 4px; transition: color 0.3s ease, background 0.3s ease; }
+        nav a:hover { color: var(--cyan); background: rgba(0,212,255,0.06); }
 
-        /* Search Bar - Placed after Contact */
-        .search-box { display: flex; align-items: center; position: relative; margin-left: 5px; }
-        #site-search { width: 0; padding: 0; border: none; background: transparent; color: #fff; outline: none; transition: width 0.4s ease, padding 0.4s ease; font-family: 'Roboto Slab', serif; border-bottom: 2px solid transparent; }
+        /* Search Bar */
+        .search-box { display: flex; align-items: center; position: relative; margin-left: 8px; }
+        #site-search { width: 0; padding: 0; border: none; background: transparent; color: var(--text); outline: none; transition: width 0.4s ease, padding 0.4s ease; font-family: 'Roboto Slab', serif; border-bottom: 2px solid transparent; font-size: 0.95rem; }
         .search-box.active #site-search { width: 180px; padding: 5px 10px; border-bottom: 2px solid var(--cyan); }
-        .search-icon-btn { background: none; border: none; color: var(--muted); cursor: pointer; display: flex; align-items: center; padding: 8px; }
+        .search-icon-btn { background: none; border: none; color: var(--muted); cursor: pointer; display: flex; align-items: center; padding: 8px; transition: color 0.2s; }
         .search-icon-btn:hover { color: var(--cyan); }
 
-        /* Article Content */
-        .container { max-width: 850px; margin: 0 auto; padding: 60px 20px; }
-        .back-btn { color: var(--cyan); text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; margin-bottom: 30px; display: inline-block; }
-        .article-header h1 { font-size: 2.8rem; font-weight: 900; color: #fff; margin: 15px 0; line-height: 1.1; }
-        .article-meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
-        .main-img { width: 100%; border-radius: 12px; margin-bottom: 40px; border: 1px solid var(--border); }
-        .content { font-size: 1.15rem; color: #ccc; font-weight: 300; }
-        .content p { margin-bottom: 25px; }
-
-        /* Mobile */
+        /* Hamburger */
         .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; z-index: 1100; }
-        .hamburger span { display: block; width: 26px; height: 3px; background: var(--text); border-radius: 2px; }
-        .mobile-menu { display: flex; flex-direction: column; position: fixed; top: 80px; left: 0; right: 0; background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 20px; z-index: 998; max-height: 0; overflow: hidden; transition: all 0.35s ease; }
+        .hamburger span { display: block; width: 26px; height: 3px; background: var(--text); border-radius: 2px; transition: all 0.3s ease; }
+        .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+        .mobile-menu { display: flex; flex-direction: column; position: fixed; top: 80px; left: 0; right: 0; background: var(--surface); border-bottom: 1px solid var(--border); z-index: 998; max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
         .mobile-menu.open { max-height: 400px; padding: 10px 20px; }
+        .mobile-menu a { text-decoration: none; color: var(--muted); text-transform: uppercase; font-size: 1rem; font-weight: 700; letter-spacing: 1px; padding: 14px 16px; border-bottom: 1px solid var(--border); display: block; transition: color 0.2s; }
+        .mobile-menu a:last-child { border-bottom: none; }
+        .mobile-menu a:hover { color: var(--cyan); }
 
-        @media (max-width: 992px) {
+        @media (max-width: 768px) {
             nav { justify-content: space-between; height: 80px; }
             .nav-logo-wrap::after { display: none; }
             .nav-logo { height: 90px; }
             .nav-links-wrap { display: none; }
             .hamburger { display: flex; }
         }
+
+        /* Article Content */
+        .container { max-width: 850px; margin: 0 auto; padding: 60px 20px; }
+        .back-btn { color: var(--cyan); text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; margin-bottom: 30px; display: inline-block; }
+        .back-btn:hover { color: #fff; }
+        .article-header h1 { font-size: 2.8rem; font-weight: 900; color: #fff; margin: 15px 0; line-height: 1.1; }
+        .article-meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+        .main-img { width: 100%; border-radius: 12px; margin-bottom: 40px; border: 1px solid var(--border); }
+        .content { font-size: 1.15rem; color: #ccc; font-weight: 300; }
+        .content p { margin-bottom: 25px; }
+
+        footer { text-align: center; padding: 40px; color: var(--muted); border-top: 1px solid var(--border); font-size: 0.85rem; letter-spacing: 1px; margin-top: 60px; }
     </style>
 </head>
 <body>
+
     <nav>
         <div class="nav-logo-wrap">
-            <a href="index.html"><img src="VQNewLOGO.png" alt="Logo" class="nav-logo"></a>
+            <a href="/"><img src="./VQNewLOGO.png" alt="The Virtual Queue Logo" class="nav-logo"></a>
         </div>
         <div class="nav-links-wrap">
-            <a href="index.html">Home</a>
-            <a href="disney.html">Disney</a>
-            <a href="universal.html">Universal</a>
-            <a href="other.html">Other</a>
-            <a href="about.html">About Us</a>
-            <a href="contact.html">Contact</a>
+            <a href="/">Home</a>
+            <a href="/disney">Disney</a>
+            <a href="/universal">Universal</a>
+            <a href="/other">Other</a>
+            <a href="/about">About Us</a>
+            <a href="/contact">Contact</a>
             <div class="search-box">
                 <input type="text" id="site-search" placeholder="Search the Queue...">
                 <button class="search-icon-btn" id="search-toggle">
-                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 </button>
             </div>
         </div>
-        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
     </nav>
 
     <div class="mobile-menu" id="mobile-menu">
-        <a href="index.html">Home</a>
-        <a href="disney.html">Disney</a>
-        <a href="universal.html">Universal</a>
-        <a href="other.html">Other</a>
+        <a href="/">Home</a>
+        <a href="/disney">Disney</a>
+        <a href="/universal">Universal</a>
+        <a href="/other">Other</a>
+        <a href="/about">About Us</a>
+        <a href="/contact">Contact</a>
     </div>
 
     <div class="container">
@@ -84,28 +112,25 @@
         <div id="article-view"><p>Loading story...</p></div>
     </div>
 
+    <footer>&copy; 2026 The Virtual Queue. All rights reserved.</footer>
+
     <script>
-        // Search Toggle Logic
+        // Nav
+        const btn = document.getElementById('hamburger');
+        const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => { btn.classList.toggle('open'); menu.classList.toggle('open'); });
+        menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { btn.classList.remove('open'); menu.classList.remove('open'); }));
+
+        // Search
         const searchToggle = document.getElementById('search-toggle');
         const searchBox = document.querySelector('.search-box');
         const searchInput = document.getElementById('site-search');
-
         searchToggle.addEventListener('click', () => {
             searchBox.classList.toggle('active');
-            if (searchBox.classList.contains('active')) {
-                searchInput.focus();
-            }
+            if (searchBox.classList.contains('active')) searchInput.focus();
         });
 
-        // Hamburger Logic
-        const btn = document.getElementById('hamburger');
-        const menu = document.getElementById('mobile-menu');
-        btn.addEventListener('click', () => { 
-            btn.classList.toggle('open'); 
-            menu.classList.toggle('open'); 
-        });
-
-        // Content Loader Logic
+        // Article Loader
         async function loadStory() {
             const params = new URLSearchParams(window.location.search);
             const storyId = params.get('id');
@@ -117,10 +142,22 @@
                 const story = articles.find(a => a.id == storyId);
 
                 if (story) {
+                    // Dynamically update meta/SEO tags for this specific article
+                    document.title = story.title + ' | The Virtual Queue';
+                    document.querySelector('meta[name="description"]')?.setAttribute('content', story.excerpt);
+                    document.querySelector('meta[property="og:title"]')?.setAttribute('content', story.title + ' | The Virtual Queue');
+                    document.querySelector('meta[property="og:description"]')?.setAttribute('content', story.excerpt);
+                    document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', story.title + ' | The Virtual Queue');
+                    document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', story.excerpt);
+                    if (story.image) {
+                        document.querySelector('meta[property="og:image"]')?.setAttribute('content', story.image);
+                        document.querySelector('meta[name="twitter:image"]')?.setAttribute('content', story.image);
+                    }
+
                     view.innerHTML = `
                         <div class="article-header">
                             <h1>${story.title}</h1>
-                            <div class="article-meta">${story.category} | ${story.date}</div>
+                            <div class="article-meta">${story.category} &nbsp;|&nbsp; ${story.date}</div>
                         </div>
                         <img src="${story.image}" class="main-img" onerror="this.style.display='none'">
                         <div class="content">
@@ -128,10 +165,11 @@
                             ${story.content || '<p>Full content is arriving soon.</p>'}
                         </div>`;
                 } else {
-                    view.innerHTML = `<h1>Story Not Found</h1>`;
+                    view.innerHTML = `<h1 style="color:#fff;">Story Not Found</h1>`;
                 }
             } catch (e) { console.error(e); }
         }
+
         window.onload = loadStory;
     </script>
 </body>
