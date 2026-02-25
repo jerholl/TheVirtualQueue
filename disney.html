@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Stay up to date on Disney Parks news — Magic Kingdom, EPCOT, Hollywood Studios, Animal Kingdom, and more. Fast reads, accurate info.">
-    <meta name="keywords" content="Disney Parks news, Magic Kingdom, EPCOT, Hollywood Studios, Animal Kingdom, Lightning Lane, Disney virtual queue">
+    <meta name="description" content="Stay up to date on Disney Parks news — Magic Kingdom, EPCOT, Hollywood Studios, Animal Kingdom, and more.">
+    <meta name="keywords" content="Disney Parks news, Magic Kingdom, EPCOT, Hollywood Studios, Animal Kingdom">
     <meta name="author" content="The Virtual Queue">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="The Virtual Queue">
     <meta property="og:title" content="Disney Parks News | The Virtual Queue">
-    <meta property="og:description" content="Stay up to date on Disney Parks news — Magic Kingdom, EPCOT, Hollywood Studios, Animal Kingdom, and more. Fast reads, accurate info.">
+    <meta property="og:description" content="Stay up to date on Disney Parks news — Magic Kingdom, EPCOT, Hollywood Studios, Animal Kingdom, and more.">
     <meta property="og:image" content="/VQNewLOGO.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Disney Parks News | The Virtual Queue">
-    <meta name="twitter:description" content="Stay up to date on Disney Parks news — Magic Kingdom, EPCOT, Hollywood Studios, Animal Kingdom, and more. Fast reads, accurate info.">
+    <meta name="twitter:description" content="Stay up to date on Disney Parks news — Magic Kingdom, EPCOT, Hollywood Studios, Animal Kingdom, and more.">
     <meta name="twitter:image" content="/VQNewLOGO.png">
     <link rel="canonical" href="https://thevirtualqueue.com/disney">
     <title>Disney Parks News | The Virtual Queue</title>
@@ -127,6 +127,7 @@
     <script type="module">
         import { createClient } from 'https://esm.sh/@sanity/client';
         const client = createClient({ projectId: '8qrlygx8', dataset: 'production', useCdn: true, apiVersion: '2024-02-24' });
+
         // Nav & hamburger
         const btn = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -137,6 +138,7 @@
         const searchBox = document.querySelector('.search-box');
         const searchInput = document.getElementById('site-search');
         searchToggle.addEventListener('click', () => { searchBox.classList.toggle('active'); if (searchBox.classList.contains('active')) searchInput.focus(); });
+
 
         function renderPage(articles, emptyMsg) {
             const heroCont = document.getElementById('hero-container');
@@ -179,7 +181,7 @@
         let allArticles = [];
         async function loadContent() {
             try {
-                allArticles = await client.fetch(`*[_type == "post" && defined(categories) && "disney" in categories[]->slug.current] | order(coalesce(publishedAt, _createdAt) desc) {
+                allArticles = await client.fetch(`*[_type == "post" && defined(categories) && count(categories[lower(@->title) in ["disney","epcot","animal kingdom","hollywood studios","magic kingdom"]]) > 0] | order(coalesce(publishedAt, _createdAt) desc) {
             "id": slug.current,
             title,
             "excerpt": pt::text(body)[0..200],
