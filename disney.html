@@ -167,25 +167,26 @@
     });
 
     async function loadContent() {
-        try {
-            // This query only grabs posts where the category is 'disney'
-            const query = `*[_type == "post" && categories[0]->slug.current == "disney"] | order(_createdAt desc) {
-    "id": slug.current,
-    title,
-    "image": mainImage.asset->url,
-    "category": categories[0]->title,
-    "date": coalesce(publishedAt, _createdAt),
-    "excerpt": array::join(string::split(pt::text(body), "")[0..100], "") + "..."
-}`;
+    const query = encodeURIComponent(`*[_type == "post" && categories[0]->slug.current == "disney"] | order(_createdAt desc)`);
+    const url = `https://8qrlygx8.api.sanity.io/v2024-02-24/data/query/production?query=${query}`;
 
-            const articles = await client.fetch(query);
-            
-            renderPage(articles);
-        } catch (e) { 
-            console.error("Sanity Error:", e); 
-            document.getElementById('article-container').innerHTML = "<p>Error connecting to the Grid.</p>";
-        }
-    }
+    try {
+        const response = await fetch(url);
+        const { result } = await response.json();
+        
+        // Map Sanity data to the format your renderPage function expects
+        allArticles = result.map(story => ({
+            id: story.slug.current,
+            title: story.title,
+            image: story.mainImage?.asset?._ref ? `https://cdn.sanity.io/images/8qrlygx8/production/${story.mainImage.asset._ref.replace('image-', '').replace('-jpg', '.jpg')}` : './VQNewLOGO.png',
+            category: "disney",
+            date: new Date(story._createdAt).toLocaleDateString(),
+            excerpt: "Theme park updates..." 
+        }));
+        
+        renderPage(allArticles);
+    } catch (e) { console.error("Disney Fetch Error:", e); }
+}
 
     function renderPage(articles) {
         const heroCont = document.getElementById('hero-container');

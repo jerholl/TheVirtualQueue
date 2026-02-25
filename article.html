@@ -143,24 +143,24 @@ async function initArticle() {
     return;
   }
 
-  // Updated query to fetch the category name and formatted body
-  const query = `*[_type == "post" && slug.current == $id][0]{
+  // The query needs to look for the post type and match the slug
+  const query = encodeURIComponent(`*[_type == "post" && slug.current == $id][0]{
     title,
-    "image": mainImage.asset->url + "?w=1200&auto=format",
+    "image": mainImage.asset->url,
     "category": categories[0]->title,
     "date": coalesce(publishedAt, _createdAt),
     body
-  }`;
+  }`);
 
-  const encodedQuery = encodeURIComponent(query);
-  const url = `https://8qrlygx8.api.sanity.io/v2024-02-24/data/query/production?query=${encodedQuery}&$id=%22${storyId}%22`;
+  // IMPORTANT: The %22 below adds the necessary quotes around your ID
+  const url = `https://8qrlygx8.api.sanity.io/v2024-02-24/data/query/production?query=${query}&$id=%22${storyId}%22`;
 
   try {
     const response = await fetch(url);
     const { result: story } = await response.json();
 
     if (!story) {
-      view.innerHTML = "<h2>Story not found.</h2><p>Check if the slug in Sanity matches: " + storyId + "</p>";
+      view.innerHTML = `<h2>Story not found.</h2><p>Sanity couldn't find a post with the slug: <b>${storyId}</b></p>`;
       return;
     }
 
@@ -170,13 +170,10 @@ async function initArticle() {
       <div class="article-header">
         <h1>${story.title}</h1>
         <div class="article-meta">
-          ${story.category || "Theme Parks"} | 
-          ${new Date(story.date).toLocaleDateString()}
+          ${story.category || "Disney"} | ${new Date(story.date).toLocaleDateString()}
         </div>
       </div>
-
       ${story.image ? `<img src="${story.image}" class="main-img">` : ""}
-
       <div class="content">
         ${window.portableTextToHtml.toHTML(story.body)}
       </div>
