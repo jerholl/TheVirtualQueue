@@ -127,14 +127,14 @@
         <p>&copy; 2026 The Virtual Queue. All rights reserved.</p>
     </footer>
 
-    <script src="https://unpkg.com/@sanity/client@6.12.1/dist/index.browser.js"></script>
+    <script src="https://unpkg.com/@sanity/client@6.15.10/dist/index.browser.js"></script>
     <script>
-        const sanityClient = window._sanityClient.createClient({
-            projectId: 'YOp08g48u3', // <--- REPLACE THIS ID
-            dataset: 'production',
-            useCdn: true,
-            apiVersion: '2024-02-24'
-        });
+        const sanityClient = SanityClient.createClient({ // Removed window._sanityClient
+    projectId: 'p08g48u3', // Update this!
+    dataset: 'production',
+    useCdn: true,
+    apiVersion: '2024-02-24'
+});
 
         const btn = document.getElementById('hamburger');
         const menu = document.getElementById('mobile-menu');
