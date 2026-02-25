@@ -18,6 +18,7 @@
     <link rel="canonical" href="https://thevirtualqueue.com/article">
     <title>The Virtual Queue | Story</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;700;900&display=swap" rel="stylesheet">
+
     <style>
         :root { --bg:#121212; --surface:#1a1a1b; --border:#2a2a2a; --blue:#0077cc; --cyan:#00d4ff; --text:#e0e0e0; --muted:#888; --title-color:#ffffff; }
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -60,6 +61,7 @@
         .footer-social a:hover { color: var(--cyan); border-color: var(--cyan); background: rgba(0,212,255,0.06); }
     </style>
 </head>
+
 <body>
     <nav>
         <div class="nav-logo-wrap">
@@ -74,100 +76,135 @@
             <a href="/contact">Contact</a>
             <div class="search-box">
                 <input type="text" id="site-search" placeholder="Search the Queue...">
-                <button class="search-icon-btn" id="search-toggle"><svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+                <button class="search-icon-btn" id="search-toggle">
+                    <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
             </div>
         </div>
         <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
     </nav>
+
     <div class="mobile-menu" id="mobile-menu">
-        <a href="/">Home</a><a href="/disney">Disney</a><a href="/universal">Universal</a><a href="/other">Other</a><a href="/about">About Us</a><a href="/contact">Contact</a>
+        <a href="/">Home</a>
+        <a href="/disney">Disney</a>
+        <a href="/universal">Universal</a>
+        <a href="/other">Other</a>
+        <a href="/about">About Us</a>
+        <a href="/contact">Contact</a>
     </div>
+
     <div class="container">
         <a href="javascript:history.back()" class="back-btn">← Back to Queue</a>
         <div id="article-view"><p>Loading story...</p></div>
     </div>
-    <footer>
-        <div class="footer-social">
-            <a href="https://instagram.com/thevirtualqueue" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg></a>
-            <a href="https://facebook.com/thevirtualqueue" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
-            <a href="https://youtube.com/@thevirtualqueue" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58a2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg></a>
-            <a href="https://bsky.app/profile/thevirtualqueue.bsky.social" target="_blank" rel="noopener" aria-label="Bluesky"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.204-.659-.299-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8z"/></svg></a>
-        </div>
-        <p>&copy; 2026 The Virtual Queue. All rights reserved.</p>
-    </footer>
+<footer>
+    <div class="footer-social">
+        <a href="https://instagram.com/thevirtualqueue" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+            </svg>
+        </a>
+        <a href="https://facebook.com/thevirtualqueue" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+            </svg>
+        </a>
+        <a href="https://youtube.com/@thevirtualqueue" target="_blank" rel="noopener" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58a2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
+                <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/>
+            </svg>
+        </a>
+        <a href="https://bsky.app/profile/thevirtualqueue.bsky.social" target="_blank" rel="noopener" aria-label="Bluesky">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.204-.659-.299-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8z"/>
+            </svg>
+        </a>
+    </div>
+    <p>&copy; 2026 The Virtual Queue. All rights reserved.</p>
+</footer>
 
-   <script type="text/javascript" src="https://unpkg.com/@sanity/client@6.15.10/dist/index.umd.js"></script>
-<script type="text/javascript" src="https://unpkg.com/@portabletext/to-html@2.0.13/dist/portableTextToHtml.umd.js"></script>
-    
-  <script type="text/javascript">
-    async function initArticle() {
-        const view = document.getElementById('article-view');
-        
-        // 1. Find the library regardless of which name it used to register
-        const SanityLibrary = window.SanityClient || window._sanityClient || (window['@sanity/client'] ? window['@sanity/client'].createClient : null);
-        const PortableTextLib = window.portableTextToHtml;
+<script src="https://cdn.jsdelivr.net/npm/@sanity/client@6.15.10/dist/index.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@portabletext/to-html@2.0.13/dist/portableTextToHtml.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@sanity/client@6.15.10/dist/index.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@portabletext/to-html@2.0.13/dist/portableTextToHtml.umd.js"></script>
 
-        if (!SanityLibrary) {
-            console.error("Libraries missing. Trying a 1-second delay...");
-            setTimeout(initArticle, 1000); // Try again in a second if the CDN is slow
-            return;
-        }
 
-        // 2. Setup Client
-        const sanityClient = SanityLibrary.createClient({
-            projectId: '8qrlygx8',
-            dataset: 'production',
-            useCdn: true,
-            apiVersion: '2024-02-24'
-        });
+<script>
+async function initArticle() {
+    const view = document.getElementById('article-view');
 
-        // 3. Get the ID from the URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const storyId = urlParams.get('id');
+    // Correct UMD globals
+    const SanityLibrary = window.sanityClient;
+    const PortableTextLib = window.portableTextToHtml;
 
-        if (!storyId) {
-            view.innerHTML = "<h2>No story selected. Go back to the home page!</h2>";
-            return;
-        }
-
-        try {
-            const query = `*[_type == "post" && slug.current == $id][0]{
-                title,
-                "image": mainImage.asset->url + "?w=1200&auto=format",
-                "category": categories[0]->title,
-                "date": coalesce(publishedAt, _createdAt),
-                body
-            }`;
-
-            const story = await sanityClient.fetch(query, { id: storyId });
-
-            if (story) {
-                document.title = `${story.title} | The Virtual Queue`;
-                
-                // Convert content to HTML
-                const htmlBody = PortableTextLib ? PortableTextLib.toHTML(story.body) : "<p>Content loading error.</p>";
-
-                view.innerHTML = `
-                    <div class="article-header">
-                        <h1>${story.title}</h1>
-                        <div class="article-meta">
-                            ${story.category || 'Theme Parks'} | ${new Date(story.date).toLocaleDateString()}
-                        </div>
-                    </div>
-                    ${story.image ? `<img src="${story.image}" class="main-img">` : ''}
-                    <div class="content">${htmlBody}</div>
-                `;
-            } else {
-                view.innerHTML = `<h2>Story not found.</h2>`;
-            }
-        } catch (err) {
-            console.error("Sanity Error:", err);
-            view.innerHTML = `<p>There was a glitch in the Grid. Try refreshing!</p>`;
-        }
+    if (!SanityLibrary) {
+        console.warn("Sanity client not ready, retrying...");
+        return setTimeout(initArticle, 500);
     }
 
-    // Run when everything is loaded
-    window.addEventListener('load', initArticle);
+    const client = SanityLibrary({
+        projectId: "8qrlygx8",
+        dataset: "production",
+        apiVersion: "2024-02-24",
+        useCdn: true
+    });
+
+    const params = new URLSearchParams(window.location.search);
+    const storyId = params.get("id");
+
+    if (!storyId) {
+        view.innerHTML = "<h2>No story selected.</h2>";
+        return;
+    }
+
+    try {
+        const query = `*[_type == "post" && slug.current == $id][0]{
+            title,
+            "image": mainImage.asset->url + "?w=1200&auto=format",
+            "category": categories[0]->title,
+            "date": coalesce(publishedAt, _createdAt),
+            body
+        }`;
+
+        const story = await client.fetch(query, { id: storyId });
+
+        if (!story) {
+            view.innerHTML = "<h2>Story not found.</h2>";
+            return;
+        }
+
+        document.title = `${story.title} | The Virtual Queue`;
+
+        const htmlBody = PortableTextLib
+            ? PortableTextLib.toHTML(story.body)
+            : "<p>Content failed to load.</p>";
+
+        view.innerHTML = `
+            <div class="article-header">
+                <h1>${story.title}</h1>
+                <div class="article-meta">
+                    ${story.category || "Theme Parks"} | 
+                    ${new Date(story.date).toLocaleDateString()}
+                </div>
+            </div>
+
+            ${story.image ? `<img src="${story.image}" class="main-img">` : ""}
+
+            <div class="content">
+                ${htmlBody}
+            </div>
+        `;
+    } catch (err) {
+        console.error("Sanity Error:", err);
+        view.innerHTML = "<p>There was a glitch in the Grid. Try refreshing!</p>";
+    }
+}
+
+window.addEventListener("load", initArticle);
 </script>
-</body>
-</html>
