@@ -156,81 +156,78 @@
         </div>
         <p>&copy; 2026 The Virtual Queue. All rights reserved.</p>
     </footer>
-    <script>
-        const btn = document.getElementById('hamburger');
-        const menu = document.getElementById('mobile-menu');
-        btn.addEventListener('click', () => { btn.classList.toggle('open'); menu.classList.toggle('open'); });
-        menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { btn.classList.remove('open'); menu.classList.remove('open'); }));
-        const searchToggle = document.getElementById('search-toggle');
-        const searchBox = document.querySelector('.search-box');
-        const searchInput = document.getElementById('site-search');
-        if (searchToggle) { searchToggle.addEventListener('click', () => { searchBox.classList.toggle('active'); if (searchBox.classList.contains('active')) searchInput.focus(); }); }
+   <script type="module">
+    import { createClient } from 'https://esm.sh/@sanity/client';
 
-        let allArticles = [];
-        async function loadContent() {
-            try {
-                const response = await fetch('articles.json');
-                const data = await response.json();
-                
-                allArticles = data.filter(a => {
-                    const content = (a.title + a.excerpt + a.category).toLowerCase();
-                    return a.category === 'Universal Studios' ||
-                           a.category === 'Epic Universe' ||
-                           content.includes('universal') ||
-                           content.includes('hhn') ||
-                           content.includes('mario');
-                });
-                renderPage(allArticles);
-            } catch (e) { console.error(e); }
+    const client = createClient({
+        projectId: '8qrlygx8',
+        dataset: 'production',
+        useCdn: false,
+        apiVersion: '2024-02-24'
+    });
+
+    async function loadContent() {
+        try {
+            // This query only grabs posts where the category is 'disney'
+            const query = `*[_type == "post" && categories[0]->slug.current == "disney"] | order(_createdAt desc) {
+                "id": slug.current,
+                title,
+                "image": mainImage.asset->url,
+                "category": categories[0]->title,
+                "date": coalesce(publishedAt, _createdAt),
+                "excerpt": array::join(string::split(pt::text(body), "")[0..100], "") + "..."
+            }`;
+
+            const articles = await client.fetch(query);
+            
+            renderPage(articles);
+        } catch (e) { 
+            console.error("Sanity Error:", e); 
+            document.getElementById('article-container').innerHTML = "<p>Error connecting to the Grid.</p>";
+        }
+    }
+
+    function renderPage(articles) {
+        const heroCont = document.getElementById('hero-container');
+        const cardCont = document.getElementById('article-container');
+        const listCont = document.getElementById('more-stories-container');
+        
+        if (!articles || articles.length === 0) {
+            cardCont.innerHTML = "<p style='text-align:center;width:100%;margin-top:50px;'>No Disney magic found in Sanity. Make sure you've assigned the 'Disney' category to your posts!</p>";
+            return;
         }
 
-        function renderPage(articles) {
-            const heroCont = document.getElementById('hero-container');
-            const cardCont = document.getElementById('article-container');
-            const listCont = document.getElementById('more-stories-container');
-            heroCont.innerHTML = ''; cardCont.innerHTML = ''; listCont.innerHTML = '';
+        // 1. Render Hero
+        const first = articles[0];
+        heroCont.innerHTML = `<a href="article.html?id=${first.id}" class="hero-card">
+            <img src="${first.image || './VQNewLOGO.png'}" class="hero-img">
+            <div class="hero-body">
+                <span class="featured-card-tag">${first.category}</span>
+                <h2>${first.title}</h2>
+                <span class="featured-card-date">${new Date(first.date).toLocaleDateString()}</span>
+            </div></a>`;
 
-            if (articles.length === 0) {
-                cardCont.innerHTML = "<p style='text-align:center;width:100%;margin-top:50px;'>No Universal articles found.</p>";
-                return;
-            }
+        // 2. Render Grid (Posts 2-4)
+        cardCont.innerHTML = articles.slice(1, 4).map(a => `
+            <a href="article.html?id=${a.id}" class="featured-card">
+                <img src="${a.image || './VQNewLOGO.png'}" class="featured-card-img">
+                <div class="featured-card-body">
+                    <span class="featured-card-tag">${a.category}</span>
+                    <h3>${a.title}</h3>
+                    <span class="featured-card-date">${new Date(a.date).toLocaleDateString()}</span>
+                </div></a>`).join('');
 
-            if (articles[0]) {
-                heroCont.innerHTML = `<a href="article?id=${articles[0].id}" class="hero-card">
-                    <img src="${articles[0].image}" class="hero-img" onerror="this.style.display='none'">
-                    <div class="hero-body">
-                        <span class="featured-card-tag">${articles[0].category}</span>
-                        <h2>${articles[0].title}</h2>
-                        <p>${articles[0].excerpt}</p>
-                        <span class="featured-card-date">${articles[0].date}</span>
-                    </div></a>`;
-            }
-            articles.slice(1, 4).forEach(a => {
-                cardCont.innerHTML += `<a href="article?id=${a.id}" class="featured-card">
-                    <img src="${a.image}" class="featured-card-img" onerror="this.style.display='none'">
-                    <div class="featured-card-body">
-                        <span class="featured-card-tag">${a.category}</span>
-                        <h3>${a.title}</h3><p>${a.excerpt}</p>
-                        <span class="featured-card-date">${a.date}</span>
-                    </div></a>`;
-            });
-            articles.slice(4).forEach(a => {
-                listCont.innerHTML += `<a href="article?id=${a.id}" class="article-list-item">
-                    <span style="color:var(--muted);min-width:100px;">${a.date}</span>
-                    <div>
-                        <div style="font-size:0.75rem;color:var(--cyan);text-transform:uppercase;letter-spacing:1px;">${a.category}</div>
-                        <div style="font-weight:700;">${a.title}</div>
-                        <div style="font-size:0.85rem;color:var(--muted);">${a.excerpt}</div>
-                    </div></a>`;
-            });
-        }
+        // 3. Render List (The rest)
+        listCont.innerHTML = articles.slice(4).map(a => `
+            <a href="article.html?id=${a.id}" class="article-list-item">
+                <span style="color:var(--muted);min-width:100px;">${new Date(a.date).toLocaleDateString()}</span>
+                <div>
+                    <div style="font-size:0.75rem;color:var(--cyan);text-transform:uppercase;">${a.category}</div>
+                    <div style="font-weight:700;">${a.title}</div>
+                </div></a>`).join('');
+    }
 
-        searchInput.addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase();
-            renderPage(allArticles.filter(a => a.title.toLowerCase().includes(term) || a.excerpt.toLowerCase().includes(term)));
-        });
-
-        window.onload = loadContent;
-    </script>
+    window.onload = loadContent;
+</script>
 </body>
 </html>
