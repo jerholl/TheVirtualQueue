@@ -135,7 +135,6 @@
 <script>
 async function initArticle() {
   const view = document.getElementById('article-view');
-
   const params = new URLSearchParams(window.location.search);
   const storyId = params.get("id");
 
@@ -144,6 +143,7 @@ async function initArticle() {
     return;
   }
 
+  // Updated query to fetch the category name and formatted body
   const query = `*[_type == "post" && slug.current == $id][0]{
     title,
     "image": mainImage.asset->url + "?w=1200&auto=format",
@@ -153,15 +153,14 @@ async function initArticle() {
   }`;
 
   const encodedQuery = encodeURIComponent(query);
-
-  const url = `https://8qrlygx8.api.sanity.io/v2024-02-24/data/query/production?query=${encodedQuery}&$id=${storyId}`;
+  const url = `https://8qrlygx8.api.sanity.io/v2024-02-24/data/query/production?query=${encodedQuery}&$id=%22${storyId}%22`;
 
   try {
     const response = await fetch(url);
     const { result: story } = await response.json();
 
     if (!story) {
-      view.innerHTML = "<h2>Story not found.</h2>";
+      view.innerHTML = "<h2>Story not found.</h2><p>Check if the slug in Sanity matches: " + storyId + "</p>";
       return;
     }
 
@@ -171,7 +170,7 @@ async function initArticle() {
       <div class="article-header">
         <h1>${story.title}</h1>
         <div class="article-meta">
-          ${story.category || "Theme Parks"} |
+          ${story.category || "Theme Parks"} | 
           ${new Date(story.date).toLocaleDateString()}
         </div>
       </div>
@@ -179,7 +178,7 @@ async function initArticle() {
       ${story.image ? `<img src="${story.image}" class="main-img">` : ""}
 
       <div class="content">
-        <pre>${JSON.stringify(story.body, null, 2)}</pre>
+        ${window.portableTextToHtml.toHTML(story.body)}
       </div>
     `;
   } catch (err) {
