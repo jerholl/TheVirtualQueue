@@ -133,75 +133,60 @@
 <script src="https://cdn.jsdelivr.net/npm/@portabletext/to-html@2.0.13/dist/portableTextToHtml.umd.js"></script>
 
 
-<script>
 async function initArticle() {
-    const view = document.getElementById('article-view');
+  const view = document.getElementById('article-view');
 
-    const SanityLibrary = window.sanityClient;
-    const PortableTextLib = window.portableTextToHtml;
+  const params = new URLSearchParams(window.location.search);
+  const storyId = params.get("id");
 
-    if (!SanityLibrary) {
-        console.warn("Sanity client not ready, retrying...");
-        return setTimeout(initArticle, 500);
+  if (!storyId) {
+    view.innerHTML = "<h2>No story selected.</h2>";
+    return;
+  }
+
+  const query = `*[_type == "post" && slug.current == $id][0]{
+    title,
+    "image": mainImage.asset->url + "?w=1200&auto=format",
+    "category": categories[0]->title,
+    "date": coalesce(publishedAt, _createdAt),
+    body
+  }`;
+
+  const encodedQuery = encodeURIComponent(query);
+  const url = `https://8qrlygx8.api.sanity.io/v2024-02-24/data/query/production?query=${encodedQuery}&$id=${storyId}`;
+
+  try {
+    const response = await fetch(url);
+    const { result: story } = await response.json();
+
+    if (!story) {
+      view.innerHTML = "<h2>Story not found.</h2>";
+      return;
     }
 
-    const client = SanityLibrary({
-        projectId: "8qrlygx8",
-        dataset: "production",
-        apiVersion: "2024-02-24",
-        useCdn: true
-    });
+    document.title = `${story.title} | The Virtual Queue`;
 
-    const params = new URLSearchParams(window.location.search);
-    const storyId = params.get("id");
+    view.innerHTML = `
+      <div class="article-header">
+        <h1>${story.title}</h1>
+        <div class="article-meta">
+          ${story.category || "Theme Parks"} | 
+          ${new Date(story.date).toLocaleDateString()}
+        </div>
+      </div>
 
-    if (!storyId) {
-        view.innerHTML = "<h2>No story selected.</h2>";
-        return;
-    }
+      ${story.image ? `<img src="${story.image}" class="main-img">` : ""}
 
-    try {
-        const query = `*[_type == "post" && slug.current == $id][0]{
-            title,
-            "image": mainImage.asset->url + "?w=1200&auto=format",
-            "category": categories[0]->title,
-            "date": coalesce(publishedAt, _createdAt),
-            body
-        }`;
-
-        const story = await client.fetch(query, { id: storyId });
-
-        if (!story) {
-            view.innerHTML = "<h2>Story not found.</h2>";
-            return;
-        }
-
-        document.title = `${story.title} | The Virtual Queue`;
-
-        const htmlBody = PortableTextLib
-            ? PortableTextLib.toHTML(story.body)
-            : "<p>Content failed to load.</p>";
-
-        view.innerHTML = `
-            <div class="article-header">
-                <h1>${story.title}</h1>
-                <div class="article-meta">
-                    ${story.category || "Theme Parks"} | 
-                    ${new Date(story.date).toLocaleDateString()}
-                </div>
-            </div>
-
-            ${story.image ? `<img src="${story.image}" class="main-img">` : ""}
-
-            <div class="content">
-                ${htmlBody}
-            </div>
-        `;
-    } catch (err) {
-        console.error("Sanity Error:", err);
-        view.innerHTML = "<p>There was a glitch in the Grid. Try refreshing!</p>";
-    }
+      <div class="content">
+        <pre>${JSON.stringify(story.body, null, 2)}</pre>
+      </div>
+    `;
+  } catch (err) {
+    console.error("Sanity Error:", err);
+    view.innerHTML = "<p>There was a glitch in the Grid. Try refreshing!</p>";
+  }
 }
 
 window.addEventListener("load", initArticle);
+
 </script>
