@@ -139,39 +139,37 @@ async function initArticle() {
 
   if (!storyId) return;
 
-  // We use the ID directly in the string to avoid variable errors
+  // Simplest possible query to get your "HEllo Disney" text
   const query = encodeURIComponent(`*[_type == "post" && slug.current == "${storyId}"][0]{
     title,
     "image": mainImage.asset->url,
     body
   }`);
 
+  // We are hard-coding your project ID 8qrlygx8 to stop the connection error
   const url = `https://8qrlygx8.api.sanity.io/v2024-02-24/data/query/production?query=${query}`;
 
   try {
     const response = await fetch(url);
-    const { result: story } = await response.json();
-
-    if (!story) {
-      view.innerHTML = "<h2>Story not found.</h2>";
+    const data = await response.json();
+    
+    if (!data.result) {
+      view.innerHTML = "<h2>Story not found in production dataset.</h2>";
       return;
     }
 
+    const story = data.result;
     view.innerHTML = `
       <h1>${story.title}</h1>
-      ${story.image ? `<img src="${story.image}" style="width:100%; border-radius:12px;">` : ''}
+      ${story.image ? `<img src="${story.image}" style="width:100%; border-radius:10px;">` : ''}
       <div class="content" style="margin-top:20px;">
         ${window.portableTextToHtml.toHTML(story.body)}
       </div>
     `;
   } catch (err) {
-    view.innerHTML = "<h2>Connection Error</h2>";
+    view.innerHTML = `<h2>Connection Error</h2><p>Failed to reach Sanity for Project 8qrlygx8.</p>`;
+    console.error(err);
   }
 }
 window.onload = initArticle;
-
-window.onload = initArticle;
-
-window.addEventListener("load", initArticle);
-</script>
 

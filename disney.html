@@ -166,43 +166,44 @@
         apiVersion: '2024-02-24'
     });
 
-    async function loadContent() {
+   async function loadContent() {
+    // This query is perfect—it pulls everything we need, including the image URL
     const query = encodeURIComponent(`*[_type == "post" && references("4baa0b54-5f29-4ed6-9990-a1a2d7a01339")] | order(_createdAt desc){
-  "id": slug.current,
-  title,
-  "image": mainImage.asset->url,
-  "date": coalesce(publishedAt, _createdAt),
-  "excerpt": array::join(string::split(pt::text(body), "")[0..100], "") + "..."
-}`);
+      "id": slug.current,
+      title,
+      "image": mainImage.asset->url,
+      "date": coalesce(publishedAt, _createdAt),
+      "excerpt": array::join(string::split(pt::text(body), "")[0..100], "") + "..."
+    }`);
+
     const url = `https://8qrlygx8.api.sanity.io/v2024-02-24/data/query/production?query=${query}`;
 
     try {
         const response = await fetch(url);
         const { result } = await response.json();
         
-        // Map Sanity data to the format your renderPage function expects
-        allArticles = result.map(story => ({
-            id: story.slug.current,
-            title: story.title,
-            image: story.mainImage?.asset?._ref ? `https://cdn.sanity.io/images/8qrlygx8/production/${story.mainImage.asset._ref.replace('image-', '').replace('-jpg', '.jpg')}` : './VQNewLOGO.png',
-            category: "disney",
-            date: new Date(story._createdAt).toLocaleDateString(),
-            excerpt: "Theme park updates..." 
+        if (!result || result.length === 0) {
+            renderPage([]); // This will trigger your "No magic found" message
+            return;
+        }
+
+        // Mapping the data using the names we defined in the query above
+        const allArticles = result.map(story => ({
+            id: story.id,            // Match: "id" from query
+            title: story.title,      // Match: title from query
+            image: story.image || './VQNewLOGO.png', // Match: "image" (url) from query
+            category: "Disney",
+            date: story.date,        // Match: "date" from query
+            excerpt: story.excerpt   // Match: "excerpt" from query
         }));
         
         renderPage(allArticles);
-    } catch (e) { console.error("Disney Fetch Error:", e); }
-}
-
-    function renderPage(articles) {
-        const heroCont = document.getElementById('hero-container');
+    } catch (e) { 
+        console.error("Disney Fetch Error:", e); 
         const cardCont = document.getElementById('article-container');
-        const listCont = document.getElementById('more-stories-container');
-        
-        if (!articles || articles.length === 0) {
-            cardCont.innerHTML = "<p style='text-align:center;width:100%;margin-top:50px;'>No Disney magic found in Sanity. Make sure you've assigned the 'Disney' category to your posts!</p>";
-            return;
-        }
+        cardCont.innerHTML = "<p>Connection error. The Grid is offline.</p>";
+    }
+}
 
         // 1. Render Hero
         const first = articles[0];
