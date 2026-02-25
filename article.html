@@ -135,52 +135,51 @@
 <script>
 async function initArticle() {
   const view = document.getElementById('article-view');
-  const params = new URLSearchParams(window.location.search);
-  const storyId = params.get("id");
+  const storyId = new URLSearchParams(window.location.search).get("id");
 
   if (!storyId) {
-    view.innerHTML = "<h2>No story selected.</h2>";
+    view.innerHTML = "<h2>No story ID found in the URL.</h2>";
     return;
   }
 
-  // The query looks for the post and pulls the category title and image URL
-  const query = encodeURIComponent(`*[_type == "post" && slug.current == $id][0]{
+  // This query is simplified to find the post by slug, regardless of category
+  const query = encodeURIComponent(`*[_type == "post" && slug.current == "${storyId}"][0]{
     title,
-    "image": mainImage.asset->url,
-    "category": categories[0]->title,
+    "imageUrl": mainImage.asset->url,
+    "categoryTitle": categories[0]->title,
     "date": coalesce(publishedAt, _createdAt),
     body
   }`);
 
-  // The %22 adds the "quotes" Sanity requires for strings
-  const url = `https://8qrlygx8.api.sanity.io/v2024-02-24/data/query/production?query=${query}&$id=%22${storyId}%22`;
+  const url = `https://8qrlygx8.api.sanity.io/v2024-02-24/data/query/production?query=${query}`;
 
   try {
     const response = await fetch(url);
-    const { result: story } = await response.json();
+    const data = await response.json();
+    const story = data.result;
 
     if (!story) {
-      view.innerHTML = "<h2>Story not found in the Database.</h2>";
+      view.innerHTML = `<h2>Story Not Found</h2><p>Slug "${storyId}" does not match any records in the production dataset.</p>`;
       return;
     }
 
+    document.title = `${story.title} | The Virtual Queue`;
+
     view.innerHTML = `
-      <div class="article-header">
-        <h1>${story.title}</h1>
-        <div class="article-meta">
-          ${story.category || "Disney"} | ${new Date(story.date).toLocaleDateString()}
-        </div>
-      </div>
-      ${story.image ? `<img src="${story.image}" class="main-img" style="width:100%; border-radius:12px;">` : ""}
-      <div class="content" style="margin-top:20px;">
+      <h1>${story.title}</h1>
+      <p style="color: #888;">${story.categoryTitle || 'Disney'} | ${new Date(story.date).toLocaleDateString()}</p>
+      ${story.imageUrl ? `<img src="${story.imageUrl}" style="width:100%; border-radius:12px; margin: 20px 0;">` : ''}
+      <div class="content">
         ${window.portableTextToHtml.toHTML(story.body)}
       </div>
     `;
   } catch (err) {
-    console.error("Fetch Error:", err);
-    view.innerHTML = "<p>Connection error. Please check your internet or Sanity project ID.</p>";
+    console.error("Critical Fetch Error:", err);
+    view.innerHTML = "<h2>Glitch in the Grid</h2><p>Could not connect to Sanity.</p>";
   }
 }
+
+window.onload = initArticle;
 
 window.addEventListener("load", initArticle);
 </script>

@@ -167,7 +167,7 @@
     });
 
     async function loadContent() {
-    const query = encodeURIComponent(`*[_type == "post" && categories[0]->slug.current == "disney"] | order(_createdAt desc)`);
+    const query = encodeURIComponent(`*[_type == "post" && (categories[0]->title == "Disney" || categories[0]->title == "disney")] | order(_createdAt desc)`);
     const url = `https://8qrlygx8.api.sanity.io/v2024-02-24/data/query/production?query=${query}`;
 
     try {
