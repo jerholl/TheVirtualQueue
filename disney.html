@@ -179,41 +179,33 @@
             });
         }
         let allArticles = [];
-       async function loadDisneyContent() {
-    const projectID = '8qrlygx8';
-    
-    // This query looks for the main Disney tag OR any of the specific park tags
-    const query = encodeURIComponent(`*[_type == "post" && (
-        categories[]->slug.current match "disney*" || 
-        categories[]->slug.current match "magic-kingdom*" || 
-        categories[]->slug.current match "epcot*" || 
-        categories[]->slug.current match "hollywood-studios*" || 
-        categories[]->slug.current match "animal-kingdom*" || 
-        categories[]->slug.current match "disneyland*"
-    )] | order(coalesce(publishedAt, _createdAt) desc){
-        "id": slug.current,
-        title,
-        "excerpt": pt::text(body)[0..200],
-        "image": mainImage.asset->url,
-        "category": categories[0]->title,
-        "date": coalesce(publishedAt, _createdAt)
-    }`);
-
-    const url = `https://${projectID}.api.sanity.io/v2024-02-24/data/query/production?query=${query}`;
-
+       async function loadContent() {
     try {
-        const response = await fetch(url);
-        const { result } = await response.json();
+        // We are sticking to your TITLE-based search since that's what works in your Studio
+        allArticles = await client.fetch(`*[_type == "post" && defined(categories) && count(categories[lower(@->title) in [
+            "disney", 
+            "epcot", 
+            "animal kingdom", 
+            "hollywood studios", 
+            "magic kingdom", 
+            "disneyland",
+            "disney resorts"
+        ]]) > 0] | order(coalesce(publishedAt, _createdAt) desc) {
+            "id": slug.current,
+            title,
+            "excerpt": pt::text(body)[0..200],
+            "image": mainImage.asset->url,
+            "category": categories[0]->title,
+            "date": coalesce(publishedAt, _createdAt)
+        }`);
         
-        if (result) {
-            renderPage(result, "No Disney stories found yet! Check back soon.");
-        }
-    } catch (e) {
-        console.error("Disney Page Error:", e);
+        renderPage(allArticles, "No Disney articles found yet. Check back soon!");
+    } catch(e) {
+        console.error('Sanity error:', e);
+        document.getElementById('article-container').innerHTML = "<p class='loading'>Couldn't load stories.</p>";
     }
 }
-// Make sure this is the only window.onload in this file
-window.onload = loadDisneyContent;
+loadContent();
     </script>
 </body>
 </html>
