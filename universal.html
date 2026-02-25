@@ -179,32 +179,33 @@
             });
         }
         let allArticles = [];
-        async function loadDisneyContent() {
-    const projectID = '8qrlygx8';
-    
-    // This query looks for the main Disney tag OR any of the specific park tags
-    const query = encodeURIComponent(`*[_type == "post" && (
-    categories[]->slug.current match "universal*" || 
-    categories[]->slug.current match "epic universe*" || 
-    categories[]->slug.current match "islands of adventure*" || 
-    categories[]->slug.current match "hhn*"
-)] | order(coalesce(publishedAt, _createdAt) desc)`);
-
-    const url = `https://${projectID}.api.sanity.io/v2024-02-24/data/query/production?query=${query}`;
-
+        async function loadContent() {
     try {
-        const response = await fetch(url);
-        const { result } = await response.json();
+        // We are sticking to your TITLE-based search since that's what works in your Studio
+        allArticles = await client.fetch(`*[_type == "post" && defined(categories) && count(categories[lower(@->title) in [
+            "universal studios", 
+            "halloween horror nights", 
+            "islands of adventure", 
+            "hhn", 
+            "epic universe", 
+            "halloween horror nights orl",
+            "halloween horror night hollywood"
+        ]]) > 0] | order(coalesce(publishedAt, _createdAt) desc) {
+            "id": slug.current,
+            title,
+            "excerpt": pt::text(body)[0..200],
+            "image": mainImage.asset->url,
+            "category": categories[0]->title,
+            "date": coalesce(publishedAt, _createdAt)
+        }`);
         
-        if (result) {
-            renderPage(result, "No Disney stories found yet! Check back soon.");
-        }
-    } catch (e) {
-        console.error("Disney Page Error:", e);
+        renderPage(allArticles, "No Universal articles found yet. Check back soon!");
+    } catch(e) {
+        console.error('Sanity error:', e);
+        document.getElementById('article-container').innerHTML = "<p class='loading'>Couldn't load stories.</p>";
     }
 }
-// Make sure this is the only window.onload in this file
-window.onload = loadDisneyContent;
+loadContent();
     </script>
 </body>
 </html>
