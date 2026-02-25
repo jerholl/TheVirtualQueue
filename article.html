@@ -22,8 +22,6 @@
         :root { --bg:#121212; --surface:#1a1a1b; --border:#2a2a2a; --blue:#0077cc; --cyan:#00d4ff; --text:#e0e0e0; --muted:#888; --title-color:#ffffff; }
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         body { background-color: var(--bg); color: var(--text); font-family: 'Roboto Slab', serif; line-height: 1.8; }
-
-        /* Nav */
         nav { border-bottom: 1px solid var(--border); padding: 0 20px; display: flex; justify-content: center; align-items: center; gap: 10px; background-color: var(--bg); position: sticky; top: 0; z-index: 1000; height: 100px; overflow: visible; }
         .nav-logo-wrap { position: relative; display: flex; align-items: center; }
         .nav-logo-wrap::after { content: ""; position: absolute; top: 75%; left: 200%; transform: translateX(-50%); width: 880px; height: 10px; border-left: 3px solid var(--cyan); border-bottom: 3px solid var(--cyan); border-bottom-left-radius: 6px; box-shadow: -4px 4px 12px rgba(0,212,255,0.4); pointer-events: none; }
@@ -32,15 +30,11 @@
         .nav-links-wrap { position: relative; display: flex; align-items: center; gap: 10px; }
         nav a { text-decoration: none; color: var(--muted); text-transform: uppercase; font-size: 1.25rem; font-weight: 700; letter-spacing: 2px; padding: 8px 16px; border-radius: 4px; transition: color 0.3s ease, background 0.3s ease; }
         nav a:hover { color: var(--cyan); background: rgba(0,212,255,0.06); }
-
-        /* Search Bar */
         .search-box { display: flex; align-items: center; position: relative; margin-left: 8px; }
         #site-search { width: 0; padding: 0; border: none; background: transparent; color: var(--text); outline: none; transition: width 0.4s ease, padding 0.4s ease; font-family: 'Roboto Slab', serif; border-bottom: 2px solid transparent; font-size: 0.95rem; }
         .search-box.active #site-search { width: 180px; padding: 5px 10px; border-bottom: 2px solid var(--cyan); }
         .search-icon-btn { background: none; border: none; color: var(--muted); cursor: pointer; display: flex; align-items: center; padding: 8px; transition: color 0.2s; }
         .search-icon-btn:hover { color: var(--cyan); }
-
-        /* Hamburger */
         .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; z-index: 1100; }
         .hamburger span { display: block; width: 26px; height: 3px; background: var(--text); border-radius: 2px; transition: all 0.3s ease; }
         .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
@@ -51,16 +45,7 @@
         .mobile-menu a { text-decoration: none; color: var(--muted); text-transform: uppercase; font-size: 1rem; font-weight: 700; letter-spacing: 1px; padding: 14px 16px; border-bottom: 1px solid var(--border); display: block; transition: color 0.2s; }
         .mobile-menu a:last-child { border-bottom: none; }
         .mobile-menu a:hover { color: var(--cyan); }
-
-        @media (max-width: 768px) {
-            nav { justify-content: space-between; height: 80px; }
-            .nav-logo-wrap::after { display: none; }
-            .nav-logo { height: 90px; }
-            .nav-links-wrap { display: none; }
-            .hamburger { display: flex; }
-        }
-
-        /* Article Content */
+        @media (max-width: 768px) { nav { justify-content: space-between; height: 80px; } .nav-logo-wrap::after { display: none; } .nav-logo { height: 90px; } .nav-links-wrap { display: none; } .hamburger { display: flex; } }
         .container { max-width: 850px; margin: 0 auto; padding: 60px 20px; }
         .back-btn { color: var(--cyan); text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; margin-bottom: 30px; display: inline-block; }
         .back-btn:hover { color: #fff; }
@@ -69,16 +54,13 @@
         .main-img { width: 100%; border-radius: 12px; margin-bottom: 40px; border: 1px solid var(--border); }
         .content { font-size: 1.15rem; color: #ccc; font-weight: 300; }
         .content p { margin-bottom: 25px; }
-
         footer { text-align: center; padding: 40px; color: var(--muted); border-top: 1px solid var(--border); font-size: 0.85rem; letter-spacing: 1px; margin-top: 60px; }
-
         .footer-social { display: flex; justify-content: center; gap: 20px; margin-bottom: 16px; }
         .footer-social a { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid var(--border); border-radius: 50%; color: var(--muted); transition: color 0.3s, border-color 0.3s, background 0.3s; }
         .footer-social a:hover { color: var(--cyan); border-color: var(--cyan); background: rgba(0,212,255,0.06); }
     </style>
 </head>
 <body>
-
     <nav>
         <div class="nav-logo-wrap">
             <a href="/"><img src="./VQNewLOGO.png" alt="The Virtual Queue Logo" class="nav-logo"></a>
@@ -92,102 +74,81 @@
             <a href="/contact">Contact</a>
             <div class="search-box">
                 <input type="text" id="site-search" placeholder="Search the Queue...">
-                <button class="search-icon-btn" id="search-toggle">
-                    <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                </button>
+                <button class="search-icon-btn" id="search-toggle"><svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
             </div>
         </div>
-        <button class="hamburger" id="hamburger" aria-label="Menu">
-            <span></span><span></span><span></span>
-        </button>
+        <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
     </nav>
-
     <div class="mobile-menu" id="mobile-menu">
-        <a href="/">Home</a>
-        <a href="/disney">Disney</a>
-        <a href="/universal">Universal</a>
-        <a href="/other">Other</a>
-        <a href="/about">About Us</a>
-        <a href="/contact">Contact</a>
+        <a href="/">Home</a><a href="/disney">Disney</a><a href="/universal">Universal</a><a href="/other">Other</a><a href="/about">About Us</a><a href="/contact">Contact</a>
     </div>
-
     <div class="container">
         <a href="javascript:history.back()" class="back-btn">← Back to Queue</a>
         <div id="article-view"><p>Loading story...</p></div>
     </div>
-
-        <footer>
+    <footer>
         <div class="footer-social">
-            <a href="https://instagram.com/thevirtualqueue" target="_blank" rel="noopener" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
-            </a>
-            <a href="https://facebook.com/thevirtualqueue" target="_blank" rel="noopener" aria-label="Facebook">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-            </a>
-            <a href="https://youtube.com/@thevirtualqueue" target="_blank" rel="noopener" aria-label="YouTube">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58a2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
-            </a>
-            <a href="https://bsky.app/profile/thevirtualqueue.bsky.social" target="_blank" rel="noopener" aria-label="Bluesky">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.204-.659-.299-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8z"/></svg>
-            </a>
+            <a href="https://instagram.com/thevirtualqueue" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg></a>
+            <a href="https://facebook.com/thevirtualqueue" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+            <a href="https://youtube.com/@thevirtualqueue" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58a2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg></a>
+            <a href="https://bsky.app/profile/thevirtualqueue.bsky.social" target="_blank" rel="noopener" aria-label="Bluesky"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.204-.659-.299-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8z"/></svg></a>
         </div>
         <p>&copy; 2026 The Virtual Queue. All rights reserved.</p>
     </footer>
 
+    <script src="https://unpkg.com/@sanity/client@6.15.10/dist/index.browser.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@portabletext/to-html@2.0.13/dist/portableTextToHtml.umd.min.js"></script>
+    
     <script>
-        // Nav
+        const sanityClient = window._sanityClient.createClient({
+            projectId: 'YOUR_PROJECT_ID', // <--- REPLACE THIS ID
+            dataset: 'production',
+            useCdn: true,
+            apiVersion: '2024-02-24'
+        });
+
         const btn = document.getElementById('hamburger');
         const menu = document.getElementById('mobile-menu');
         btn.addEventListener('click', () => { btn.classList.toggle('open'); menu.classList.toggle('open'); });
-        menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { btn.classList.remove('open'); menu.classList.remove('open'); }));
 
-        // Search
-        const searchToggle = document.getElementById('search-toggle');
-        const searchBox = document.querySelector('.search-box');
-        const searchInput = document.getElementById('site-search');
-        searchToggle.addEventListener('click', () => {
-            searchBox.classList.toggle('active');
-            if (searchBox.classList.contains('active')) searchInput.focus();
-        });
-
-        // Article Loader
         async function loadStory() {
             const params = new URLSearchParams(window.location.search);
             const storyId = params.get('id');
             const view = document.getElementById('article-view');
 
             try {
-                const response = await fetch('articles.json');
-                const articles = await response.json();
-                const story = articles.find(a => a.id == storyId);
+                // Fetch the post from Sanity by slug
+                const query = `*[_type == "post" && slug.current == $id][0]{
+                    title,
+                    "image": mainImage.asset->url,
+                    "category": categories[0]->title,
+                    "date": publishedAt,
+                    body
+                }`;
+                
+                const story = await sanityClient.fetch(query, { id: storyId });
 
                 if (story) {
-                    // Dynamically update meta/SEO tags for this specific article
+                    // Update Page Title
                     document.title = story.title + ' | The Virtual Queue';
-                    document.querySelector('meta[name="description"]')?.setAttribute('content', story.excerpt);
-                    document.querySelector('meta[property="og:title"]')?.setAttribute('content', story.title + ' | The Virtual Queue');
-                    document.querySelector('meta[property="og:description"]')?.setAttribute('content', story.excerpt);
-                    document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', story.title + ' | The Virtual Queue');
-                    document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', story.excerpt);
-                    if (story.image) {
-                        document.querySelector('meta[property="og:image"]')?.setAttribute('content', story.image);
-                        document.querySelector('meta[name="twitter:image"]')?.setAttribute('content', story.image);
-                    }
+                    
+                    // Convert Sanity Body (Portable Text) to HTML
+                    const htmlBody = portableTextToHtml.toHTML(story.body);
 
                     view.innerHTML = `
                         <div class="article-header">
                             <h1>${story.title}</h1>
-                            <div class="article-meta">${story.category} &nbsp;|&nbsp; ${story.date}</div>
+                            <div class="article-meta">${story.category || 'News'} &nbsp;|&nbsp; ${new Date(story.date).toLocaleDateString()}</div>
                         </div>
                         <img src="${story.image}" class="main-img" onerror="this.style.display='none'">
-                        <div class="content">
-                            <p><strong>${story.excerpt}</strong></p>
-                            ${story.content || '<p>Full content is arriving soon.</p>'}
-                        </div>`;
+                        <div class="content">${htmlBody}</div>`;
                 } else {
                     view.innerHTML = `<h1 style="color:#fff;">Story Not Found</h1>`;
                 }
-            } catch (e) { console.error(e); }
+            } catch (e) { 
+                console.error("Sanity Error:", e);
+                view.innerHTML = `<p>Error loading story.</p>`;
+            }
         }
 
         window.onload = loadStory;
