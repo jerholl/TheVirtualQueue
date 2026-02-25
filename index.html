@@ -140,113 +140,87 @@
         <p>&copy; 2026 The Virtual Queue. All rights reserved.</p>
     </footer>
 
-    <script type="module">
-        import { createClient } from 'https://esm.sh/@sanity/client';
+   <script type="module">
+    import { createClient } from 'https://esm.sh/@sanity/client';
 
-        // ── Sanity client ──
-        const sanityClient = createClient({
-            projectId: 'p08g48u3',
-            dataset: 'production',
-            useCdn: true,
-            apiVersion: '2024-02-24'
-        });
+    const client = createClient({
+        projectId: '8qrlygx8',
+        dataset: 'production',
+        useCdn: false,
+        apiVersion: '2024-02-24'
+    });
 
-        // ── Nav ──
-        const btn = document.getElementById('hamburger');
-        const menu = document.getElementById('mobile-menu');
-        btn.addEventListener('click', () => { btn.classList.toggle('open'); menu.classList.toggle('open'); });
-        menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { btn.classList.remove('open'); menu.classList.remove('open'); }));
+    async function loadContent() {
+        try {
+            const query = `*[_type == "post" && !(_id in path("drafts.**"))] | order(_createdAt desc) {
+                "id": slug.current,
+                title,
+                "image": mainImage.asset->url,
+                "category": categories[0]->title,
+                "date": coalesce(publishedAt, _createdAt),
+                "body": pt::text(body)
+            }`;
 
-        // ── Search ──
-        const searchToggle = document.getElementById('search-toggle');
-        const searchBox = document.querySelector('.search-box');
-        const searchInput = document.getElementById('site-search');
-        searchToggle.addEventListener('click', () => {
-            searchBox.classList.toggle('active');
-            if (searchBox.classList.contains('active')) searchInput.focus();
-        });
-
-        // ── Data ──
-        let allArticles = [];
-
-        async function loadContent() {
-            try {
-                const query = `*[_type == "post"] | order(publishedAt desc) {
-                    "id": slug.current,
-                    title,
-                    "excerpt": pt::text(body),
-                    "image": mainImage.asset->url,
-                    "category": categories[0]->title,
-                    "date": publishedAt
-                }`;
-
-                const data = await sanityClient.fetch(query);
-
-                if (data.length === 0) {
-                    document.getElementById('article-container').innerHTML = "<p class='loading'>No stories found. Check back soon!</p>";
-                    return;
-                }
-
-                allArticles = data.map(a => ({
-                    ...a,
-                    date: a.date ? new Date(a.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'No Date'
-                }));
-
-                renderPage(allArticles);
-            } catch (e) {
-                console.error('Sanity error:', e);
-                document.getElementById('article-container').innerHTML = "<p class='loading'>Couldn't load stories. Please try again later.</p>";
-            }
-        }
-
-        function renderPage(articles) {
+            const data = await client.fetch(query);
+            
             const heroCont = document.getElementById('hero-container');
-            const cardCont = document.getElementById('article-container');
-            const listCont = document.getElementById('more-stories-container');
-            heroCont.innerHTML = ''; cardCont.innerHTML = ''; listCont.innerHTML = '';
+            const gridCont = document.getElementById('article-container');
+            const moreCont = document.getElementById('more-stories-container');
 
-            if (articles[0]) {
-                heroCont.innerHTML = `<a href="article?id=${articles[0].id}" class="hero-card">
-                    <img src="${articles[0].image}" class="hero-img" onerror="this.style.display='none'">
-                    <div class="hero-body">
-                        <span class="featured-card-tag">${articles[0].category || 'News'}</span>
-                        <h2>${articles[0].title}</h2>
-                        <p>${articles[0].excerpt || ''}</p>
-                        <span class="featured-card-date">${articles[0].date}</span>
-                    </div></a>`;
+            if (!data || data.length === 0) {
+                gridCont.innerHTML = "<p style='color:white;'>Sanity says 0 posts are Published. Hit that Publish button in the Studio!</p>";
+                return;
             }
 
-            articles.slice(1, 4).forEach(a => {
-                cardCont.innerHTML += `<a href="article?id=${a.id}" class="featured-card">
-                    <img src="${a.image}" class="featured-card-img" onerror="this.style.display='none'">
-                    <div class="featured-card-body">
-                        <span class="featured-card-tag">${a.category || 'News'}</span>
-                        <h3>${a.title}</h3>
-                        <p>${a.excerpt || ''}</p>
-                        <span class="featured-card-date">${a.date}</span>
-                    </div></a>`;
-            });
+            // 1. RENDER HERO (The Big Top Card)
+            const first = data[0];
+            heroCont.innerHTML = `
+                <a href="article.html?id=${first.id || ''}" class="hero-card">
+                    <img src="${first.image || 'https://via.placeholder.com/800x400?text=Disney+Update'}" class="hero-img">
+                    <div class="hero-body">
+                        <span class="featured-card-tag">${first.category || 'News'}</span>
+                        <h2>${first.title}</h2>
+                        <span class="featured-card-date">${new Date(first.date).toLocaleDateString()}</span>
+                    </div>
+                </a>`;
 
-            articles.slice(4).forEach(a => {
-                listCont.innerHTML += `<a href="article?id=${a.id}" class="article-list-item">
-                    <span style="color:var(--muted);min-width:100px;font-size:0.8rem;">${a.date}</span>
-                    <div>
-                        <div style="font-size:0.7rem;color:var(--cyan);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">${a.category || 'News'}</div>
-                        <div style="font-weight:700;">${a.title}</div>
-                        <div style="font-size:0.85rem;color:var(--muted);margin-top:4px;">${a.excerpt || ''}</div>
-                    </div></a>`;
-            });
+            // 2. RENDER FEATURED GRID (The 3 cards under the Hero)
+            // We take posts index 1, 2, and 3
+            if (data.length > 1) {
+                const gridData = data.slice(1, 4);
+                gridCont.innerHTML = gridData.map(post => `
+                    <a href="article.html?id=${post.id || ''}" class="featured-card">
+                        <img src="${post.image || 'https://via.placeholder.com/400x250?text=Disney+Update'}" class="featured-card-img">
+                        <div class="featured-card-body">
+                            <span class="featured-card-tag">${post.category || 'Disney'}</span>
+                            <h3>${post.title}</h3>
+                            <span class="featured-card-date">${new Date(post.date).toLocaleDateString()}</span>
+                        </div>
+                    </a>
+                `).join('');
+            } else {
+                gridCont.innerHTML = ""; // Clear loading message if only 1 post exists
+            }
+
+            // 3. RENDER "MORE STORIES" (Anything after the first 4 posts)
+            if (data.length > 4) {
+                const moreData = data.slice(4);
+                moreCont.innerHTML = moreData.map(post => `
+                    <a href="article.html?id=${post.id || ''}" class="article-list-item">
+                        <div>
+                            <span class="featured-card-date" style="display:block; margin-bottom:5px;">${new Date(post.date).toLocaleDateString()}</span>
+                            <div style="font-weight:700; font-size:1.1rem;">${post.title}</div>
+                        </div>
+                    </a>
+                `).join('');
+            }
+
+        } catch (err) {
+            console.error("Connection Error:", err);
         }
+    }
 
-        searchInput.addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase();
-            renderPage(allArticles.filter(a =>
-                a.title.toLowerCase().includes(term) ||
-                (a.excerpt && a.excerpt.toLowerCase().includes(term))
-            ));
-        });
-
-        loadContent();
-    </script>
+    loadContent();
+</script>
 </body>
 </html>

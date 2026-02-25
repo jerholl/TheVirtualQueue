@@ -100,21 +100,31 @@
     <script src="https://cdn.jsdelivr.net/npm/@portabletext/to-html@2.0.13/dist/portableTextToHtml.umd.min.js"></script>
     
     <script>
-        const sanityClient = window._sanityClient.createClient({
-            projectId: 'YOUR_PROJECT_ID', // <--- REPLACE THIS ID
+        // Note the change to window.sanityClient (standard for the browser build)
+        const sanityClient = window.sanityClient.createClient({
+            projectId: '8qrlygx8', 
             dataset: 'production',
             useCdn: true,
             apiVersion: '2024-02-24'
         });
 
+        // Hamburger Menu Logic
         const btn = document.getElementById('hamburger');
         const menu = document.getElementById('mobile-menu');
-        btn.addEventListener('click', () => { btn.classList.toggle('open'); menu.classList.toggle('open'); });
+        btn.addEventListener('click', () => { 
+            btn.classList.toggle('open'); 
+            menu.classList.toggle('open'); 
+        });
 
         async function loadStory() {
             const params = new URLSearchParams(window.location.search);
             const storyId = params.get('id');
             const view = document.getElementById('article-view');
+
+            if (!storyId) {
+                view.innerHTML = `<h1 style="color:#fff;">No Story Selected</h1>`;
+                return;
+            }
 
             try {
                 // Fetch the post from Sanity by slug
@@ -122,32 +132,35 @@
                     title,
                     "image": mainImage.asset->url,
                     "category": categories[0]->title,
-                    "date": publishedAt,
+                    "date": coalesce(publishedAt, _createdAt),
                     body
                 }`;
                 
                 const story = await sanityClient.fetch(query, { id: storyId });
 
                 if (story) {
-                    // Update Page Title
                     document.title = story.title + ' | The Virtual Queue';
                     
                     // Convert Sanity Body (Portable Text) to HTML
+                    // Uses the portableTextToHtml library you included
                     const htmlBody = portableTextToHtml.toHTML(story.body);
 
                     view.innerHTML = `
                         <div class="article-header">
                             <h1>${story.title}</h1>
-                            <div class="article-meta">${story.category || 'News'} &nbsp;|&nbsp; ${new Date(story.date).toLocaleDateString()}</div>
+                            <div class="article-meta">
+                                ${story.category || 'News'} &nbsp;|&nbsp; 
+                                ${new Date(story.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                            </div>
                         </div>
-                        <img src="${story.image}" class="main-img" onerror="this.style.display='none'">
+                        ${story.image ? `<img src="${story.image}" class="main-img" onerror="this.style.display='none'">` : ''}
                         <div class="content">${htmlBody}</div>`;
                 } else {
-                    view.innerHTML = `<h1 style="color:#fff;">Story Not Found</h1>`;
+                    view.innerHTML = `<h1 style="color:#fff;">Story Not Found</h1><p>We couldn't find the queue you were looking for.</p>`;
                 }
             } catch (e) { 
                 console.error("Sanity Error:", e);
-                view.innerHTML = `<p>Error loading story.</p>`;
+                view.innerHTML = `<p>Error loading story. Please check your connection.</p>`;
             }
         }
 
