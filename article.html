@@ -100,71 +100,77 @@
     <script src="https://cdn.jsdelivr.net/npm/@portabletext/to-html@2.0.13/dist/portableTextToHtml.umd.min.js"></script>
     
     <script>
-        // Note the change to window.sanityClient (standard for the browser build)
-        const sanityClient = window.sanityClient.createClient({
-            projectId: '8qrlygx8', 
-            dataset: 'production',
-            useCdn: true,
-            apiVersion: '2024-02-24'
-        });
+    // 1. Use standard window.sanityClient and set useCdn to true for speed
+    const sanityClient = window.sanityClient.createClient({
+        projectId: '8qrlygx8', 
+        dataset: 'production',
+        useCdn: true, // This pulls from Sanity's global cache
+        apiVersion: '2024-02-24'
+    });
 
-        // Hamburger Menu Logic
-        const btn = document.getElementById('hamburger');
-        const menu = document.getElementById('mobile-menu');
-        btn.addEventListener('click', () => { 
-            btn.classList.toggle('open'); 
-            menu.classList.toggle('open'); 
-        });
+    // Hamburger Menu Logic (Keeping your exact logic)
+    const btn = document.getElementById('hamburger');
+    const menu = document.getElementById('mobile-menu');
+    btn.addEventListener('click', () => { 
+        btn.classList.toggle('open'); 
+        menu.classList.toggle('open'); 
+    });
 
-        async function loadStory() {
-            const params = new URLSearchParams(window.location.search);
-            const storyId = params.get('id');
-            const view = document.getElementById('article-view');
+    // Search Toggle Logic
+    const searchToggle = document.getElementById('search-toggle');
+    const searchBox = document.querySelector('.search-box');
+    searchToggle.addEventListener('click', () => {
+        searchBox.classList.toggle('active');
+    });
 
-            if (!storyId) {
-                view.innerHTML = `<h1 style="color:#fff;">No Story Selected</h1>`;
-                return;
-            }
+    async function loadStory() {
+        const params = new URLSearchParams(window.location.search);
+        const storyId = params.get('id');
+        const view = document.getElementById('article-view');
 
-            try {
-                // Fetch the post from Sanity by slug
-                const query = `*[_type == "post" && slug.current == $id][0]{
-                    title,
-                    "image": mainImage.asset->url,
-                    "category": categories[0]->title,
-                    "date": coalesce(publishedAt, _createdAt),
-                    body
-                }`;
-                
-                const story = await sanityClient.fetch(query, { id: storyId });
-
-                if (story) {
-                    document.title = story.title + ' | The Virtual Queue';
-                    
-                    // Convert Sanity Body (Portable Text) to HTML
-                    // Uses the portableTextToHtml library you included
-                    const htmlBody = portableTextToHtml.toHTML(story.body);
-
-                    view.innerHTML = `
-                        <div class="article-header">
-                            <h1>${story.title}</h1>
-                            <div class="article-meta">
-                                ${story.category || 'News'} &nbsp;|&nbsp; 
-                                ${new Date(story.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-                            </div>
-                        </div>
-                        ${story.image ? `<img src="${story.image}" class="main-img" onerror="this.style.display='none'">` : ''}
-                        <div class="content">${htmlBody}</div>`;
-                } else {
-                    view.innerHTML = `<h1 style="color:#fff;">Story Not Found</h1><p>We couldn't find the queue you were looking for.</p>`;
-                }
-            } catch (e) { 
-                console.error("Sanity Error:", e);
-                view.innerHTML = `<p>Error loading story. Please check your connection.</p>`;
-            }
+        if (!storyId) {
+            view.innerHTML = `<h1 style="color:#fff;">No Story Selected</h1>`;
+            return;
         }
 
-        window.onload = loadStory;
-    </script>
+        try {
+            // 2. Added image optimization (?w=1200) to the query so big photos don't lag
+            const query = `*[_type == "post" && slug.current == $id][0]{
+                title,
+                "image": mainImage.asset->url + "?w=1200&auto=format",
+                "category": categories[0]->title,
+                "date": coalesce(publishedAt, _createdAt),
+                body
+            }`;
+            
+            const story = await sanityClient.fetch(query, { id: storyId });
+
+            if (story) {
+                document.title = story.title + ' | The Virtual Queue';
+                
+                // 3. Convert Portable Text to HTML
+                const htmlBody = portableTextToHtml.toHTML(story.body);
+
+                view.innerHTML = `
+                    <div class="article-header">
+                        <h1>${story.title}</h1>
+                        <div class="article-meta">
+                            ${story.category || 'News'} &nbsp;|&nbsp; 
+                            ${new Date(story.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                        </div>
+                    </div>
+                    ${story.image ? `<img src="${story.image}" class="main-img" onerror="this.style.display='none'">` : ''}
+                    <div class="content">${htmlBody}</div>`;
+            } else {
+                view.innerHTML = `<h1 style="color:#fff;">Story Not Found</h1>`;
+            }
+        } catch (e) { 
+            console.error("Sanity Error:", e);
+            view.innerHTML = `<p>Error loading story.</p>`;
+        }
+    }
+
+    window.onload = loadStory;
+</script>
 </body>
 </html>
