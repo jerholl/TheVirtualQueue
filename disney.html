@@ -167,7 +167,13 @@
     });
 
     async function loadContent() {
-    const query = encodeURIComponent(`*[_type == "post" && (categories[0]->title == "Disney" || categories[0]->title == "disney")] | order(_createdAt desc)`);
+    const query = encodeURIComponent(`*[_type == "post" && references("4baa0b54-5f29-4ed6-9990-a1a2d7a01339")] | order(_createdAt desc){
+  "id": slug.current,
+  title,
+  "image": mainImage.asset->url,
+  "date": coalesce(publishedAt, _createdAt),
+  "excerpt": array::join(string::split(pt::text(body), "")[0..100], "") + "..."
+}`);
     const url = `https://8qrlygx8.api.sanity.io/v2024-02-24/data/query/production?query=${query}`;
 
     try {

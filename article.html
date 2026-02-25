@@ -137,17 +137,12 @@ async function initArticle() {
   const view = document.getElementById('article-view');
   const storyId = new URLSearchParams(window.location.search).get("id");
 
-  if (!storyId) {
-    view.innerHTML = "<h2>No story ID found in the URL.</h2>";
-    return;
-  }
+  if (!storyId) return;
 
-  // This query is simplified to find the post by slug, regardless of category
+  // We use the ID directly in the string to avoid variable errors
   const query = encodeURIComponent(`*[_type == "post" && slug.current == "${storyId}"][0]{
     title,
-    "imageUrl": mainImage.asset->url,
-    "categoryTitle": categories[0]->title,
-    "date": coalesce(publishedAt, _createdAt),
+    "image": mainImage.asset->url,
     body
   }`);
 
@@ -155,29 +150,25 @@ async function initArticle() {
 
   try {
     const response = await fetch(url);
-    const data = await response.json();
-    const story = data.result;
+    const { result: story } = await response.json();
 
     if (!story) {
-      view.innerHTML = `<h2>Story Not Found</h2><p>Slug "${storyId}" does not match any records in the production dataset.</p>`;
+      view.innerHTML = "<h2>Story not found.</h2>";
       return;
     }
 
-    document.title = `${story.title} | The Virtual Queue`;
-
     view.innerHTML = `
       <h1>${story.title}</h1>
-      <p style="color: #888;">${story.categoryTitle || 'Disney'} | ${new Date(story.date).toLocaleDateString()}</p>
-      ${story.imageUrl ? `<img src="${story.imageUrl}" style="width:100%; border-radius:12px; margin: 20px 0;">` : ''}
-      <div class="content">
+      ${story.image ? `<img src="${story.image}" style="width:100%; border-radius:12px;">` : ''}
+      <div class="content" style="margin-top:20px;">
         ${window.portableTextToHtml.toHTML(story.body)}
       </div>
     `;
   } catch (err) {
-    console.error("Critical Fetch Error:", err);
-    view.innerHTML = "<h2>Glitch in the Grid</h2><p>Could not connect to Sanity.</p>";
+    view.innerHTML = "<h2>Connection Error</h2>";
   }
 }
+window.onload = initArticle;
 
 window.onload = initArticle;
 
