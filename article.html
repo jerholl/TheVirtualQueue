@@ -143,7 +143,7 @@ async function initArticle() {
     return;
   }
 
-  // The query needs to look for the post type and match the slug
+  // The query looks for the post and pulls the category title and image URL
   const query = encodeURIComponent(`*[_type == "post" && slug.current == $id][0]{
     title,
     "image": mainImage.asset->url,
@@ -152,7 +152,7 @@ async function initArticle() {
     body
   }`);
 
-  // IMPORTANT: The %22 below adds the necessary quotes around your ID
+  // The %22 adds the "quotes" Sanity requires for strings
   const url = `https://8qrlygx8.api.sanity.io/v2024-02-24/data/query/production?query=${query}&$id=%22${storyId}%22`;
 
   try {
@@ -160,11 +160,9 @@ async function initArticle() {
     const { result: story } = await response.json();
 
     if (!story) {
-      view.innerHTML = `<h2>Story not found.</h2><p>Sanity couldn't find a post with the slug: <b>${storyId}</b></p>`;
+      view.innerHTML = "<h2>Story not found in the Database.</h2>";
       return;
     }
-
-    document.title = `${story.title} | The Virtual Queue`;
 
     view.innerHTML = `
       <div class="article-header">
@@ -173,14 +171,14 @@ async function initArticle() {
           ${story.category || "Disney"} | ${new Date(story.date).toLocaleDateString()}
         </div>
       </div>
-      ${story.image ? `<img src="${story.image}" class="main-img">` : ""}
-      <div class="content">
+      ${story.image ? `<img src="${story.image}" class="main-img" style="width:100%; border-radius:12px;">` : ""}
+      <div class="content" style="margin-top:20px;">
         ${window.portableTextToHtml.toHTML(story.body)}
       </div>
     `;
   } catch (err) {
-    console.error("Sanity Error:", err);
-    view.innerHTML = "<p>There was a glitch in the Grid. Try refreshing!</p>";
+    console.error("Fetch Error:", err);
+    view.innerHTML = "<p>Connection error. Please check your internet or Sanity project ID.</p>";
   }
 }
 
