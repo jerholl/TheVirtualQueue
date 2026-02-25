@@ -132,44 +132,64 @@
 <script src="https://cdn.jsdelivr.net/npm/@sanity/client@6.15.10/dist/sanityClient.umd.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@portabletext/to-html@2.0.13/dist/portableTextToHtml.umd.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/@portabletext/to-html@2.0.13/dist/portableTextToHtml.umd.js"></script>
+
 <script>
 async function initArticle() {
-  const view = document.getElementById('article-view');
-  const storyId = new URLSearchParams(window.location.search).get("id");
+    const view = document.getElementById('article-view');
+    const storyId = new URLSearchParams(window.location.search).get("id");
 
-  if (!storyId) return;
-
-  // We use the exact Project ID 8qrlygx8 and dataset production
-  const projectID = '8qrlygx8';
-  const query = encodeURIComponent(`*[_type == "post" && slug.current == "${storyId}"][0]{
-    title,
-    "image": mainImage.asset->url,
-    body
-  }`);
-
-  const url = `https://${projectID}.api.sanity.io/v2024-02-24/data/query/production?query=${query}`;
-
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-    
-    if (!data.result) {
-      view.innerHTML = "<h2>Story not found.</h2>";
-      return;
+    if (!storyId) {
+        view.innerHTML = "<h2>No story selected.</h2><p>Please return to the Queue and select an article.</p>";
+        return;
     }
 
-    const story = data.result;
-    view.innerHTML = `
-      <h1>${story.title}</h1>
-      ${story.image ? `<img src="${story.image}" style="width:100%">` : ''}
-      <div class="content">${window.portableTextToHtml.toHTML(story.body)}</div>
-    `;
-  } catch (err) {
-    // If this triggers, your browser is likely blocking the request (CORS)
-    view.innerHTML = "<h2>Connection Error</h2><p>Check your Sanity CORS settings for 'thevirtualqueue.com'.</p>";
-  }
+    const projectID = '8qrlygx8';
+    const dataset = 'production';
+    
+    // This query gets the title, image URL, and the content body
+    const query = encodeURIComponent(`*[_type == "post" && slug.current == "${storyId}"][0]{
+        title,
+        "image": mainImage.asset->url,
+        body,
+        publishedAt
+    }`);
+
+    const url = `https://${projectID}.api.sanity.io/v2024-02-24/data/query/${dataset}?query=${query}`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        console.log("Sanity Response:", data); // Check your Console (F12) to see this!
+
+        if (!data.result) {
+            view.innerHTML = `<h2>Story Not Found</h2><p>We couldn't find a story with the ID: ${storyId}</p>`;
+            return;
+        }
+
+        const story = data.result;
+        
+        // This builds the actual article on your screen
+        view.innerHTML = `
+            <article class="article-header">
+                <h1>${story.title}</h1>
+                <p class="article-meta">Published: ${new Date(story.publishedAt || Date.now()).toLocaleDateString()}</p>
+                ${story.image ? `<img src="${story.image}" class="main-img" alt="${story.title}">` : ''}
+                <div class="content">
+                    ${window.portableTextToHtml.toHTML(story.body)}
+                </div>
+            </article>
+        `;
+
+    } catch (err) {
+        console.error("Fetch Error:", err);
+        view.innerHTML = `<h2>Connection Error</h2><p>The Grid is offline. Please check your Sanity CORS settings for <b>thevirtualqueue.com</b>.</p>`;
+    }
 }
+
 window.onload = initArticle;
 </script>
-</div> </body>
+
+</body>
 </html>
