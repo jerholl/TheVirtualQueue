@@ -137,57 +137,49 @@
 <script>
 async function initArticle() {
     const view = document.getElementById('article-view');
-    const storyId = new URLSearchParams(window.location.search).get("id");
+    
+    // Grab the ID from the URL bar, even if the page just reloaded
+    const urlParams = new URLSearchParams(window.location.search);
+    let storyId = urlParams.get("id") || window.location.hash.substring(1);
 
     if (!storyId) {
-        view.innerHTML = "<h2>No story selected.</h2><p>Please return to the Queue and select an article.</p>";
+        console.log("No ID found yet...");
         return;
     }
 
+    // Force HTTPS for the API call to match your Cloudflare certificate
     const projectID = '8qrlygx8';
-    const dataset = 'production';
-    
-    // This query gets the title, image URL, and the content body
-    const query = encodeURIComponent(`*[_type == "post" && slug.current == "${storyId}"][0]{
-        title,
-        "image": mainImage.asset->url,
-        body,
-        publishedAt
-    }`);
-
-    const url = `https://${projectID}.api.sanity.io/v2024-02-24/data/query/${dataset}?query=${query}`;
+    const url = `https://${projectID}.api.sanity.io/v2024-02-24/data/query/production?query=${encodeURIComponent(`*[_type == "post" && slug.current == "${storyId}"][0]{title, "image": mainImage.asset->url, body}`)}`;
 
     try {
         const response = await fetch(url);
-        const data = await response.json();
         
-        console.log("Sanity Response:", data); // Check your Console (F12) to see this!
+        if (!response.ok) {
+            // This happens if Sanity sees a domain it doesn't recognize
+            throw new Error("CORS or Network Block");
+        }
 
-        if (!data.result) {
-            view.innerHTML = `<h2>Story Not Found</h2><p>We couldn't find a story with the ID: ${storyId}</p>`;
+        const data = await response.json();
+        const story = data.result;
+
+        if (!story) {
+            view.innerHTML = "<h2>Story Not Found</h2>";
             return;
         }
 
-        const story = data.result;
-        
-        // This builds the actual article on your screen
         view.innerHTML = `
-            <article class="article-header">
-                <h1>${story.title}</h1>
-                <p class="article-meta">Published: ${new Date(story.publishedAt || Date.now()).toLocaleDateString()}</p>
-                ${story.image ? `<img src="${story.image}" class="main-img" alt="${story.title}">` : ''}
-                <div class="content">
-                    ${window.portableTextToHtml.toHTML(story.body)}
-                </div>
-            </article>
-        `;
-
+            <h1>${story.title}</h1>
+            ${story.image ? `<img src="${story.image}" style="width:100%; border-radius:12px;">` : ''}
+            <div class="content" style="margin-top:20px;">
+                ${window.portableTextToHtml.toHTML(story.body)}
+            </div>`;
+            
     } catch (err) {
-        console.error("Fetch Error:", err);
-        view.innerHTML = `<h2>Connection Error</h2><p>The Grid is offline. Please check your Sanity CORS settings for <b>thevirtualqueue.com</b>.</p>`;
+        // We show exactly what origin the browser is using to help you fix CORS
+        const currentOrigin = window.location.origin;
+        view.innerHTML = `<h2>Connection Error</h2><p>Sanity is rejecting <b>${currentOrigin}</b>. <br>Add this exact address to your Sanity CORS settings.</p>`;
     }
 }
-
 window.onload = initArticle;
 </script>
 
