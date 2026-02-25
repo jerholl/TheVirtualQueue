@@ -88,6 +88,33 @@
         .submit-btn { background: var(--blue); color: white; border: none; padding: 14px; font-family: 'Roboto Slab', serif; font-size: 1rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; border-radius: 4px; transition: background 0.3s, box-shadow 0.3s; }
         .submit-btn:hover { background: var(--cyan); color: #121212; box-shadow: 0 0 15px rgba(0,212,255,0.4); }
 
+        /* --- LIGHT MODE SUPPORT --- */
+@media (prefers-color-scheme: light) {
+    :root {
+        --bg: #ffffff;
+        --surface: #f7f7f7;
+        --border: #e0e0e0;
+        --text: #1a1a1b;
+        --muted: #666666;
+    }
+    
+    body { background-color: var(--bg); color: var(--text); }
+    
+    /* Ensuring titles and headings stay visible */
+    .page-title h1, 
+    .hero-body h2, 
+    .featured-card h3, 
+    .section-heading,
+    .article-list-item div { 
+        color: #121212 !important; 
+    }
+    
+    /* Updating the mobile menu background */
+    .mobile-menu {
+        background: var(--surface);
+    }
+}
+
     </style>
 </head>
 <body>
