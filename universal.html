@@ -179,27 +179,32 @@
             });
         }
         let allArticles = [];
-        async function loadContent() {
-            try {
-                allArticles = await client.fetch(`*[_type == "post" && defined(categories) && count(categories[lower(@->title) in ["universal","epic universe","hhn","halloween horror nights"]]) > 0] | order(coalesce(publishedAt, _createdAt) desc) {
-            "id": slug.current,
-            title,
-            "excerpt": pt::text(body)[0..200],
-            "image": mainImage.asset->url,
-            "category": categories[0]->title,
-            "date": coalesce(publishedAt, _createdAt)
-        }`);
-                renderPage(allArticles, "No Universal articles found yet. Check back soon!");
-            } catch(e) {
-                console.error('Sanity error:', e);
-                document.getElementById('article-container').innerHTML = "<p class='loading'>Couldn't load stories.</p>";
-            }
+        async function loadDisneyContent() {
+    const projectID = '8qrlygx8';
+    
+    // This query looks for the main Disney tag OR any of the specific park tags
+    const query = encodeURIComponent(`*[_type == "post" && (
+    categories[]->slug.current match "universal*" || 
+    categories[]->slug.current match "epic universe*" || 
+    categories[]->slug.current match "islands of adventure*" || 
+    categories[]->slug.current match "hhn*"
+)] | order(coalesce(publishedAt, _createdAt) desc)`);
+
+    const url = `https://${projectID}.api.sanity.io/v2024-02-24/data/query/production?query=${query}`;
+
+    try {
+        const response = await fetch(url);
+        const { result } = await response.json();
+        
+        if (result) {
+            renderPage(result, "No Disney stories found yet! Check back soon.");
         }
-        searchInput.addEventListener('input', e => {
-            const t = e.target.value.toLowerCase();
-            renderPage(allArticles.filter(a => a.title.toLowerCase().includes(t) || (a.excerpt||'').toLowerCase().includes(t)));
-        });
-        loadContent();
+    } catch (e) {
+        console.error("Disney Page Error:", e);
+    }
+}
+// Make sure this is the only window.onload in this file
+window.onload = loadDisneyContent;
     </script>
 </body>
 </html>
