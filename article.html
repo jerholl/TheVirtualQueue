@@ -153,6 +153,7 @@ async function initArticle() {
   }`;
 
   const encodedQuery = encodeURIComponent(query);
+
   const url = `https://8qrlygx8.api.sanity.io/v2024-02-24/data/query/production?query=${encodedQuery}&$id=${storyId}`;
 
   try {
@@ -170,7 +171,7 @@ async function initArticle() {
       <div class="article-header">
         <h1>${story.title}</h1>
         <div class="article-meta">
-          ${story.category || "Theme Parks"} | 
+          ${story.category || "Theme Parks"} |
           ${new Date(story.date).toLocaleDateString()}
         </div>
       </div>
@@ -188,5 +189,5 @@ async function initArticle() {
 }
 
 window.addEventListener("load", initArticle);
-
 </script>
+
