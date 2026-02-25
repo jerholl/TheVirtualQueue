@@ -96,59 +96,78 @@
         <p>&copy; 2026 The Virtual Queue. All rights reserved.</p>
     </footer>
 
-    <script src="https://unpkg.com/@sanity/client@6.15.10/dist/index.browser.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@portabletext/to-html@2.0.13/dist/portableTextToHtml.umd.min.js"></script>
+   <script type="text/javascript" src="https://unpkg.com/@sanity/client@6.15.10/dist/index.umd.js"></script>
+<script type="text/javascript" src="https://unpkg.com/@portabletext/to-html@2.0.13/dist/portableTextToHtml.umd.js"></script>
     
-    <script>
-    // Try using the underscore version which is common in the UMD browser build
-    const sanityClient = (window._sanityClient || window.sanityClient).createClient({
-        projectId: '8qrlygx8', 
-        dataset: 'production',
-        useCdn: true,
-        apiVersion: '2024-02-24'
-    });
-
-    async function loadStory() {
-        const params = new URLSearchParams(window.location.search);
-        const storyId = params.get('id');
+  <script type="text/javascript">
+    async function initArticle() {
         const view = document.getElementById('article-view');
+        
+        // 1. Find the library regardless of which name it used to register
+        const SanityLibrary = window.SanityClient || window._sanityClient || (window['@sanity/client'] ? window['@sanity/client'].createClient : null);
+        const PortableTextLib = window.portableTextToHtml;
 
-        console.log("Searching for slug:", storyId); // This helps us debug!
+        if (!SanityLibrary) {
+            console.error("Libraries missing. Trying a 1-second delay...");
+            setTimeout(initArticle, 1000); // Try again in a second if the CDN is slow
+            return;
+        }
+
+        // 2. Setup Client
+        const sanityClient = SanityLibrary.createClient({
+            projectId: '8qrlygx8',
+            dataset: 'production',
+            useCdn: true,
+            apiVersion: '2024-02-24'
+        });
+
+        // 3. Get the ID from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const storyId = urlParams.get('id');
 
         if (!storyId) {
-            view.innerHTML = `<h1>No Story ID found in the URL.</h1>`;
+            view.innerHTML = "<h2>No story selected. Go back to the home page!</h2>";
             return;
         }
 
         try {
             const query = `*[_type == "post" && slug.current == $id][0]{
                 title,
-                "image": mainImage.asset->url,
+                "image": mainImage.asset->url + "?w=1200&auto=format",
                 "category": categories[0]->title,
                 "date": coalesce(publishedAt, _createdAt),
                 body
             }`;
-            
+
             const story = await sanityClient.fetch(query, { id: storyId });
 
             if (story) {
-                const htmlBody = portableTextToHtml.toHTML(story.body);
+                document.title = `${story.title} | The Virtual Queue`;
+                
+                // Convert content to HTML
+                const htmlBody = PortableTextLib ? PortableTextLib.toHTML(story.body) : "<p>Content loading error.</p>";
+
                 view.innerHTML = `
                     <div class="article-header">
                         <h1>${story.title}</h1>
-                        <div class="article-meta">${story.category || 'News'} | ${new Date(story.date).toLocaleDateString()}</div>
+                        <div class="article-meta">
+                            ${story.category || 'Theme Parks'} | ${new Date(story.date).toLocaleDateString()}
+                        </div>
                     </div>
-                    <img src="${story.image}" class="main-img">
-                    <div class="content">${htmlBody}</div>`;
+                    ${story.image ? `<img src="${story.image}" class="main-img">` : ''}
+                    <div class="content">${htmlBody}</div>
+                `;
             } else {
-                view.innerHTML = `<h1>Story not found for slug: ${storyId}</h1>`;
+                view.innerHTML = `<h2>Story not found.</h2>`;
             }
-        } catch (e) { 
-            console.error(e);
-            view.innerHTML = `<p>Error loading story.</p>`;
+        } catch (err) {
+            console.error("Sanity Error:", err);
+            view.innerHTML = `<p>There was a glitch in the Grid. Try refreshing!</p>`;
         }
     }
-    window.onload = loadStory;
+
+    // Run when everything is loaded
+    window.addEventListener('load', initArticle);
 </script>
 </body>
 </html>
