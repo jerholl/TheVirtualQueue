@@ -88,11 +88,25 @@
         @media (max-width: 768px) { .article-header h1 { font-size: 1.8rem; } }
 
         /* --- LIGHT MODE --- */
-        @media (prefers-color-scheme: light) {
-            :root { --bg: #ffffff; --surface: #f7f7f7; --border: #e0e0e0; --text: #1a1a1b; --muted: #696868; }
+       @media (prefers-color-scheme: light) {
+            :root {
+                --bg: #f0f0f0;
+                --surface: #e2e2e2;
+                --border: #cccccc;
+                --text: #1a1a1b;
+                --muted: #555555;
+            }
+            
+            .nav-logo-wrap::after {
+                border-color: #0055aa !important; 
+                box-shadow: -4px 4px 10px rgba(0, 85, 170, 0.2) !important;
+            }
+
             body { background-color: var(--bg); color: var(--text); }
+            
             .article-header h1 { color: #121212 !important; }
-            .content { color: #333 !important; }
+            .content { color: #222 !important; }
+            .back-btn:hover { color: #121212 !important; }
         }
     </style>
 </head>
