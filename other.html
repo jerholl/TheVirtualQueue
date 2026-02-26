@@ -135,7 +135,7 @@
         </div>
         <div class="nav-links-wrap">
             <a href="/">Home</a>
-            <a href="/other" style="color:var(--cyan)">Disney</a>
+            <a href="/disney" style="color:var(--cyan)">Disney</a>
             <a href="/universal">Universal</a>
             <a href="/other">Other</a>
             <a href="/about">About Us</a>
@@ -151,7 +151,7 @@
     </nav>
     <div class="mobile-menu" id="mobile-menu">
         <a href="/">Home</a>
-        <a href="/other">Disney</a>
+        <a href="/disney">Disney</a>
         <a href="/universal">Universal</a>
         <a href="/other">Other</a>
         <a href="/about">About Us</a>
@@ -161,7 +161,7 @@
         <div class="page-title"><h1>Other Theme <span>Park News</span></h1><div class="page-title-line"></div></div>
         <div id="hero-container"></div>
         <div class="featured-grid" id="article-container"><p class="loading">Loading stories...</p></div>
-        <h2 class="section-heading">More Disney Magic</h2>
+        <h2 class="section-heading">More News from Parks Around The World</h2>
         <div class="article-list" id="more-stories-container"></div>
     </div>
         
@@ -228,7 +228,6 @@
                     "adventureland", 
                     "six flags", 
                     "sea world", 
-                     
                     "otherland",
                     "other resorts"
                 ]]) > 0] | order(coalesce(publishedAt, _createdAt) desc) {
