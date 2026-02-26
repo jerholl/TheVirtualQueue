@@ -255,6 +255,20 @@
             }
         }
         loadContent();
+        // SEARCH LOGIC: Filter articles as you type
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            
+            // Filter the master list (allArticles) based on Title, Category, or Excerpt
+            const filtered = allArticles.filter(a => 
+                a.title.toLowerCase().includes(term) || 
+                (a.category && a.category.toLowerCase().includes(term)) ||
+                (a.excerpt && a.excerpt.toLowerCase().includes(term))
+            );
+
+            // Re-render the page with only the matches
+            renderPage(filtered, `No stories found for "${term}"`);
+        });
         </script>
 
     <footer></footer> 
