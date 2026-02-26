@@ -19,69 +19,60 @@
     <link rel="canonical" href="https://thevirtualqueue.com/">
     <title>The Virtual Queue | Theme Park News & Updates</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;700;900&display=swap" rel="stylesheet">
-    <style>
+        <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JV371BN1QG"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-JV371BN1QG');
+    </script>
+<style>
+
         :root { --bg:#121212; --surface:#1a1a1b; --border:#2a2a2a; --blue:#0077cc; --cyan:#00d4ff; --text:#e0e0e0; --muted:#888; }
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background-color: var(--bg); color: var(--text); font-family: 'Roboto Slab', serif; line-height: 1.6; }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Roboto Slab', serif; line-height: 1.6; overflow-x: hidden; }
+        /* SMOOTH PAGE TRANSITIONS - FIX IPAD WONKY NAVIGATION */
+        html { scroll-behavior: smooth; }
+        body { overflow-x: hidden; }
+        * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        nav { will-change: transform; backface-visibility: hidden; }
+        
         .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px 60px; }
-        
-        /* NAV SECTION - THE UNIVERSAL LOOK */
         nav { border-bottom: 1px solid var(--border); padding: 0 20px; display: flex; justify-content: center; align-items: center; gap: 10px; background-color: var(--bg); position: sticky; top: 0; z-index: 1000; height: 100px; overflow: visible; }
-        
         .nav-logo-wrap { position: relative; display: flex; align-items: center; }
-        .nav-logo-wrap::after { 
-            content: ""; 
-            position: absolute; 
-            top: 75%; 
-            left: 50%; 
-            width: 800px; 
-            height: 10px; 
-            border-left: 3px solid var(--cyan); 
-            border-bottom: 3px solid var(--cyan); 
-            border-bottom-left-radius: 6px; 
-            box-shadow: -4px 4px 12px rgba(0,212,255,0.4); 
-            pointer-events: none; 
-        }
-        
-        .nav-logo { height: 150px; width: auto; transition: transform 0.3s ease; filter: drop-shadow(0px 0px 8px rgba(0,119,204,0.7)); display: block; z-index: 2; }
+        .nav-logo-wrap::after { content: ""; position: absolute; top: 75%; left: 200%; transform: translateX(-50%); width: 880px; height: 10px; border-left: 3px solid var(--cyan); border-bottom: 3px solid var(--cyan); border-bottom-left-radius: 6px; box-shadow: -4px 4px 12px rgba(0,212,255,0.5); pointer-events: none; }
+        .nav-logo { height: 150px; width: auto; transition: transform 0.3s ease; filter: drop-shadow(0px 0px 8px rgba(0,119,204,0.7)); display: block; }
         .nav-logo:hover { transform: scale(1.08); }
-        
-        .nav-links-wrap { position: relative; display: flex; align-items: center; gap: 10px; z-index: 2; }
+        .nav-links-wrap { position: relative; display: flex; align-items: center; gap: 10px; }
         nav a { text-decoration: none; color: var(--muted); text-transform: uppercase; font-size: 1.25rem; font-weight: 700; letter-spacing: 2px; padding: 8px 16px; border-radius: 4px; transition: color 0.3s ease, background 0.3s ease; }
         nav a:hover { color: var(--cyan); background: rgba(0,212,255,0.06); }
-        
         .search-box { display: flex; align-items: center; position: relative; margin-left: 8px; }
         #site-search { width: 0; padding: 0; border: none; background: transparent; color: var(--text); outline: none; transition: width 0.4s ease, padding 0.4s ease; font-family: 'Roboto Slab', serif; border-bottom: 2px solid transparent; font-size: 0.95rem; }
         .search-box.active #site-search { width: 180px; padding: 5px 10px; border-bottom: 2px solid var(--cyan); }
         .search-icon-btn { background: none; border: none; color: var(--muted); cursor: pointer; display: flex; align-items: center; padding: 8px; transition: color 0.2s; }
         .search-icon-btn:hover { color: var(--cyan); }
-        
         .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; z-index: 1100; }
         .hamburger span { display: block; width: 26px; height: 3px; background: var(--text); border-radius: 2px; transition: all 0.3s ease; }
         .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
         .hamburger.open span:nth-child(2) { opacity: 0; }
         .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-        
         .mobile-menu { display: flex; flex-direction: column; position: fixed; top: 80px; left: 0; right: 0; background: var(--surface); border-bottom: 1px solid var(--border); z-index: 998; max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
         .mobile-menu.open { max-height: 400px; padding: 10px 20px; }
-        .mobile-menu a { text-decoration: none; color: var(--muted); text-transform: uppercase; font-size: 1rem; font-weight: 700; letter-spacing: 2px; padding: 14px 16px; border-bottom: 1px solid var(--border); display: block; }
-
-        @media (max-width: 768px) { 
-            nav { justify-content: space-between; height: 80px; } 
-            .nav-logo-wrap::after { display: none; } 
-            .nav-logo { height: 90px; } 
-            .nav-links-wrap { display: none; } 
-            .hamburger { display: flex; } 
-        }
-
-        /* GRID & CARDS */
+        .mobile-menu a { text-decoration: none; color: var(--muted); text-transform: uppercase; font-size: 1rem; font-weight: 700; letter-spacing: 2px; padding: 14px 16px; border-bottom: 1px solid var(--border); transition: color 0.2s, background 0.2s; display: block; }
+        .mobile-menu a:last-child { border-bottom: none; }
+        .mobile-menu a:hover { color: var(--cyan); background: rgba(0,212,255,0.06); }
+        @media (max-width: 768px) { nav { justify-content: space-between; height: 80px; } .nav-logo-wrap::after { display: none; } .nav-logo { height: 90px; } .nav-links-wrap { display: none; } .hamburger { display: flex; } }
+        footer { text-align: center; padding: 40px; color: var(--muted); border-top: 1px solid var(--border); font-size: 0.85rem; letter-spacing: 1px; }
+        .footer-social { display: flex; justify-content: center; gap: 20px; margin-bottom: 16px; }
+        .footer-social a { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid var(--border); border-radius: 50%; color: var(--muted); transition: color 0.3s, border-color 0.3s, background 0.3s; }
+        .footer-social a:hover { color: var(--cyan); border-color: var(--cyan); background: rgba(0,212,255,0.06); }
         .page-title { text-align: center; margin-bottom: 40px; }
         .page-title h1 { font-size: 2.2rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; color: #fff; }
         .page-title h1 span { color: var(--blue); }
         .page-title-line { width: 60px; height: 4px; background: var(--cyan); margin: 12px auto 0; border-radius: 2px; box-shadow: 0 0 10px rgba(0,212,255,0.6); }
-        
         .featured-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-bottom: 60px; justify-items: center; }
-        .featured-card { width: 100%; max-width: 380px; background: var(--surface); border-radius: 10px; border: 1px solid var(--border); overflow: hidden; text-decoration: none; color: var(--text); transition: transform 0.3s ease, border-color 0.3s ease; display: flex; flex-direction: column; }
+        .featured-card { width: 100%; max-width: 380px; background: var(--surface); border-radius: 10px; border: 1px solid var(--border); overflow: hidden; text-decoration: none; color: var(--text); transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; }
         .featured-card:hover { transform: translateY(-6px); border-color: var(--blue); box-shadow: 0 10px 35px rgba(0,119,204,0.2); }
         .featured-card-img { width: 100%; height: 220px; object-fit: cover; display: block; }
         .featured-card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
@@ -89,71 +80,49 @@
         .featured-card h3 { font-size: 1.15rem; font-weight: 700; color: #fff; line-height: 1.4; }
         .featured-card p { font-size: 0.88rem; color: var(--muted); font-weight: 300; flex: 1; }
         .featured-card-date { font-size: 0.75rem; color: #555; letter-spacing: 1px; }
-        
         .hero-card { display: flex; flex-direction: row; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; text-decoration: none; color: var(--text); margin-bottom: 30px; transition: transform 0.3s, border-color 0.3s; }
         .hero-card:hover { transform: translateY(-4px); border-color: var(--cyan); }
         .hero-img { width: 60%; height: 400px; object-fit: cover; }
         .hero-body { padding: 40px; width: 40%; display: flex; flex-direction: column; justify-content: center; gap: 15px; }
         .hero-body h2 { font-size: 2rem; color: #fff; line-height: 1.2; }
-        
         .section-heading { color: #fff; border-left: 4px solid var(--blue); padding-left: 15px; margin: 40px 0 20px; font-size: 1.2rem; text-transform: uppercase; }
         .article-list { display: flex; flex-direction: column; }
         .article-list-item { display: flex; align-items: flex-start; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--border); text-decoration: none; color: var(--text); }
         .article-list-item:hover div { color: var(--cyan); }
-        
         .loading { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 0.9rem; letter-spacing: 1px; width: 100%; }
+        @media (max-width: 768px) { .featured-card { flex: 1 1 100%; } .page-title h1 { font-size: 1.6rem; } .hero-card { flex-direction: column; } .hero-img, .hero-body { width: 100%; } .hero-body { padding: 24px; } }
 
-        @media (max-width: 768px) { .page-title h1 { font-size: 1.6rem; } .hero-card { flex-direction: column; } .hero-img, .hero-body { width: 100%; } .hero-body { padding: 24px; } }
-        
+        /* --- LIGHT MODE SUPPORT --- */
         @media (prefers-color-scheme: light) {
             :root {
-                --bg: #ffffff;       /* Light grey page background */
-                --surface: #1990ff;  /* Changed this from blue to grey for you */
-                --border: #ffffff;   /* Darker borders for cards */
-                --text: #1a1a1b;     /* Dark text for headers */
-                --muted: #444444;    /* Muted text for excerpts */
+                --bg: #ffffff;
+                --surface: #f7f7f7;
+                --border: #e0e0e0;
+                --text: #1a1a1b;
+                --muted: #696868;
             }
-
+            
             body { background-color: var(--bg); color: var(--text); }
-
-            /* Target "THE VIRTUAL QUEUE" text at the top */
-            .page-title h1 { 
-                color: #111111 !important; 
+            
+            /* Ensuring titles and headings stay visible */
+            .page-title h1, 
+            .hero-body h2, 
+            .featured-card h3, 
+            .section-heading,
+            .article-list-item div { 
+                color: #121212 !important; 
             }
-
-            /* Target "MORE STORIES" header */
-            .section-heading { 
-                color: #111111 !important; 
-                border-left-color: var(--blue) !important; 
+            
+            .featured-card-date {
+                color: #888 !important;
             }
-
-            /* Darken the Cyan line under the logo */
-            .nav-logo-wrap::after {
-                border-color: #0055aa !important; 
-                box-shadow: -4px 4px 10px rgba(0, 85, 170, 0.2) !important;
+            
+            /* Updating the mobile menu background */
+            .mobile-menu {
+                background: var(--surface);
             }
+        } 
 
-            /* Ensure Hero and Featured cards use the darker surface color */
-            .hero-card, .featured-card {
-                background: var(--surface) !important;
-                border-color: var(--border) !important;
-            }
-
-            /* Make card titles dark in light mode */
-            .hero-body h2, .featured-card h3 {
-                color: #111111 !important;
-            }
-
-            /* Darken the "More Stories" list items */
-            .article-list-item div {
-                color: var(--text) !important;
-            }
-        }
-
-        footer { text-align: center; padding: 40px; color: var(--muted); border-top: 1px solid var(--border); font-size: 0.85rem; letter-spacing: 1px; }
-        .footer-social { display: flex; justify-content: center; gap: 20px; margin-bottom: 16px; }
-        .footer-social a { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid var(--border); border-radius: 50%; color: var(--muted); transition: color 0.3s, border-color 0.3s, background 0.3s; }
-        .footer-social a:hover { color: var(--cyan); border-color: var(--cyan); background: rgba(0,212,255,0.06); }
     </style>
 </head>
 <body>
@@ -190,7 +159,6 @@
         <a href="/about">About Us</a>
         <a href="/contact">Contact</a>
     </div>
-
     <div class="container">
         <div class="page-title"><h1>The Virtual <span>Queue</span></h1><div class="page-title-line"></div></div>
         <div id="hero-container"></div>
@@ -198,65 +166,57 @@
         <h2 class="section-heading">More Stories</h2>
         <div class="article-list" id="more-stories-container"></div>
     </div>
-
     <footer>
         <div class="footer-social">
-            <a href="https://instagram.com/thevirtualqueue" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg></a>
-            <a href="https://facebook.com/thevirtualqueue" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
-            <a href="https://youtube.com/@thevirtualqueue" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58a2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg></a>
-            <a href="https://bsky.app/profile/thevirtualqueue.bsky.social" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.204-.659-.299-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8z"/></svg></a>
+            <a href="https://instagram.com/thevirtualqueue" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg></a>
+            <a href="https://facebook.com/thevirtualqueue" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+            <a href="https://youtube.com/@thevirtualqueue" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58a2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg></a>
+            <a href="https://bsky.app/profile/thevirtualqueue.bsky.social" target="_blank" rel="noopener" aria-label="Bluesky"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.204-.659-.299-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8z"/></svg></a>
         </div>
         <p>&copy; 2026 The Virtual Queue. All rights reserved.</p>
     </footer>
-
     <script type="module">
         import { createClient } from 'https://esm.sh/@sanity/client';
         const client = createClient({ projectId: '8qrlygx8', dataset: 'production', useCdn: true, apiVersion: '2024-02-24' });
-
+        // Nav & hamburger
         const btn = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobile-menu');
         btn.addEventListener('click', () => { btn.classList.toggle('open'); mobileMenu.classList.toggle('open'); });
-        
+        mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { btn.classList.remove('open'); mobileMenu.classList.remove('open'); }));
+        // Search
         const searchToggle = document.getElementById('search-toggle');
         const searchBox = document.querySelector('.search-box');
         const searchInput = document.getElementById('site-search');
         searchToggle.addEventListener('click', () => { searchBox.classList.toggle('active'); if (searchBox.classList.contains('active')) searchInput.focus(); });
-
-        let allArticles = [];
 
         function renderPage(articles, emptyMsg) {
             const heroCont = document.getElementById('hero-container');
             const cardCont = document.getElementById('article-container');
             const listCont = document.getElementById('more-stories-container');
             heroCont.innerHTML = ''; cardCont.innerHTML = ''; listCont.innerHTML = '';
-            
             if (!articles || articles.length === 0) {
-                cardCont.innerHTML = `<p class="loading">${emptyMsg || 'No stories found.'}</p>`;
+                cardCont.innerHTML = `<p class="loading">${emptyMsg || 'No stories found. Check back soon!'}</p>`;
                 return;
             }
-            
             const fmt = d => d ? new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'No Date';
             const [first, ...rest] = articles;
-
             heroCont.innerHTML = `<a href="article?id=${first.id}" class="hero-card">
-                <img src="${first.image || './VQNewLOGO.png'}" class="hero-img">
+                <img src="${first.image || './VQNewLOGO.png'}" class="hero-img" onerror="this.style.display='none'">
                 <div class="hero-body">
                     <span class="featured-card-tag">${first.category || 'News'}</span>
                     <h2>${first.title}</h2>
                     <p>${first.excerpt || ''}</p>
                     <span class="featured-card-date">${fmt(first.date)}</span>
                 </div></a>`;
-
             rest.slice(0, 3).forEach(a => {
                 cardCont.innerHTML += `<a href="article?id=${a.id}" class="featured-card">
-                    <img src="${a.image || './VQNewLOGO.png'}" class="featured-card-img">
+                    <img src="${a.image || './VQNewLOGO.png'}" class="featured-card-img" onerror="this.style.display='none'">
                     <div class="featured-card-body">
                         <span class="featured-card-tag">${a.category || 'News'}</span>
                         <h3>${a.title}</h3><p>${a.excerpt || ''}</p>
                         <span class="featured-card-date">${fmt(a.date)}</span>
                     </div></a>`;
             });
-
             rest.slice(3).forEach(a => {
                 listCont.innerHTML += `<a href="article?id=${a.id}" class="article-list-item">
                     <span style="color:var(--muted);min-width:100px;font-size:0.8rem;">${fmt(a.date)}</span>
@@ -267,29 +227,27 @@
                     </div></a>`;
             });
         }
-
+        let allArticles = [];
         async function loadContent() {
             try {
                 allArticles = await client.fetch(`*[_type == "post"] | order(coalesce(publishedAt, _createdAt) desc) {
-                    "id": slug.current,
-                    title,
-                    "excerpt": pt::text(body)[0..200],
-                    "image": mainImage.asset->url,
-                    "category": categories[0]->title,
-                    "date": coalesce(publishedAt, _createdAt)
-                }`);
+            "id": slug.current,
+            title,
+            "excerpt": pt::text(body)[0..200],
+            "image": mainImage.asset->url,
+            "category": categories[0]->title,
+            "date": coalesce(publishedAt, _createdAt)
+        }`);
                 renderPage(allArticles);
             } catch(e) {
                 console.error('Sanity error:', e);
-                document.getElementById('article-container').innerHTML = "<p class='loading'>Failed to load. Check Sanity CORS.</p>";
+                document.getElementById('article-container').innerHTML = "<p class='loading'>Couldn't load stories. Please try again later.</p>";
             }
         }
-
         searchInput.addEventListener('input', e => {
             const t = e.target.value.toLowerCase();
             renderPage(allArticles.filter(a => a.title.toLowerCase().includes(t) || (a.excerpt||'').toLowerCase().includes(t)));
         });
-
         loadContent();
     </script>
 </body>
