@@ -9,9 +9,8 @@ function loadFooter() {
                     <a href="universal.html" style="color:#888; text-decoration:none; margin: 0 10px; font-weight:700; font-size: 0.85rem; text-transform: uppercase;">Universal</a>
                     <a href="about.html" style="color:#888; text-decoration:none; margin: 0 10px; font-weight:700; font-size: 0.85rem; text-transform: uppercase;">About</a>
                     <a href="contact.html" style="color:#888; text-decoration:none; margin: 0 10px; font-weight:700; font-size: 0.85rem; text-transform: uppercase;">Contact</a>
-                    // Inside your global.js footer innerHTML
                     <a href="legal.html" style="color:#888; text-decoration:none; margin: 0 15px; font-weight:700; font-size: 0.85rem; text-transform: uppercase;">Privacy & Terms</a>
-                    </div>
+                </div>
                 <p style="font-size: 0.8rem; margin-bottom: 10px;">&copy; 2026 The Virtual Queue. Fast, condensed theme park news.</p>
                 <p style="font-size: 0.7rem; color: #444;">All trademarks are property of their respective owners.</p>
             </div>
