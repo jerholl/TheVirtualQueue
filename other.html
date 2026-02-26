@@ -251,7 +251,7 @@
         async function loadContent() {
             try {
                 const allArticles = await client.fetch(`*[_type == "post" && defined(categories) && count(categories[lower(@->title) in [
-                    "other", "seaworld", "busch gardens", "six flags", "legoland", "knott's berry farm", "silver dollar city", "dollywood", "cedar point"
+                    "other", "seaworld", "busch gardens", "adventureland", "six flags", "legoland", "knott's berry farm", "silver dollar city", "dollywood", "cedar point"
                 ]]) > 0] | order(coalesce(publishedAt, _createdAt) desc) {
                     "id": slug.current,
                     title,
