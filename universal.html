@@ -251,7 +251,7 @@
         async function loadContent() {
             try {
                 const allArticles = await client.fetch(`*[_type == "post" && defined(categories) && count(categories[lower(@->title) in [
-                    "universal", "halloween horror nights", "islands of adventure", "hhn", "epic universe", "universal resorts"
+                    "universal", "halloween horror nights", "islands of adventure", "hhn", "epic universe", "universal resorts", "universal hollywood", "universal orlando"
                 ]]) > 0] | order(coalesce(publishedAt, _createdAt) desc) {
                     "id": slug.current,
                     title,
