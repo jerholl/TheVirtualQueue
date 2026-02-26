@@ -102,10 +102,48 @@
         .loading { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 0.9rem; letter-spacing: 1px; width: 100%; }
 
         @media (prefers-color-scheme: light) {
-            :root { --bg: #ffffff; --surface: #f7f7f7; --border: #e0e0e0; --text: #1a1a1b; --muted: #696868; }
+            :root {
+                --bg: #f2f2f2;       /* Light grey page background */
+                --surface: #005395;  /* Changed this from blue to grey for you */
+                --border: #d0d0d0;   /* Darker borders for cards */
+                --text: #1a1a1b;     /* Dark text for headers */
+                --muted: #444444;    /* Muted text for excerpts */
+            }
+
             body { background-color: var(--bg); color: var(--text); }
-            .page-title h1, .hero-body h2, .featured-card h3, .section-heading, .article-list-item div { color: #121212 !important; }
-            .featured-card-date { color: #888 !important; }
+
+            /* Target "THE VIRTUAL QUEUE" text at the top */
+            .page-title h1 { 
+                color: #111111 !important; 
+            }
+
+            /* Target "MORE STORIES" header */
+            .section-heading { 
+                color: #111111 !important; 
+                border-left-color: var(--blue) !important; 
+            }
+
+            /* Darken the Cyan line under the logo */
+            .nav-logo-wrap::after {
+                border-color: #0055aa !important; 
+                box-shadow: -4px 4px 10px rgba(0, 85, 170, 0.2) !important;
+            }
+
+            /* Ensure Hero and Featured cards use the darker surface color */
+            .hero-card, .featured-card {
+                background: var(--surface) !important;
+                border-color: var(--border) !important;
+            }
+
+            /* Make card titles dark in light mode */
+            .hero-body h2, .featured-card h3 {
+                color: #111111 !important;
+            }
+
+            /* Darken the "More Stories" list items */
+            .article-list-item div {
+                color: var(--text) !important;
+            }
         }
     </style>
 </head>

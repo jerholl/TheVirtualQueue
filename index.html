@@ -107,24 +107,47 @@
         
         @media (prefers-color-scheme: light) {
             :root {
-                --bg: #f0f0f0;
-                --surface: #1f93f1;
-                --border: #1b8cc0;
-                --text: #1a1a1b;
-                --muted: #555555;
+                --bg: #f2f2f2;       /* Light grey page background */
+                --surface: #1990ff;  /* Changed this from blue to grey for you */
+                --border: #d0d0d0;   /* Darker borders for cards */
+                --text: #1a1a1b;     /* Dark text for headers */
+                --muted: #444444;    /* Muted text for excerpts */
             }
-            
 
+            body { background-color: var(--bg); color: var(--text); }
+
+            /* Target "THE VIRTUAL QUEUE" text at the top */
+            .page-title h1 { 
+                color: #111111 !important; 
+            }
+
+            /* Target "MORE STORIES" header */
+            .section-heading { 
+                color: #111111 !important; 
+                border-left-color: var(--blue) !important; 
+            }
+
+            /* Darken the Cyan line under the logo */
             .nav-logo-wrap::after {
                 border-color: #0055aa !important; 
                 box-shadow: -4px 4px 10px rgba(0, 85, 170, 0.2) !important;
             }
 
-            body { background-color: var(--bg); color: var(--text); }
-            
-            .article-header h1 { color: #121212 !important; }
-            .content { color: #222 !important; }
-            .back-btn:hover { color: #121212 !important; }
+            /* Ensure Hero and Featured cards use the darker surface color */
+            .hero-card, .featured-card {
+                background: var(--surface) !important;
+                border-color: var(--border) !important;
+            }
+
+            /* Make card titles dark in light mode */
+            .hero-body h2, .featured-card h3 {
+                color: #111111 !important;
+            }
+
+            /* Darken the "More Stories" list items */
+            .article-list-item div {
+                color: var(--text) !important;
+            }
         }
 
         footer { text-align: center; padding: 40px; color: var(--muted); border-top: 1px solid var(--border); font-size: 0.85rem; letter-spacing: 1px; }
