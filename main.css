@@ -41,14 +41,12 @@ a:hover { color: #E67A22; }
 .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px 60px; }
 
 nav {
-  border-bottom: 1px solid var(--border);
   padding: 0 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  background-color: rgba(255, 251, 247, 0.95);
-  backdrop-filter: blur(6px);
+  background-color: #FFFFFF;
   position: sticky;
   top: 0;
   z-index: 1000;
