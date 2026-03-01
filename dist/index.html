@@ -75,17 +75,6 @@
     <script type="module">
         import { createClient } from 'https://esm.sh/@sanity/client';
         const client = createClient({ projectId: '8qrlygx8', dataset: 'production', useCdn: true, apiVersion: '2024-02-24' });
-        // Nav & hamburger
-        const btn = document.getElementById('hamburger');
-        const mobileMenu = document.getElementById('mobile-menu');
-        btn.addEventListener('click', () => { btn.classList.toggle('open'); mobileMenu.classList.toggle('open'); });
-        mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { btn.classList.remove('open'); mobileMenu.classList.remove('open'); }));
-        // Search
-        const searchToggle = document.getElementById('search-toggle');
-        const searchBox = document.querySelector('.search-box');
-        const searchInput = document.getElementById('site-search');
-        searchToggle.addEventListener('click', () => { searchBox.classList.toggle('active'); if (searchBox.classList.contains('active')) searchInput.focus(); });
-
         function renderPage(articles, emptyMsg) {
             const heroCont = document.getElementById('hero-container');
             const cardCont = document.getElementById('article-container');
@@ -142,6 +131,7 @@
             }
         }
         loadContent();
+        const searchInput = document.getElementById('site-search');
 // SEARCH LOGIC: Filter articles as you type
         searchInput.addEventListener('input', (e) => {
             const term = e.target.value.toLowerCase();

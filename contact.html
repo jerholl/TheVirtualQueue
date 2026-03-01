@@ -68,17 +68,6 @@
         </div>
     </div>
 
-    <script>
-        const btn = document.getElementById('hamburger');
-        const mobileMenu = document.getElementById('mobile-menu');
-        btn.addEventListener('click', () => { btn.classList.toggle('open'); mobileMenu.classList.toggle('open'); });
-        mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { btn.classList.remove('open'); mobileMenu.classList.remove('open'); }));
-        const searchToggle = document.getElementById('search-toggle');
-        const searchBox = document.querySelector('.search-box');
-        const searchInput = document.getElementById('site-search');
-        searchToggle.addEventListener('click', () => { searchBox.classList.toggle('active'); if (searchBox.classList.contains('active')) searchInput.focus(); });
-    </script>
-
     <footer></footer> 
     <script src="/global.js"></script> 
 </body>

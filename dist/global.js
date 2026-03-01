@@ -1,5 +1,3 @@
-console.log("Global JS is loaded!"); 
-
 function loadFooter() {
     const footer = document.querySelector('footer');
     if (footer) {
@@ -27,4 +25,43 @@ function loadFooter() {
         `;
     }
 }
-loadFooter();
+
+function initSiteNav() {
+    const btn = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (btn && mobileMenu) {
+        btn.addEventListener('click', () => {
+            btn.classList.toggle('open');
+            mobileMenu.classList.toggle('open');
+        });
+        mobileMenu.querySelectorAll('a').forEach((a) =>
+            a.addEventListener('click', () => {
+                btn.classList.remove('open');
+                mobileMenu.classList.remove('open');
+            })
+        );
+    }
+
+    const searchToggle = document.getElementById('search-toggle');
+    const searchBox = document.querySelector('.search-box');
+    const searchInput = document.getElementById('site-search');
+    if (searchToggle && searchBox && searchInput) {
+        searchToggle.addEventListener('click', () => {
+            searchBox.classList.toggle('active');
+            if (searchBox.classList.contains('active')) {
+                searchInput.focus();
+            }
+        });
+    }
+}
+
+function initGlobalUi() {
+    loadFooter();
+    initSiteNav();
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initGlobalUi);
+} else {
+    initGlobalUi();
+}
