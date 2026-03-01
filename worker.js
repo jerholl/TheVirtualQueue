@@ -80,6 +80,6 @@ export default {
         return new Response('RSS feed error', { status: 500 })
       }
     }
-    return env.ASSETS.fetch(request)
+    return env.STATIC_ASSETS.fetch(request)
   },
 }
