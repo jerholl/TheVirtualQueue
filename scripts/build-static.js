@@ -20,6 +20,7 @@ const rootFiles = [
   'CNAME',
   'articles.json',
   'feed.xml',
+  '_redirects',
 ]
 
 const imageExtensions = new Set([
