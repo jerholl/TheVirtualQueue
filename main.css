@@ -6,7 +6,7 @@
   --blue: #2563EB;
   --cloud-white: #FFFFFF;
   --surface: #FFFFFF;
-  --card-bg: #FFA366;
+  --card-bg: #FFB88C;
   --surface-soft: #FFF8F3;
   --border: #E8D5C4;
   --text: var(--navy);
@@ -202,9 +202,9 @@ nav a:hover {
 footer {
   text-align: center;
   padding: 40px;
-  color: var(--navy);
-  background: rgba(26, 34, 56, 0.03);
-  border-top: 1px solid var(--border);
+  color: #fff;
+  background: var(--orange);
+  border-top: none;
   font-size: 0.9rem;
   letter-spacing: 0.4px;
 }
@@ -217,16 +217,16 @@ footer {
   justify-content: center;
   width: 40px;
   height: 40px;
-  border: 1px solid var(--border);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 50%;
-  color: var(--muted);
+  color: #fff;
   transition: color 0.25s, border-color 0.25s, background 0.25s;
 }
 
 .footer-social a:hover {
   color: var(--orange);
-  border-color: var(--orange);
-  background: rgba(255, 140, 50, 0.08);
+  border-color: #fff;
+  background: #fff;
 }
 
 .page-title { text-align: center; margin-bottom: 44px; }
