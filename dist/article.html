@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Theme park news and updates from The Virtual Queue — fast, accurate, and condensed.">
+    <meta name="keywords" content="theme park news, Disney, Universal, virtual queue">
+    <meta name="author" content="The Virtual Queue">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="The Virtual Queue">
+    <meta property="og:title" content="The Virtual Queue | Story">
+    <meta property="og:description" content="Theme park news and updates from The Virtual Queue — fast, accurate, and condensed.">
+    <meta property="og:image" content="/VQNewLOGO.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Virtual Queue | Story">
+    <meta name="twitter:description" content="Theme park news and updates from The Virtual Queue — fast, accurate, and condensed.">
+    <meta name="twitter:image" content="/VQNewLOGO.png">
+    <meta name="color-scheme" content="light dark">
+    <link rel="canonical" href="https://thevirtualqueue.com/article">
+    <title>The Virtual Queue | Story</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;700;900&display=swap" rel="stylesheet">
+        <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JV371BN1QG"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-JV371BN1QG');
+    </script>
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body class="page-article">
+    <nav>
+        <div class="nav-logo-wrap">
+            <a href="/">
+                <picture>
+                    <source srcset="vqlightlogo.png" media="(prefers-color-scheme: light)">
+                    <img src="vqdarklogo.png" alt="The Virtual Queue Logo" class="nav-logo">
+                </picture>
+            </a>
+        </div>
+        <div class="nav-links-wrap">
+            <a href="/">Home</a>
+            <a href="/disney">Disney</a>
+            <a href="/universal">Universal</a>
+            <a href="/other">Other</a>
+            <a href="/about">About Us</a>
+            <a href="/contact">Contact</a>
+            <div class="search-box">
+                <input type="text" id="site-search" placeholder="Search the Queue...">
+                <button class="search-icon-btn" id="search-toggle">
+                    <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </button>
+            </div>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </nav>
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="/">Home</a>
+        <a href="/disney">Disney</a>
+        <a href="/universal">Universal</a>
+        <a href="/other">Other</a>
+        <a href="/about">About Us</a>
+        <a href="/contact">Contact</a>
+    </div>
+    <div class="container">
+        <a href="javascript:history.back()" class="back-btn">← Back to Queue</a>
+        <div id="article-view"><p class="loading">Loading story...</p></div>
+    </div>
+       
+    <script type="module">
+        import { createClient } from 'https://esm.sh/@sanity/client';
+        const client = createClient({ projectId: '8qrlygx8', dataset: 'production', useCdn: true, apiVersion: '2024-02-24' });
+        // Nav & hamburger
+        const btn = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => { btn.classList.toggle('open'); mobileMenu.classList.toggle('open'); });
+        mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { btn.classList.remove('open'); mobileMenu.classList.remove('open'); }));
+        // Search
+        const searchToggle = document.getElementById('search-toggle');
+        const searchBox = document.querySelector('.search-box');
+        const searchInput = document.getElementById('site-search');
+        searchToggle.addEventListener('click', () => { searchBox.classList.toggle('active'); if (searchBox.classList.contains('active')) searchInput.focus(); });
+
+        async function loadStory() {
+            const view = document.getElementById('article-view');
+            const storyId = new URLSearchParams(window.location.search).get('id');
+            if (!storyId) { view.innerHTML = '<h1 style="color:#fff;">No story ID provided.</h1>'; return; }
+            try {
+                const story = await client.fetch(
+                    `*[_type == "post" && slug.current == $id][0]{
+                        title,
+                        "excerpt": pt::text(body)[0..200],
+                        "image": mainImage.asset->url,
+                        "category": categories[0]->title,
+                        "date": coalesce(publishedAt, _createdAt),
+                        body
+                    }`,
+                    { id: storyId }
+                );
+                if (!story) { view.innerHTML = '<h1 style="color:#fff;">Story not found.</h1>'; return; }
+                // Update meta tags dynamically
+                document.title = story.title + ' | The Virtual Queue';
+                document.querySelector('meta[name="description"]')?.setAttribute('content', story.excerpt || '');
+                document.querySelector('meta[property="og:title"]')?.setAttribute('content', story.title);
+                document.querySelector('meta[property="og:description"]')?.setAttribute('content', story.excerpt || '');
+                document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', story.title);
+                document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', story.excerpt || '');
+                if (story.image) {
+                    document.querySelector('meta[property="og:image"]')?.setAttribute('content', story.image);
+                    document.querySelector('meta[name="twitter:image"]')?.setAttribute('content', story.image);
+                }
+                const fmt = d => d ? new Date(d).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : '';
+                // Render body blocks as paragraphs
+                const bodyHtml = story.body ? story.body
+                    .filter(b => b._type === 'block')
+                    .map(b => '<p>' + (b.children||[]).map(c => c.text||'').join('') + '</p>')
+                    .join('') : '<p>Full content arriving soon.</p>';
+                view.innerHTML = `
+                    <div class="article-header">
+                        <span class="featured-card-tag">${story.category || 'News'}</span>
+                        <h1>${story.title}</h1>
+                        <div class="article-meta">${fmt(story.date)}</div>
+                    </div>
+                    <img src="${story.image || ''}" class="main-img" onerror="this.style.display='none'">
+                    <div class="content">
+                        <p><strong>${story.excerpt || ''}</strong></p>
+                        ${bodyHtml}
+                    </div>`;
+            } catch(e) {
+                console.error('Article load error:', e);
+                view.innerHTML = '<h1 style="color:#fff;">Error loading story.</h1>';
+            }
+        }
+        loadStory();
+        </script>
+
+    <footer></footer> 
+    <script src="/global.js"></script> 
+</body>
+</html>

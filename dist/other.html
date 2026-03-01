@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Stay up to date on Other Theme Park news — SeaWorld, Busch Gardens, Six Flags, LEGOLAND, and more.">
+    <meta name="keywords" content="Other Theme Park news, SeaWorld, Busch Gardens, Six Flags, LEGOLAND">
+    <meta name="author" content="The Virtual Queue">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="The Virtual Queue">
+    <meta property="og:title" content="Other Theme Park News | The Virtual Queue">
+    <meta property="og:description" content="Stay up to date on Other Theme Park news — SeaWorld, Busch Gardens, Six Flags, LEGOLAND, and more.">
+    <meta property="og:image" content="/VQNewLOGO.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Other Theme Park News | The Virtual Queue">
+    <meta name="twitter:description" content="Stay up to date on Other Theme Park news — SeaWorld, Busch Gardens, Six Flags, LEGOLAND, and more.">
+    <meta name="twitter:image" content="/VQNewLOGO.png">
+    <meta name="color-scheme" content="light dark">
+    <link rel="canonical" href="https://thevirtualqueue.com/other">
+    <title>Other Theme Park News | The Virtual Queue</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;700;900&display=swap" rel="stylesheet">
+        <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JV371BN1QG"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-JV371BN1QG');
+    </script>
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body class="page-other">
+    <nav>
+        <div class="nav-logo-wrap">
+            <a href="/">
+                <picture>
+                    <source srcset="vqlightlogo.png" media="(prefers-color-scheme: light)">
+                    <img src="vqdarklogo.png" alt="The Virtual Queue Logo" class="nav-logo">
+                </picture>
+            </a>
+        </div>
+        <div class="nav-links-wrap">
+            <a href="/">Home</a>
+            <a href="/disney" >Disney</a>
+            <a href="/universal">Universal</a>
+            <a href="/other"style="color:var(--cyan)">Other</a>
+            <a href="/about">About Us</a>
+            <a href="/contact">Contact</a>
+            <div class="search-box">
+                <input type="text" id="site-search" placeholder="Search...">
+                <button class="search-icon-btn" id="search-toggle">
+                    <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </button>
+            </div>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </nav>
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="/">Home</a>
+        <a href="/disney">Disney</a>
+        <a href="/universal">Universal</a>
+        <a href="/other">Other</a>
+        <a href="/about">About Us</a>
+        <a href="/contact">Contact</a>
+    </div>
+    <div class="container">
+        <div class="page-title"><h1>Other Theme <span>Park News</span></h1><div class="page-title-line"></div></div>
+        <div id="hero-container"></div>
+        <div class="featured-grid" id="article-container"><p class="loading">Loading stories...</p></div>
+        <h2 class="section-heading">More News from Parks Around The World</h2>
+        <div class="article-list" id="more-stories-container"></div>
+    </div>
+        
+    <script type="module">
+        import { createClient } from 'https://esm.sh/@sanity/client';
+        const client = createClient({ projectId: '8qrlygx8', dataset: 'production', useCdn: true, apiVersion: '2024-02-24' });
+
+        const btn = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => { btn.classList.toggle('open'); mobileMenu.classList.toggle('open'); });
+        mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { btn.classList.remove('open'); mobileMenu.classList.remove('open'); }));
+        const searchToggle = document.getElementById('search-toggle');
+        const searchBox = document.querySelector('.search-box');
+        const searchInput = document.getElementById('site-search');
+        searchToggle.addEventListener('click', () => { searchBox.classList.toggle('active'); if (searchBox.classList.contains('active')) searchInput.focus(); });
+
+        function renderPage(articles, emptyMsg) {
+            const heroCont = document.getElementById('hero-container');
+            const cardCont = document.getElementById('article-container');
+            const listCont = document.getElementById('more-stories-container');
+            heroCont.innerHTML = ''; cardCont.innerHTML = ''; listCont.innerHTML = '';
+            if (!articles || articles.length === 0) {
+                cardCont.innerHTML = `<p class="loading">${emptyMsg || 'No stories found. Check back soon!'}</p>`;
+                return;
+            }
+            const fmt = d => d ? new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'No Date';
+            const [first, ...rest] = articles;
+            heroCont.innerHTML = `<a href="article?id=${first.id}" class="hero-card">
+                <img src="${first.image || './VQNewLOGO.png'}" class="hero-img" onerror="this.style.display='none'">
+                <div class="hero-body">
+                    <span class="featured-card-tag">${first.category || 'News'}</span>
+                    <h2>${first.title}</h2>
+                    <p>${first.excerpt || ''}</p>
+                    <span class="featured-card-date">${fmt(first.date)}</span>
+                </div></a>`;
+            rest.slice(0, 3).forEach(a => {
+                cardCont.innerHTML += `<a href="article?id=${a.id}" class="featured-card">
+                    <img src="${a.image || './VQNewLOGO.png'}" class="featured-card-img" onerror="this.style.display='none'">
+                    <div class="featured-card-body">
+                        <span class="featured-card-tag">${a.category || 'News'}</span>
+                        <h3>${a.title}</h3><p>${a.excerpt || ''}</p>
+                        <span class="featured-card-date">${fmt(a.date)}</span>
+                    </div></a>`;
+            });
+            rest.slice(3).forEach(a => {
+                listCont.innerHTML += `<a href="article?id=${a.id}" class="article-list-item">
+                    <span style="color:var(--muted);min-width:100px;font-size:0.8rem;">${fmt(a.date)}</span>
+                    <div>
+                        <div style="font-size:0.7rem;color:var(--cyan);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">${a.category || 'News'}</div>
+                        <div style="font-weight:700;">${a.title}</div>
+                        <div style="font-size:0.85rem;color:var(--muted);margin-top:4px;">${a.excerpt || ''}</div>
+                    </div></a>`;
+            });
+        }
+        let allArticles = [];
+        async function loadContent() {
+            try {
+                allArticles = await client.fetch(`*[_type == "post" && defined(categories) && count(categories[lower(@->title) in [
+                    "other", 
+                    "adventureland", 
+                    "six flags", 
+                    "sea world", 
+                    "otherland",
+                    "other resorts"
+                ]]) > 0] | order(coalesce(publishedAt, _createdAt) desc) {
+                    "id": slug.current,
+                    title,
+                    "excerpt": pt::text(body)[0..200],
+                    "image": mainImage.asset->url,
+                    "category": categories[0]->title,
+                    "date": coalesce(publishedAt, _createdAt)
+                }`);
+                
+                renderPage(allArticles, "No Disney articles found yet. Check back soon!");
+            } catch(e) {
+                console.error('Sanity error:', e);
+                document.getElementById('article-container').innerHTML = "<p class='loading'>Couldn't load stories.</p>";
+            }
+        }
+        loadContent();
+        // SEARCH LOGIC: Filter articles as you type
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            
+            // Filter the master list (allArticles) based on Title, Category, or Excerpt
+            const filtered = allArticles.filter(a => 
+                a.title.toLowerCase().includes(term) || 
+                (a.category && a.category.toLowerCase().includes(term)) ||
+                (a.excerpt && a.excerpt.toLowerCase().includes(term))
+            );
+
+            // Re-render the page with only the matches
+            renderPage(filtered, `No stories found for "${term}"`);
+        });
+        </script>
+
+    <footer></footer> 
+    <script src="/global.js"></script> 
+</body>
+</html>

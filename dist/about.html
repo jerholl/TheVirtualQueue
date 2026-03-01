@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The Virtual Queue is a theme park news site built for fans who want accurate, condensed updates without the fluff. Learn about our mission.">
+    <meta name="keywords" content="about The Virtual Queue, theme park blog, Jeremy, theme park news">
+    <meta name="author" content="The Virtual Queue">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="The Virtual Queue">
+    <meta property="og:title" content="About Us | The Virtual Queue">
+    <meta property="og:description" content="The Virtual Queue is a theme park news site built for fans who want accurate, condensed updates without the fluff. Learn about our mission.">
+    <meta property="og:image" content="/VQNewLOGO.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="About Us | The Virtual Queue">
+    <meta name="twitter:description" content="The Virtual Queue is a theme park news site built for fans who want accurate, condensed updates without the fluff. Learn about our mission.">
+    <meta name="twitter:image" content="/VQNewLOGO.png">
+    <meta name="color-scheme" content="light dark">
+    <link rel="canonical" href="https://thevirtualqueue.com/about">
+    <title>About Us | The Virtual Queue</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;700;900&display=swap" rel="stylesheet">
+        <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JV371BN1QG"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-JV371BN1QG');
+    </script>
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body class="page-about">
+    <nav>
+        <div class="nav-logo-wrap">
+            <a href="/">
+                <picture>
+                    <source srcset="vqlightlogo.png" media="(prefers-color-scheme: light)">
+                    <img src="vqdarklogo.png" alt="The Virtual Queue Logo" class="nav-logo">
+                </picture>
+            </a>
+        </div>
+        <div class="nav-links-wrap">
+            <a href="/">Home</a>
+            <a href="/disney">Disney</a>
+            <a href="/universal">Universal</a>
+            <a href="/other">Other</a>
+            <a href="/about" style="color:var(--cyan)">About Us</a>
+            <a href="/contact">Contact</a>
+            <div class="search-box">
+                <input type="text" id="site-search" placeholder="Search the Queue...">
+                <button class="search-icon-btn" id="search-toggle">
+                    <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </button>
+            </div>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </nav>
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="/">Home</a>
+        <a href="/disney">Disney</a>
+        <a href="/universal">Universal</a>
+        <a href="/other">Other</a>
+        <a href="/about">About Us</a>
+        <a href="/contact">Contact</a>
+    </div>
+    <div class="container">
+        <div class="page-title"><h1>Behind the Virtual <span>Queue</span></h1><div class="page-title-line"></div></div>
+        <div class="highlight-box"><p>My name is Jeremy. I've been a fan of theme parks for almost 10 years now. (Man time flies when you're having fun!) I love writing, filming, and editing and I love discussing theme parks so I decided, why not combine them? So here I am, wanting to bring great stories to you, from me. Thanks for stopping by!</p></div>
+        <h2>The Mission</h2>
+        <div class="highlight-box"><p>Our goal is to provide condensed, accurate information in a quick-read format.</p></div>
+        <h2>Why It Matters</h2>
+        <div class="highlight-box"><p>People like small tidbits of information as they go about their day and don't always have time to read long articles. So here at The Virtual Queue, we condense long articles for quick reads.</p></div>
+    </div>
+    
+    <script>
+        const btn = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => { btn.classList.toggle('open'); mobileMenu.classList.toggle('open'); });
+        mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { btn.classList.remove('open'); mobileMenu.classList.remove('open'); }));
+        const searchToggle = document.getElementById('search-toggle');
+        const searchBox = document.querySelector('.search-box');
+        const searchInput = document.getElementById('site-search');
+        searchToggle.addEventListener('click', () => { searchBox.classList.toggle('active'); if (searchBox.classList.contains('active')) searchInput.focus(); });
+    </script>
+
+    <footer></footer> 
+    <script src="/global.js"></script> 
+</body>
+</html>
