@@ -6,7 +6,7 @@
   --blue: #2563EB;
   --cloud-white: #FFFBF7;
   --surface: #FFFFFF;
-  --card-bg: #FFF4EB;
+  --card-bg: #FFE8D6;
   --surface-soft: #FFF8F3;
   --border: #E8D5C4;
   --text: var(--navy);
@@ -25,8 +25,8 @@ html { scroll-behavior: smooth; }
 
 body {
   background:
-    radial-gradient(1200px 600px at 100% -10%, rgba(255, 140, 50, 0.12), transparent 60%),
-    radial-gradient(800px 400px at -10% 20%, rgba(37, 99, 235, 0.08), transparent 65%),
+    radial-gradient(1200px 600px at 100% -10%, rgba(255, 140, 50, 0.14), transparent 60%),
+    radial-gradient(800px 400px at -10% 20%, rgba(255, 140, 50, 0.08), transparent 65%),
     var(--bg);
   color: var(--text);
   font-family: 'Merriweather', Georgia, serif;
@@ -39,7 +39,7 @@ h1, h2, h3, h4, h5, h6, nav a, .featured-card-tag, .section-heading, .submit-btn
 }
 
 a { color: var(--orange); transition: color 0.2s ease; }
-a:hover { color: var(--blue); }
+a:hover { color: #E67A22; }
 
 .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px 60px; }
 
@@ -72,7 +72,7 @@ nav {
   width: 880px;
   height: 4px;
   border-radius: 999px;
-  background: linear-gradient(90deg, var(--orange), var(--blue));
+  background: var(--orange);
   box-shadow: 0 0 14px rgba(255, 140, 50, 0.35);
   pointer-events: none;
 }
@@ -247,7 +247,7 @@ footer {
 .page-title-line {
   width: 72px;
   height: 4px;
-  background: linear-gradient(90deg, var(--orange), var(--blue));
+  background: var(--orange);
   margin: 12px auto 0;
   border-radius: 999px;
 }
@@ -274,7 +274,7 @@ footer {
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--orange), var(--blue));
+  background: var(--orange);
 }
 
 .featured-card {
@@ -301,8 +301,8 @@ footer {
 
 .featured-card-tag {
   display: inline-block;
-  background: rgba(37, 99, 235, 0.12);
-  color: var(--blue);
+  background: rgba(255, 140, 50, 0.3);
+  color: #C45A1A;
   font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 1.3px;
@@ -393,7 +393,7 @@ footer {
   display: inline-block;
 }
 
-.page-article .back-btn:hover { color: var(--blue); }
+.page-article .back-btn:hover { color: #E67A22; }
 
 .page-article .article-header h1 {
   font-size: 2.8rem;
@@ -504,8 +504,8 @@ footer {
 
 .page-contact .submit-btn:hover {
   transform: translateY(-1px);
-  background: linear-gradient(135deg, var(--blue), #1D4ED8);
-  box-shadow: 0 12px 20px rgba(37, 99, 235, 0.3);
+  background: linear-gradient(135deg, #E67A22, #D96A1A);
+  box-shadow: 0 12px 20px rgba(255, 140, 50, 0.35);
 }
 
 .page-legal .container { max-width: 900px; }
@@ -553,8 +553,8 @@ footer {
   gap: 6px;
   padding: 4px 10px;
   border-radius: 999px;
-  background: rgba(37, 99, 235, 0.12);
-  color: var(--blue);
+  background: rgba(255, 140, 50, 0.2);
+  color: var(--orange);
   font-family: 'Inter', 'Segoe UI', sans-serif;
   font-size: 0.72rem;
   font-weight: 800;
