@@ -19,6 +19,7 @@ const rootFiles = [
   'robots.txt',
   'CNAME',
   'articles.json',
+  'feed.xml',
 ]
 
 const imageExtensions = new Set([

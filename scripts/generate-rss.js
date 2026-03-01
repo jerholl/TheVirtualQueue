@@ -6,7 +6,6 @@ const fs = require('fs')
 const path = require('path')
 
 const rootDir = process.cwd()
-const distDir = path.join(rootDir, 'dist')
 const SITE_URL = 'https://thevirtualqueue.com'
 const SANITY_PROJECT = '8qrlygx8'
 const SANITY_DATASET = 'production'
@@ -74,11 +73,7 @@ ${items}
   </channel>
 </rss>`
 
-  if (!fs.existsSync(distDir)) {
-    fs.mkdirSync(distDir, { recursive: true })
-  }
-
-  const outputPath = path.join(distDir, 'feed.xml')
+  const outputPath = path.join(rootDir, 'feed.xml')
   fs.writeFileSync(outputPath, rss)
   console.log(`RSS feed generated: ${outputPath} (${posts.length} posts)`)
 }
