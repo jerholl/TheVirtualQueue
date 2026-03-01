@@ -5,8 +5,24 @@
     <link>https://thevirtualqueue.com</link>
     <description>The Virtual Queue delivers fast, condensed theme park news covering Disney, Universal, and beyond.</description>
     <language>en-us</language>
-    <lastBuildDate>Sun, 01 Mar 2026 16:47:58 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 01 Mar 2026 18:18:00 GMT</lastBuildDate>
     <atom:link href="https://thevirtualqueue.com/feed.xml" rel="self" type="application/rss+xml"/>
+  <item>
+    <title>We&apos;re Hiring!</title>
+    <link>https://thevirtualqueue.com/article?id=we-re-hiring</link>
+    <guid isPermaLink="true">https://thevirtualqueue.com/article?id=we-re-hiring</guid>
+    <pubDate>Sun, 01 Mar 2026 18:17:00 GMT</pubDate>
+    <description></description>
+    <enclosure url="https://cdn.sanity.io/images/8qrlygx8/production/831d0c9b42ce8a85df39d39a5db9a67a0a3b5801-1080x1350.png" type="image/jpeg" />
+  </item>
+  <item>
+    <title>Guest Compliments for Disney Cast Members</title>
+    <link>https://thevirtualqueue.com/article?id=guest-compliments-for-disney-cast-members</link>
+    <guid isPermaLink="true">https://thevirtualqueue.com/article?id=guest-compliments-for-disney-cast-members</guid>
+    <pubDate>Sun, 01 Mar 2026 17:48:00 GMT</pubDate>
+    <description></description>
+    <enclosure url="https://cdn.sanity.io/images/8qrlygx8/production/513cf8a0680cc2ce092a079d35c160935a584cbe-1430x876.png" type="image/jpeg" />
+  </item>
   <item>
     <title>Fun Universal Facts</title>
     <link>https://thevirtualqueue.com/article?id=fun-universal-orlando-facts</link>

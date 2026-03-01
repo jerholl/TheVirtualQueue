@@ -80,7 +80,13 @@
                         "image": mainImage.asset->url,
                         "category": categories[0]->title,
                         "date": coalesce(publishedAt, _createdAt),
-                        body
+                        "body": body[]{
+                            ...,
+                            _type == "image" => {
+                                ...,
+                                "asset": asset->{ "url": url }
+                            }
+                        }
                     }`,
                     { id: storyId }
                 );
@@ -97,11 +103,61 @@
                     document.querySelector('meta[name="twitter:image"]')?.setAttribute('content', story.image);
                 }
                 const fmt = d => d ? new Date(d).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : '';
-                // Render body blocks as paragraphs
-                const bodyHtml = story.body ? story.body
-                    .filter(b => b._type === 'block')
-                    .map(b => '<p>' + (b.children||[]).map(c => c.text||'').join('') + '</p>')
-                    .join('') : '<p>Full content arriving soon.</p>';
+                // Portable Text renderer: handles blocks, images, lists, links, bold/italic
+                function renderBlockChildren(children, markDefs) {
+                    if (!children || !children.length) return '';
+                    const defs = markDefs || [];
+                    return children.map(child => {
+                        let html = escapeHtml(child.text || '');
+                        const marks = child.marks || [];
+                        // Apply decorators (strong, em) first, then links
+                        marks.forEach(markKey => {
+                            if (markKey === 'strong') html = `<strong>${html}</strong>`;
+                            else if (markKey === 'em') html = `<em>${html}</em>`;
+                        });
+                        const linkDef = defs.find(d => d._type === 'link' && marks.includes(d._key));
+                        if (linkDef && linkDef.href) html = `<a href="${escapeHtml(linkDef.href)}" target="_blank" rel="noopener noreferrer">${html}</a>`;
+                        return html;
+                    }).join('');
+                }
+                function escapeHtml(s) {
+                    const div = document.createElement('div');
+                    div.textContent = s;
+                    return div.innerHTML;
+                }
+                function renderBody(body) {
+                    if (!body || !body.length) return '<p>Full content arriving soon.</p>';
+                    let html = '';
+                    let listOpen = null;
+                    const closeList = () => {
+                        if (listOpen) { html += listOpen === 'bullet' ? '</ul>' : '</ol>'; listOpen = null; }
+                    };
+                    body.forEach(block => {
+                        if (block._type === 'image') {
+                            closeList();
+                            const url = block.asset?.url || (block.asset && typeof block.asset === 'object' && block.asset.url);
+                            if (url) html += `<figure class="article-img"><img src="${escapeHtml(url)}" alt="${escapeHtml(block.alt || '')}"></figure>`;
+                        } else if (block._type === 'block') {
+                            const tag = block.style === 'h2' ? 'h2' : block.style === 'h3' ? 'h3' : block.style === 'h4' ? 'h4' : block.style === 'blockquote' ? 'blockquote' : 'p';
+                            const inner = renderBlockChildren(block.children, block.markDefs);
+                            if (block.listItem === 'bullet' || block.listItem === 'number') {
+                                const listType = block.listItem;
+                                if (listOpen !== listType) {
+                                    closeList();
+                                    html += listType === 'bullet' ? '<ul>' : '<ol>';
+                                    listOpen = listType;
+                                }
+                                html += `<li>${inner}</li>`;
+                            } else {
+                                closeList();
+                                html += `<${tag}>${inner}</${tag}>`;
+                            }
+                        }
+                    });
+                    closeList();
+                    return html || '<p>Full content arriving soon.</p>';
+                }
+                const bodyHtml = renderBody(story.body);
                 view.innerHTML = `
                     <div class="article-header">
                         <span class="featured-card-tag">${story.category || 'News'}</span>
