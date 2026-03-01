@@ -1,0 +1,7 @@
+name = "thevirtualqueue"
+main = "worker.js"
+compatibility_date = "2026-03-01"
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
