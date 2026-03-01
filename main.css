@@ -6,7 +6,7 @@
   --blue: #2563EB;
   --cloud-white: #FFFFFF;
   --surface: #FFFFFF;
-  --card-bg: #FFB88C;
+  --card-bg: #FFDCC8;
   --surface-soft: #FFF8F3;
   --border: #E8D5C4;
   --text: var(--navy);
@@ -322,7 +322,7 @@ footer {
 
 .hero-card {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   background: var(--card-bg);
   border: 1px solid rgba(255, 140, 50, 0.25);
   border-radius: 14px;
@@ -330,6 +330,7 @@ footer {
   color: var(--text);
   margin-bottom: 30px;
   transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+  overflow: hidden;
 }
 
 .hero-card:hover {
@@ -338,11 +339,11 @@ footer {
   box-shadow: 0 18px 36px rgba(255, 140, 50, 0.18);
 }
 
-.hero-img { width: 60%; height: 400px; object-fit: cover; }
+.hero-img { width: 100%; height: 420px; object-fit: cover; display: block; }
 
-.hero-body { padding: 40px; width: 40%; display: flex; flex-direction: column; justify-content: center; gap: 15px; }
+.hero-body { padding: 24px 28px; display: flex; flex-direction: column; gap: 10px; }
 
-.hero-body h2 { font-size: 2rem; color: var(--navy); line-height: 1.18; }
+.hero-body h2 { font-size: 1.75rem; color: var(--navy); line-height: 1.2; }
 
 .section-heading {
   color: var(--navy);
@@ -567,8 +568,7 @@ footer {
   .hamburger { display: flex; }
   .featured-card { flex: 1 1 100%; }
   .page-title h1 { font-size: 1.6rem; }
-  .hero-card { flex-direction: column; }
-  .hero-img, .hero-body { width: 100%; }
-  .hero-body { padding: 24px; }
+  .hero-img { height: 280px; }
+  .hero-body { padding: 20px; }
   .page-article .article-header h1 { font-size: 1.9rem; }
 }
