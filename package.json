@@ -2,7 +2,8 @@
   "name": "tvq-blog",
   "private": true,
   "scripts": {
-    "build": "node scripts/build-static.js"
+    "build": "node scripts/build-static.js && node scripts/generate-rss.js",
+    "generate-rss": "node scripts/generate-rss.js"
   },
   "dependencies": {
     "sanity": "^5.12.0"
