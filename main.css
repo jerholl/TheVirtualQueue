@@ -4,9 +4,9 @@
   --orange: #FF8C32;
   --navy: #1A2238;
   --blue: #2563EB;
-  --cloud-white: #FFFBF7;
+  --cloud-white: #FFF8F3;
   --surface: #FFFFFF;
-  --card-bg: #FFE8D6;
+  --card-bg: #FFC9A0;
   --surface-soft: #FFF8F3;
   --border: #E8D5C4;
   --text: var(--navy);
@@ -24,10 +24,7 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background:
-    radial-gradient(1200px 600px at 100% -10%, rgba(255, 140, 50, 0.14), transparent 60%),
-    radial-gradient(800px 400px at -10% 20%, rgba(255, 140, 50, 0.08), transparent 65%),
-    var(--bg);
+  background: var(--bg);
   color: var(--text);
   font-family: 'Merriweather', Georgia, serif;
   line-height: 1.7;
@@ -489,7 +486,7 @@ footer {
 }
 
 .page-contact .submit-btn {
-  background: linear-gradient(135deg, var(--orange), #E67A22);
+  background: var(--orange);
   color: #fff;
   border: none;
   padding: 14px;
@@ -504,7 +501,7 @@ footer {
 
 .page-contact .submit-btn:hover {
   transform: translateY(-1px);
-  background: linear-gradient(135deg, #E67A22, #D96A1A);
+  background: #E67A22;
   box-shadow: 0 12px 20px rgba(255, 140, 50, 0.35);
 }
 
@@ -537,7 +534,7 @@ footer {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: linear-gradient(135deg, var(--orange), #E67A22);
+  background: var(--orange);
   color: #fff;
   border-radius: 999px;
   padding: 10px 18px;
