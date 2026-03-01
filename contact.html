@@ -17,70 +17,9 @@
         gtag('js', new Date());
         gtag('config', 'G-JV371BN1QG');
     </script>
-<style>
-        :root { --bg:#121212; --surface:#1a1a1b; --border:#2a2a2a; --blue:#0077cc; --cyan:#00d4ff; --text:#e0e0e0; --muted:#888; }
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background-color: var(--bg); color: var(--text); font-family: 'Roboto Slab', serif; line-height: 1.6; overflow-x: hidden; }        
-        /* SMOOTH PAGE TRANSITIONS - FIX IPAD WONKY NAVIGATION */
-        html { scroll-behavior: smooth; }
-        body { overflow-x: hidden; }
-        * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-        nav { will-change: transform; backface-visibility: hidden; }
-        
-        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px 60px; }
-        nav { border-bottom: 1px solid var(--border); padding: 0 20px; display: flex; justify-content: center; align-items: center; gap: 10px; background-color: var(--bg); position: sticky; top: 0; z-index: 1000; height: 100px; overflow: visible; }
-        .nav-logo-wrap { position: relative; display: flex; align-items: center; }
-        .nav-logo-wrap::after { content: ""; position: absolute; top: 75%; left: 300%; transform: translateX(-50%); width: 880px; height: 10px; border-left: 3px solid var(--cyan); border-bottom: 3px solid var(--cyan); border-bottom-left-radius: 6px; box-shadow: -4px 4px 12px rgba(0,212,255,0.5); pointer-events: none; }
-        .nav-logo { height: 150px; width: auto; transition: transform 0.3s ease; filter: drop-shadow(0px 0px 8px rgba(0,119,204,0.7)); display: block; }
-        .nav-logo:hover { transform: scale(1.08); }
-        .nav-links-wrap { position: relative; display: flex; align-items: center; gap: 10px; }
-        nav a { text-decoration: none; color: var(--muted); text-transform: uppercase; font-size: 1.25rem; font-weight: 700; letter-spacing: 2px; padding: 8px 16px; border-radius: 4px; transition: color 0.3s ease, background 0.3s ease; }
-        nav a:hover { color: var(--cyan); background: rgba(0,212,255,0.06); }
-        .search-box { display: flex; align-items: center; position: relative; margin-left: 8px; }
-        #site-search { width: 0; padding: 0; border: none; background: transparent; color: var(--text); outline: none; transition: width 0.4s ease, padding 0.4s ease; font-family: 'Roboto Slab', serif; border-bottom: 2px solid transparent; font-size: 0.95rem; }
-        .search-box.active #site-search { width: 180px; padding: 5px 10px; border-bottom: 2px solid var(--cyan); }
-        .search-icon-btn { background: none; border: none; color: var(--muted); cursor: pointer; display: flex; align-items: center; padding: 8px; transition: color 0.2s; }
-        .search-icon-btn:hover { color: var(--cyan); }
-        .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; z-index: 1100; }
-        .hamburger span { display: block; width: 26px; height: 3px; background: var(--text); border-radius: 2px; transition: all 0.3s ease; }
-        .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-        .hamburger.open span:nth-child(2) { opacity: 0; }
-        .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-        .mobile-menu { display: flex; flex-direction: column; position: fixed; top: 80px; left: 0; right: 0; background: var(--surface); border-bottom: 1px solid var(--border); z-index: 998; max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
-        .mobile-menu.open { max-height: 400px; padding: 10px 20px; }
-        .mobile-menu a { text-decoration: none; color: var(--muted); text-transform: uppercase; font-size: 1rem; font-weight: 700; letter-spacing: 2px; padding: 14px 16px; border-bottom: 1px solid var(--border); transition: color 0.2s, background 0.2s; display: block; }
-        .mobile-menu a:last-child { border-bottom: none; }
-        .mobile-menu a:hover { color: var(--cyan); background: rgba(0,212,255,0.06); }
-        @media (max-width: 768px) { nav { justify-content: space-between; height: 80px; } .nav-logo-wrap::after { display: none; } .nav-logo { height: 90px; } .nav-links-wrap { display: none; } .hamburger { display: flex; } }
-        footer { text-align: center; padding: 40px; color: var(--muted); border-top: 1px solid var(--border); font-size: 0.85rem; letter-spacing: 1px; }
-        .footer-social { display: flex; justify-content: center; gap: 20px; margin-bottom: 16px; }
-        .footer-social a { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid var(--border); border-radius: 50%; color: var(--muted); transition: color 0.3s, border-color 0.3s, background 0.3s; }
-        .footer-social a:hover { color: var(--cyan); border-color: var(--cyan); background: rgba(0,212,255,0.06); }
-        .page-title { text-align: center; margin-bottom: 40px; }
-        .page-title h1 { font-size: 2.2rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; color: #fff; }
-        .page-title h1 span { color: var(--blue); }
-        .page-title-line { width: 60px; height: 4px; background: var(--cyan); margin: 12px auto 0; border-radius: 2px; box-shadow: 0 0 10px rgba(0,212,255,0.6); }
-        .container { max-width: 800px; }
-        h2 { color: #fff; border-left: 4px solid var(--blue); padding-left: 15px; margin: 0 0 15px; font-size: 1.4rem; letter-spacing: 1px; }
-        .highlight-box { background: var(--surface); padding: 30px; border-left: 5px solid var(--blue); border-radius: 4px; }
-        .highlight-box p { font-size: 0.95rem; font-weight: 300; color: var(--muted); margin-bottom: 20px; }
-        .contact-form { display: flex; flex-direction: column; gap: 15px; }
-        .contact-form label { font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: -8px; }
-        .contact-form input, .contact-form textarea { background: #2a2a2b; border: 1px solid #444; color: var(--text); padding: 12px; border-radius: 4px; font-family: 'Roboto Slab', serif; font-size: 0.95rem; transition: border-color 0.3s; width: 100%; }
-        .contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: var(--cyan); }
-        .submit-btn { background: var(--blue); color: white; border: none; padding: 14px; font-family: 'Roboto Slab', serif; font-size: 1rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; border-radius: 4px; transition: background 0.3s, box-shadow 0.3s; }
-        .submit-btn:hover { background: var(--cyan); color: #121212; box-shadow: 0 0 15px rgba(0,212,255,0.4); }
-
-        @media (prefers-color-scheme: light) {
-            :root { --bg: #ffffff; --surface: #f7f7f7; --border: #e0e0e0; --text: #1a1a1b; --muted: #696868; }
-            body { background-color: var(--bg); color: var(--text); }
-            .page-title h1, h2 { color: #121212 !important; }
-            .mobile-menu { background: var(--surface); }
-            .contact-form input, .contact-form textarea { background: #ffffff; border: 1px solid #d0d0d0; color: var(--text); }
-        }
-    </style>
+    <link rel="stylesheet" href="/main.css">
 </head>
-<body>
+<body class="page-contact">
     <nav>
         <div class="nav-logo-wrap">
             <a href="/">
@@ -142,8 +81,5 @@
 
     <footer></footer> 
     <script src="/global.js"></script> 
-</body>
-</html>
-  
 </body>
 </html>
